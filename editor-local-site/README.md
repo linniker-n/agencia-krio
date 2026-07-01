@@ -34,6 +34,7 @@ Tambem funciona abrindo `index.html` diretamente no navegador, mas o servidor lo
 - Importa HTML unico.
 - Importa pasta inteira e reescreve assets relativos para preview local.
 - Preview em iframe com tamanhos desktop, tablet, mobile e fluido.
+- O modo Desktop usa viewport real de 1440px e escala automaticamente para caber na tela do editor.
 - Selecao visual de elementos.
 - Painel de camadas.
 - Drag para movimentar elementos selecionados.

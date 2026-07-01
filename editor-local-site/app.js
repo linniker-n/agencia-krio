@@ -46,6 +46,7 @@
     customCss: qs("#customCss"),
     customJs: qs("#customJs"),
     applyCodeBtn: qs("#applyCodeBtn"),
+    previewShell: qs("#previewShell"),
     editTextBtn: qs("#editTextBtn"),
     duplicateBtn: qs("#duplicateBtn"),
     deleteBtn: qs("#deleteBtn"),
@@ -167,6 +168,31 @@
 
   function setStatus(text) {
     els.statusText.textContent = text;
+  }
+
+  function currentViewportSize(mode = els.stageWrap.dataset.viewport || "desktop") {
+    const sizes = {
+      desktop: { width: 1440, height: 900 },
+      tablet: { width: 820, height: 900 },
+      mobile: { width: 390, height: 844 }
+    };
+    return sizes[mode] || null;
+  }
+
+  function updatePreviewScale() {
+    if (!els.stageWrap) return;
+    const mode = els.stageWrap.dataset.viewport || "desktop";
+    const size = currentViewportSize(mode);
+    if (!size) {
+      els.stageWrap.style.setProperty("--preview-scale", "1");
+      return;
+    }
+    const availableWidth = Math.max(320, els.stageWrap.clientWidth - 32);
+    const availableHeight = Math.max(360, els.stageWrap.clientHeight - 32);
+    const widthScale = availableWidth / size.width;
+    const heightScale = availableHeight / size.height;
+    const scale = Math.min(1, Math.max(0.38, Math.min(widthScale, heightScale)));
+    els.stageWrap.style.setProperty("--preview-scale", scale.toFixed(3));
   }
 
   function safeText(text, fallback = "") {
@@ -329,12 +355,14 @@
     els.documentName.textContent = name;
     els.empty.classList.add("is-hidden");
     els.iframe.classList.remove("is-hidden");
+    els.previewShell.classList.remove("is-hidden");
     state.iframe.onload = () => {
       state.doc = state.iframe.contentDocument;
       state.selected = null;
       prepareDocument();
       if (remember) pushHistory(true);
       refreshPanels();
+      updatePreviewScale();
       setStatus("Preview carregado. Clique em qualquer elemento para editar.");
     };
     state.iframe.srcdoc = html;
@@ -982,11 +1010,16 @@
         qsa("[data-viewport]").forEach((item) => item.classList.remove("active"));
         btn.classList.add("active");
         els.stageWrap.dataset.viewport = btn.dataset.viewport;
+        updatePreviewScale();
       });
     });
+
+    window.addEventListener("resize", updatePreviewScale);
   }
 
   initEvents();
   els.stageWrap.dataset.viewport = "desktop";
+  updatePreviewScale();
   els.iframe.classList.add("is-hidden");
+  els.previewShell.classList.add("is-hidden");
 })();
