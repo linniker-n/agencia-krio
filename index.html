@@ -59,6 +59,27 @@
         --ease-inout: cubic-bezier(0.65, 0.05, 0, 1);
         --nav-h: 4.5rem;
         --container: min(calc(100vw - 2rem), 1560px);
+        --logo-nav-width: 8rem;
+        --logo-nav-max-height: 4.25rem;
+        --logo-mark-size: 3.35rem;
+        --logo-preloader-width: 7.5rem;
+        --logo-footer-width: min(38rem, 82vw);
+        --hero-min-height: 88dvh;
+        --hero-padding: clamp(6.4rem, 8vw, 8rem) 0 4.2rem;
+        --hero-grid-columns: minmax(0, 0.98fr) minmax(22rem, 0.86fr);
+        --hero-grid-gap: clamp(1.5rem, 4vw, 4.75rem);
+        --hero-media-min-height: min(62dvh, 41rem);
+        --hero-media-padding: 0.55rem;
+        --hero-media-radius: 0.8rem;
+        --section-padding: clamp(6rem, 11vw, 12rem);
+        --section-compact-padding: clamp(4rem, 8vw, 8rem);
+        --pillar-min-height: 100dvh;
+        --pillar-panel-padding: 9.6rem clamp(1.25rem, 3vw, 3.2rem) 3rem;
+        --pillar-media-min-height: 16rem;
+        --service-row-padding: clamp(1.2rem, 2.5vw, 2rem);
+        --social-fan-min-height: 40rem;
+        --social-card-width: min(18rem, 34vw);
+        --social-card-ratio: 0.72;
       }
 
       * {
@@ -242,6 +263,18 @@
         text-transform: uppercase;
       }
 
+      .brand-lockup.has-logo-image {
+        display: block;
+        line-height: 1;
+      }
+
+      .brand-lockup img {
+        width: var(--logo-nav-width);
+        max-width: min(42vw, var(--logo-nav-width));
+        max-height: var(--logo-nav-max-height);
+        object-fit: contain;
+      }
+
       .brand-lockup span:first-child {
         font-family: var(--font-display);
         font-size: clamp(1.9rem, 3vw, 3.15rem);
@@ -256,8 +289,8 @@
 
       .nav-mark {
         justify-self: center;
-        width: 3.35rem;
-        height: 3.35rem;
+        width: var(--logo-mark-size);
+        height: var(--logo-mark-size);
         display: grid;
         place-items: center;
         border-radius: 50%;
@@ -268,6 +301,12 @@
           transform 700ms var(--ease-out),
           background-color 700ms var(--ease-out),
           color 700ms var(--ease-out);
+      }
+
+      .nav-mark img {
+        width: 68%;
+        height: 68%;
+        object-fit: contain;
       }
 
       body[data-theme="dark"] .nav-mark,
@@ -545,16 +584,16 @@
 
       .hero {
         position: relative;
-        min-height: 88dvh;
-        padding: clamp(6.4rem, 8vw, 8rem) 0 4.2rem;
+        min-height: var(--hero-min-height);
+        padding: var(--hero-padding);
         display: grid;
         align-items: center;
       }
 
       .hero-grid {
         display: grid;
-        grid-template-columns: minmax(0, 0.98fr) minmax(22rem, 0.86fr);
-        gap: clamp(1.5rem, 4vw, 4.75rem);
+        grid-template-columns: var(--hero-grid-columns);
+        gap: var(--hero-grid-gap);
         align-items: center;
       }
 
@@ -631,9 +670,9 @@
       .hero-media-shell {
         position: relative;
         align-self: stretch;
-        min-height: min(62dvh, 41rem);
-        padding: 0.55rem;
-        border-radius: 0.8rem;
+        min-height: var(--hero-media-min-height);
+        padding: var(--hero-media-padding);
+        border-radius: var(--hero-media-radius);
         background: rgba(17, 17, 18, 0.08);
         box-shadow: inset 0 0 0 1px rgba(17, 17, 18, 0.08);
         transform: rotate(-1deg);
@@ -703,11 +742,11 @@
 
       .section {
         position: relative;
-        padding: clamp(6rem, 11vw, 12rem) 0;
+        padding: var(--section-padding) 0;
       }
 
       .section.compact {
-        padding-block: clamp(4rem, 8vw, 8rem);
+        padding-block: var(--section-compact-padding);
       }
 
       .section-title {
@@ -858,7 +897,7 @@
 
       .horizontal-section {
         position: relative;
-        min-height: 100dvh;
+        min-height: var(--pillar-min-height);
         overflow: hidden;
         color: var(--paper);
         background: var(--green);
@@ -866,8 +905,8 @@
 
       .horizontal-sticky {
         position: relative;
-        height: 100dvh;
-        min-height: 100dvh;
+        height: var(--pillar-min-height);
+        min-height: var(--pillar-min-height);
         display: flex;
         align-items: stretch;
         overflow: hidden;
@@ -882,8 +921,8 @@
 
       .h-panel {
         width: 100vw;
-        min-height: 100dvh;
-        padding: 9.6rem clamp(1.25rem, 3vw, 3.2rem) 3rem;
+        min-height: var(--pillar-min-height);
+        padding: var(--pillar-panel-padding);
         display: grid;
         grid-template-rows: auto auto auto minmax(12rem, 1fr);
         align-content: stretch;
@@ -943,7 +982,7 @@
 
       .h-panel-media {
         align-self: end;
-        min-height: 16rem;
+        min-height: var(--pillar-media-min-height);
         overflow: hidden;
         border-radius: 0.5rem;
         background:
@@ -1001,7 +1040,7 @@
         display: grid;
         grid-template-columns: 5.2rem minmax(0, 1fr);
         gap: 1.25rem;
-        padding: clamp(1.2rem, 2.5vw, 2rem);
+        padding: var(--service-row-padding);
         border-top: 1px solid var(--line);
         overflow: hidden;
         background: rgba(244, 244, 237, 0.96);
@@ -1332,7 +1371,7 @@
 
       .social-fan {
         position: relative;
-        min-height: 40rem;
+        min-height: var(--social-fan-min-height);
         display: grid;
         place-items: center;
         margin-top: 3rem;
@@ -1340,8 +1379,8 @@
 
       .social-card {
         position: absolute;
-        width: min(18rem, 34vw);
-        aspect-ratio: 0.72;
+        width: var(--social-card-width);
+        aspect-ratio: var(--social-card-ratio);
         display: grid;
         align-content: end;
         padding: 1rem;
@@ -1368,6 +1407,10 @@
           linear-gradient(160deg, transparent 0 44%, rgba(210, 255, 0, 0.68) 44% 48%, transparent 48%),
           repeating-linear-gradient(90deg, rgba(244, 244, 237, 0.12) 0 1px, transparent 1px 19px);
         opacity: 0.9;
+      }
+
+      .social-card.has-config-media::before {
+        opacity: var(--config-media-pattern-opacity, 0.22);
       }
 
       .social-card strong,
@@ -1407,6 +1450,60 @@
         line-height: 0.76;
         letter-spacing: -0.08em;
         text-transform: uppercase;
+      }
+
+      .footer-logo.has-logo-image {
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .footer-logo img {
+        width: var(--logo-footer-width);
+        max-width: 100%;
+        max-height: 16rem;
+        object-fit: contain;
+      }
+
+      .preloader-logo.has-logo-image strong {
+        display: none;
+      }
+
+      .preloader-logo img {
+        width: var(--logo-preloader-width);
+        max-width: 70vw;
+        margin-inline: auto;
+        object-fit: contain;
+      }
+
+      .has-config-bg {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .has-config-bg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image: linear-gradient(var(--config-bg-overlay, transparent), var(--config-bg-overlay, transparent)), var(--config-bg-image);
+        background-size: var(--config-bg-size, cover);
+        background-position: var(--config-bg-position, center);
+        background-repeat: no-repeat;
+        opacity: var(--config-bg-opacity, 1);
+        mix-blend-mode: var(--config-bg-blend, normal);
+      }
+
+      .has-config-bg > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .has-config-media {
+        background-image: linear-gradient(var(--config-media-overlay, transparent), var(--config-media-overlay, transparent)), var(--config-media-image) !important;
+        background-size: var(--config-media-size, cover) !important;
+        background-position: var(--config-media-position, center) !important;
+        background-repeat: no-repeat !important;
       }
 
       .footer-links {
@@ -2002,7 +2099,7 @@
   <body data-theme="light">
     <a class="skip-link" href="#topo">Ir para o conteúdo</a>
     <div class="preloader" aria-hidden="true">
-      <div class="preloader-logo">
+      <div class="preloader-logo" data-logo="preloader">
         <strong>Krio</strong>
         <div class="preloader-bar"><span></span></div>
       </div>
@@ -2015,11 +2112,11 @@
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
     <nav class="site-nav" aria-label="Navegação principal">
-      <a href="#topo" class="brand-lockup" aria-label="Agência Krio">
+      <a href="#topo" class="brand-lockup" aria-label="Agência Krio" data-logo="nav">
         <span>Agência</span>
         <span>Krio</span>
       </a>
-      <a href="#topo" class="nav-mark" aria-label="Voltar ao topo">
+      <a href="#topo" class="nav-mark" aria-label="Voltar ao topo" data-logo="mark">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
           <path d="M7 22V6h3.8v6.2L17.1 6H22l-7.1 7.2L22.6 22h-5l-5.2-6.4-1.6 1.6V22H7Z" fill="currentColor" />
         </svg>
@@ -2043,15 +2140,15 @@
     <aside class="menu-overlay" aria-hidden="true">
       <div class="menu-gallery" aria-hidden="true">
         <div class="menu-card is-active" style="--tilt: -1.5deg" data-menu-image="0">
-          <picture>
+          <picture data-config-image="menuHome">
             <source srcset="assets/krio-hero-640.webp" type="image/webp" />
             <img src="assets/krio-hero.png" alt="" width="1503" height="1047" loading="lazy" decoding="async" />
           </picture>
         </div>
-        <div class="menu-card pattern" style="--tilt: 1deg" data-menu-image="1"></div>
-        <div class="menu-card pattern" style="--tilt: 2deg" data-menu-image="2"></div>
+        <div class="menu-card pattern" style="--tilt: 1deg" data-menu-image="1" data-config-media="menuPilares"></div>
+        <div class="menu-card pattern" style="--tilt: 2deg" data-menu-image="2" data-config-media="menuServicos"></div>
         <div class="menu-card" style="--tilt: -0.8deg" data-menu-image="3">
-          <picture>
+          <picture data-config-image="menuDiagnostico">
             <source srcset="assets/krio-hero-640.webp" type="image/webp" />
             <img src="assets/krio-hero.png" alt="" width="1503" height="1047" loading="lazy" decoding="async" />
           </picture>
@@ -2071,7 +2168,7 @@
     </aside>
 
     <main id="topo" class="page">
-      <section class="hero" data-theme-section="light">
+      <section class="hero" data-theme-section="light" data-config-background="hero" data-config-block="hero">
         <div class="container hero-grid">
           <div class="hero-copy-block">
             <span class="eyebrow reveal">Sua marca começa aqui</span>
@@ -2099,9 +2196,9 @@
               </a>
             </div>
           </div>
-          <div class="hero-media-shell reveal">
+          <div class="hero-media-shell reveal" data-config-block="heroMedia">
             <div class="hero-media wipe">
-              <picture>
+              <picture data-config-image="hero">
                 <source
                   type="image/avif"
                   srcset="assets/krio-hero-640.avif 640w, assets/krio-hero-960.avif 960w, assets/krio-hero-1280.avif 1280w"
@@ -2130,7 +2227,7 @@
         </div>
       </section>
 
-      <section id="autoridade" class="section compact" data-theme-section="light">
+      <section id="autoridade" class="section compact" data-theme-section="light" data-config-background="autoridade" data-config-block="autoridade">
         <div class="container intro-grid">
           <div>
             <span class="eyebrow reveal">Sua marca em movimento</span>
@@ -2175,45 +2272,45 @@
         </div>
       </div>
 
-      <section id="pilares" class="horizontal-section" data-theme-section="green">
+      <section id="pilares" class="horizontal-section" data-theme-section="green" data-config-background="pilares" data-config-block="pilares">
         <div class="horizontal-sticky">
           <div class="horizontal-track">
-            <article class="h-panel wide">
+            <article class="h-panel wide" data-config-block="pillarIntro">
               <span class="eyebrow">Nossos pilares</span>
               <h2 class="section-title">Estratégia, <span class="serif">criação</span> e mídia.</h2>
               <p>
                 Uma equipe compacta e multidisciplinar operando como extensão do seu time de marketing, vendas e marca.
               </p>
             </article>
-            <article class="h-panel">
+            <article class="h-panel" data-config-block="pillar1">
               <div class="num">01</div>
               <h3>Estratégia <span class="serif">comercial</span></h3>
               <p>
                 Sua visão vira roteiro: posicionamento, prioridades comerciais e plano de ação para transformar objetivos em execução.
               </p>
-              <div class="h-panel-media"></div>
+              <div class="h-panel-media" data-config-media="pillar1"></div>
             </article>
-            <article class="h-panel">
+            <article class="h-panel" data-config-block="pillar2">
               <div class="num">02</div>
               <h3>Criação <span class="serif">e design</span></h3>
               <p>
                 Do conceito visual às peças de campanha, garantimos que cada entrega pareça parte da mesma marca.
               </p>
-              <div class="h-panel-media"></div>
+              <div class="h-panel-media" data-config-media="pillar2"></div>
             </article>
-            <article class="h-panel">
+            <article class="h-panel" data-config-block="pillar3">
               <div class="num">03</div>
               <h3>Mídia <span class="serif">e copy</span></h3>
               <p>
                 Mídia, copy e análise colocam a mensagem certa diante do público certo, com aprendizado contínuo.
               </p>
-              <div class="h-panel-media"></div>
+              <div class="h-panel-media" data-config-media="pillar3"></div>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="servicos" class="section" data-theme-section="light">
+      <section id="servicos" class="section" data-theme-section="light" data-config-background="servicos" data-config-block="servicos">
         <div class="container services-layout">
           <div class="sticky-heading">
             <span class="eyebrow reveal">O caminho para crescer</span>
@@ -2223,7 +2320,7 @@
             </p>
           </div>
           <div class="service-list">
-            <article class="service-row reveal">
+            <article class="service-row reveal" data-config-block="service1">
               <div class="number">1</div>
               <div>
                 <h3>Presença digital e conteúdo</h3>
@@ -2235,7 +2332,7 @@
                 </div>
               </div>
             </article>
-            <article class="service-row reveal">
+            <article class="service-row reveal" data-config-block="service2">
               <div class="number">2</div>
               <div>
                 <h3>Mídia paga e aquisição</h3>
@@ -2247,7 +2344,7 @@
                 </div>
               </div>
             </article>
-            <article class="service-row reveal">
+            <article class="service-row reveal" data-config-block="service3">
               <div class="number">3</div>
               <div>
                 <h3>Estratégia de marca e posicionamento</h3>
@@ -2277,7 +2374,7 @@
         </div>
       </section>
 
-      <section id="processo" class="section process-section" data-theme-section="dark">
+      <section id="processo" class="section process-section" data-theme-section="dark" data-config-background="processo" data-config-block="processo">
         <div class="container process-head">
           <div>
             <span class="eyebrow reveal">Transparência e eficiência</span>
@@ -2288,42 +2385,42 @@
           </p>
         </div>
         <div class="container process-stack">
-          <article class="process-step">
+          <article class="process-step" data-config-block="process1">
             <div class="step-num">01</div>
             <div>
               <h3>Diagnóstico gratuito</h3>
             <p>Entendemos o momento da marca, analisamos presença atual e identificamos as melhores oportunidades de crescimento.</p>
             </div>
           </article>
-          <article class="process-step">
+          <article class="process-step" data-config-block="process2">
             <div class="step-num">02</div>
             <div>
               <h3>Kick-off e onboarding</h3>
             <p>Alinhamos expectativas, coletamos insumos e mergulhamos nos objetivos para construir uma estratégia sólida.</p>
             </div>
           </article>
-          <article class="process-step">
+          <article class="process-step" data-config-block="process3">
             <div class="step-num">03</div>
             <div>
               <h3>Planejamento mensal</h3>
             <p>Desenvolvemos um plano de conteúdo, campanhas e prioridades, sempre com aprovação antes da execução.</p>
             </div>
           </article>
-          <article class="process-step">
+          <article class="process-step" data-config-block="process4">
             <div class="step-num">04</div>
             <div>
               <h3>Criação e aprovação</h3>
             <p>Nossa equipe produz as peças e você valida a direção antes de qualquer publicação ou campanha ir ao ar.</p>
             </div>
           </article>
-          <article class="process-step">
+          <article class="process-step" data-config-block="process5">
             <div class="step-num">05</div>
             <div>
               <h3>Execução contínua</h3>
               <p>Programamos, publicamos e otimizamos campanhas e conteúdo, monitorando métricas diariamente.</p>
             </div>
           </article>
-          <article class="process-step">
+          <article class="process-step" data-config-block="process6">
             <div class="step-num">06</div>
             <div>
               <h3>Resultados e próximos passos</h3>
@@ -2333,7 +2430,7 @@
         </div>
       </section>
 
-      <section id="diagnostico" class="section cta-section" data-theme-section="light">
+      <section id="diagnostico" class="section cta-section" data-theme-section="light" data-config-background="diagnostico" data-config-block="diagnostico">
         <div class="container cta-grid">
           <div>
             <span class="eyebrow reveal">Invista na sua marca</span>
@@ -2389,7 +2486,7 @@
         </div>
       </section>
 
-      <section class="section social-section" data-theme-section="light">
+      <section class="section social-section" data-theme-section="light" data-config-background="social" data-config-block="social">
         <div class="container" style="text-align: center">
           <span class="eyebrow reveal" style="margin-inline: auto">Sua marca em movimento</span>
           <h2 class="section-title reveal">Conteúdo que <span class="serif">aparece.</span></h2>
@@ -2398,28 +2495,28 @@
           </p>
         </div>
         <div class="container social-fan reveal" aria-hidden="true">
-          <div class="social-card" style="--rot: -18deg; --shift: 3.5rem; left: 10%">
+          <div class="social-card" style="--rot: -18deg; --shift: 3.5rem; left: 10%" data-config-media="social1" data-config-block="social1">
             <strong>Instagram</strong><span>conteúdo e comunidade</span>
           </div>
-          <div class="social-card" style="--rot: -7deg; --shift: 0rem; left: 28%">
+          <div class="social-card" style="--rot: -7deg; --shift: 0rem; left: 28%" data-config-media="social2" data-config-block="social2">
             <strong>Reels</strong><span>roteiro, edição e ritmo</span>
           </div>
-          <div class="social-card" style="--rot: 0deg; --shift: -1rem; left: 43%; z-index: 2">
+          <div class="social-card" style="--rot: 0deg; --shift: -1rem; left: 43%; z-index: 2" data-config-media="social3" data-config-block="social3">
             <strong>Presença</strong><span>posicionamento público</span>
           </div>
-          <div class="social-card" style="--rot: 8deg; --shift: 0.4rem; left: 57%">
+          <div class="social-card" style="--rot: 8deg; --shift: 0.4rem; left: 57%" data-config-media="social4" data-config-block="social4">
             <strong>Ads</strong><span>demanda e conversão</span>
           </div>
-          <div class="social-card" style="--rot: 18deg; --shift: 3.2rem; left: 72%">
+          <div class="social-card" style="--rot: 18deg; --shift: 3.2rem; left: 72%" data-config-media="social5" data-config-block="social5">
             <strong>Relatórios</strong><span>decisão com clareza</span>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer" data-theme-section="dark">
+    <footer class="site-footer" data-theme-section="dark" data-config-background="footer" data-config-block="footer">
       <div class="container footer-grid">
-        <p class="footer-logo">Krio</p>
+        <p class="footer-logo" data-logo="footer">Krio</p>
         <nav class="footer-links" aria-label="Links de rodapé">
           <a href="#autoridade">Marca</a>
           <a href="#pilares">Pilares</a>
@@ -2437,6 +2534,7 @@
       </div>
     </footer>
 
+    <script src="site-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.13/dist/lenis.min.js"></script>
@@ -2454,6 +2552,210 @@
         const body = document.body;
         const progress = document.querySelector(".scroll-progress span");
         const preloader = document.querySelector(".preloader");
+        const siteConfig = window.KRIO_SITE_CONFIG || {};
+
+        const layoutVarMap = {
+          logoNavWidth: "--logo-nav-width",
+          logoNavMaxHeight: "--logo-nav-max-height",
+          logoMarkSize: "--logo-mark-size",
+          logoPreloaderWidth: "--logo-preloader-width",
+          logoFooterWidth: "--logo-footer-width",
+          container: "--container",
+          heroMinHeight: "--hero-min-height",
+          heroPadding: "--hero-padding",
+          heroGridColumns: "--hero-grid-columns",
+          heroGridGap: "--hero-grid-gap",
+          heroMediaHeight: "--hero-media-min-height",
+          heroMediaPadding: "--hero-media-padding",
+          heroMediaRadius: "--hero-media-radius",
+          sectionPadding: "--section-padding",
+          compactSectionPadding: "--section-compact-padding",
+          pillarHeight: "--pillar-min-height",
+          pillarPadding: "--pillar-panel-padding",
+          pillarMediaHeight: "--pillar-media-min-height",
+          serviceBlockPadding: "--service-row-padding",
+          socialFanHeight: "--social-fan-min-height",
+          socialCardWidth: "--social-card-width",
+          socialCardRatio: "--social-card-ratio"
+        };
+
+        function cleanValue(value) {
+          return typeof value === "string" && value.trim() ? value.trim() : null;
+        }
+
+        function cssUrl(path) {
+          return `url("${String(path).replace(/\\/g, "/").replace(/"/g, '\\"')}")`;
+        }
+
+        function setRootVar(name, value) {
+          const clean = cleanValue(value);
+          if (clean) root.style.setProperty(name, clean);
+        }
+
+        function setElementVar(el, name, value) {
+          const clean = cleanValue(value);
+          if (el && clean) el.style.setProperty(name, clean);
+        }
+
+        function createLogoImage(src, alt) {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = alt || "Agência Krio";
+          img.loading = "eager";
+          img.decoding = "async";
+          return img;
+        }
+
+        function renderTextLogo(el, lines) {
+          if (!el || !Array.isArray(lines) || !lines.length) return;
+          el.classList.remove("has-logo-image");
+          el.replaceChildren();
+          lines.forEach((line) => {
+            const span = document.createElement("span");
+            span.textContent = line;
+            el.appendChild(span);
+          });
+        }
+
+        function applyLogo() {
+          const logo = siteConfig.logo || {};
+          const logoImage = cleanValue(logo.image);
+          const logoAlt = cleanValue(logo.alt) || "Agência Krio";
+          const navLogo = document.querySelector('[data-logo="nav"]');
+          const preloaderLogo = document.querySelector('[data-logo="preloader"]');
+          const footerLogo = document.querySelector('[data-logo="footer"]');
+          const markLogo = document.querySelector('[data-logo="mark"]');
+
+          if (navLogo) {
+            navLogo.setAttribute("aria-label", logoAlt);
+            if (logoImage) {
+              navLogo.classList.add("has-logo-image");
+              navLogo.replaceChildren(createLogoImage(logoImage, logoAlt));
+            } else {
+              renderTextLogo(navLogo, logo.navText || ["Agência", "Krio"]);
+            }
+          }
+
+          if (preloaderLogo && logoImage) {
+            preloaderLogo.classList.add("has-logo-image");
+            const bar = preloaderLogo.querySelector(".preloader-bar");
+            preloaderLogo.prepend(createLogoImage(logoImage, logoAlt));
+            if (bar) preloaderLogo.appendChild(bar);
+          }
+
+          if (footerLogo) {
+            if (logoImage && logo.useImageInFooter !== false) {
+              footerLogo.classList.add("has-logo-image");
+              footerLogo.replaceChildren(createLogoImage(cleanValue(logo.footerImage) || logoImage, logoAlt));
+            } else if (cleanValue(logo.footerText)) {
+              footerLogo.classList.remove("has-logo-image");
+              footerLogo.textContent = logo.footerText;
+            }
+          }
+
+          if (markLogo) {
+            const markImage = cleanValue(logo.markImage);
+            const markText = cleanValue(logo.markText);
+            if (markImage) {
+              markLogo.replaceChildren(createLogoImage(markImage, logoAlt));
+            } else if (markText) {
+              markLogo.textContent = markText;
+            }
+          }
+        }
+
+        function applyPicture(key, image) {
+          const picture = document.querySelector(`[data-config-image="${key}"]`);
+          if (!picture || !image) return;
+          const img = picture.querySelector("img");
+          const single = cleanValue(image.single);
+          const sources = picture.querySelectorAll("source");
+
+          if (single) {
+            sources.forEach((source) => source.removeAttribute("srcset"));
+            if (img) img.src = single;
+          } else {
+            const avif = cleanValue(image.avif);
+            const webp = cleanValue(image.webp);
+            const fallback = cleanValue(image.src);
+            const avifSource = picture.querySelector('source[type="image/avif"]');
+            const webpSource = picture.querySelector('source[type="image/webp"]');
+            if (avifSource && avif) avifSource.srcset = avif;
+            if (webpSource && webp) webpSource.srcset = webp;
+            if (img && fallback) img.src = fallback;
+          }
+
+          const sizes = cleanValue(image.sizes);
+          if (sizes) {
+            sources.forEach((source) => {
+              source.sizes = sizes;
+            });
+            if (img) img.sizes = sizes;
+          }
+          if (img) {
+            const alt = typeof image.alt === "string" ? image.alt : null;
+            if (alt !== null) img.alt = alt;
+            if (cleanValue(image.position)) img.style.objectPosition = image.position;
+            if (cleanValue(image.fit)) img.style.objectFit = image.fit;
+            if (cleanValue(image.width)) img.setAttribute("width", image.width);
+            if (cleanValue(image.height)) img.setAttribute("height", image.height);
+          }
+        }
+
+        function applyBackground(key, background) {
+          const el = document.querySelector(`[data-config-background="${key}"]`);
+          const image = background && cleanValue(background.image);
+          if (!el || !image) return;
+          el.classList.add("has-config-bg");
+          el.style.setProperty("--config-bg-image", cssUrl(image));
+          setElementVar(el, "--config-bg-overlay", background.overlay || "transparent");
+          setElementVar(el, "--config-bg-position", background.position || "center");
+          setElementVar(el, "--config-bg-size", background.size || "cover");
+          setElementVar(el, "--config-bg-opacity", String(background.opacity ?? 1));
+          setElementVar(el, "--config-bg-blend", background.blend || "normal");
+        }
+
+        function applyMediaBlock(key, media) {
+          const el = document.querySelector(`[data-config-media="${key}"]`);
+          if (!el || !media) return;
+          const image = cleanValue(media.image);
+          if (image) {
+            el.classList.add("has-config-media");
+            el.style.setProperty("--config-media-image", cssUrl(image));
+            setElementVar(el, "--config-media-overlay", media.overlay || "transparent");
+            setElementVar(el, "--config-media-position", media.position || "center");
+            setElementVar(el, "--config-media-size", media.size || "cover");
+            setElementVar(el, "--config-media-pattern-opacity", String(media.patternOpacity ?? 0.22));
+          }
+          applyBlock(key, media);
+        }
+
+        function applyBlock(key, block) {
+          const el = document.querySelector(`[data-config-block="${key}"], [data-config-media="${key}"]`);
+          if (!el || !block) return;
+          const directStyles = ["padding", "minHeight", "height", "width", "maxWidth", "aspectRatio", "borderRadius"];
+          directStyles.forEach((prop) => {
+            const clean = cleanValue(block[prop]);
+            if (clean) el.style[prop] = clean;
+          });
+          if (cleanValue(block.marginTop)) el.style.marginTop = block.marginTop;
+          if (cleanValue(block.marginBottom)) el.style.marginBottom = block.marginBottom;
+        }
+
+        function applySiteConfig() {
+          Object.entries(layoutVarMap).forEach(([key, varName]) => {
+            setRootVar(varName, siteConfig.layout?.[key]);
+          });
+
+          applyLogo();
+
+          Object.entries(siteConfig.images || {}).forEach(([key, image]) => applyPicture(key, image));
+          Object.entries(siteConfig.backgrounds || {}).forEach(([key, background]) => applyBackground(key, background));
+          Object.entries(siteConfig.mediaBlocks || {}).forEach(([key, media]) => applyMediaBlock(key, media));
+          Object.entries(siteConfig.blocks || {}).forEach(([key, block]) => applyBlock(key, block));
+        }
+
+        applySiteConfig();
 
         window.addEventListener("load", () => {
           window.setTimeout(() => preloader?.classList.add("is-hidden"), 260);
