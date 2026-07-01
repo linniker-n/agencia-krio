@@ -1,0 +1,14 @@
+# Agência Krio
+
+> Marketing digital para profissionais autônomos que buscam transformar expertise em influência, agenda e receita.
+
+## Site
+
+- Home: https://agencia-krio.pages.dev/
+- Serviços: https://agencia-krio.pages.dev/#servicos
+- Processo: https://agencia-krio.pages.dev/#processo
+- Diagnóstico: https://agencia-krio.pages.dev/#diagnostico
+
+## Contexto
+
+A Agência Krio atende nutricionistas, dermatologistas, personal trainers e profissionais liberais com estratégia, criação, performance e posicionamento digital.

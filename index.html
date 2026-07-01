@@ -8,16 +8,41 @@
       name="description"
       content="Marketing digital para nutricionistas, dermatologistas, personal trainers e profissionais liberais que precisam transformar expertise em influência, agenda e receita."
     />
+    <link rel="canonical" href="https://agencia-krio.pages.dev/" />
+    <meta name="theme-color" content="#f4f4ed" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Agência Krio - Autoridade digital para profissionais autônomos" />
+    <meta
+      property="og:description"
+      content="Marketing digital para profissionais autônomos que precisam transformar expertise em influência, agenda e receita."
+    />
+    <meta property="og:url" content="https://agencia-krio.pages.dev/" />
+    <meta property="og:image" content="https://agencia-krio.pages.dev/assets/krio-hero-1280.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Agência Krio - Autoridade digital para profissionais autônomos" />
+    <meta
+      name="twitter:description"
+      content="Estratégia, criação, performance e posicionamento para profissionais autônomos."
+    />
+    <meta name="twitter:image" content="https://agencia-krio.pages.dev/assets/krio-hero-1280.webp" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="assets/krio-hero-960.webp" imagesrcset="assets/krio-hero-640.webp 640w, assets/krio-hero-960.webp 960w, assets/krio-hero-1280.webp 1280w" imagesizes="(max-width: 860px) 92vw, 44vw" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Fraunces:opsz,wght@9..144,600..900&display=swap"
       rel="stylesheet"
     />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
     <style>
       :root {
         --lime: #d2ff00;
-        --lime-soft: #b2c73a;
+        --lime-soft: #71880f;
         --ink: #111112;
         --ink-2: #1f2419;
         --green: #282c20;
@@ -33,7 +58,7 @@
         --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         --ease-inout: cubic-bezier(0.65, 0.05, 0, 1);
         --nav-h: 4.5rem;
-        --container: min(92vw, 1560px);
+        --container: min(calc(100vw - 2rem), 1560px);
       }
 
       * {
@@ -44,6 +69,8 @@
         background: var(--paper);
         color: var(--ink);
         overflow-x: hidden;
+        scroll-padding-top: calc(var(--nav-h) + 2.25rem);
+        scroll-behavior: smooth;
         text-rendering: geometricPrecision;
       }
 
@@ -98,6 +125,15 @@
         cursor: pointer;
       }
 
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
+        outline: 3px solid var(--lime);
+        outline-offset: 4px;
+      }
+
       img,
       canvas,
       svg {
@@ -133,6 +169,25 @@
         overflow: hidden;
       }
 
+      .skip-link {
+        position: fixed;
+        left: 1rem;
+        top: 1rem;
+        z-index: 100;
+        padding: 0.85rem 1rem;
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 0.45rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        transform: translateY(calc(-100% - 2rem));
+        transition: transform 220ms var(--ease-out);
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+      }
+
       .gl-wrap canvas {
         width: 100%;
         height: 100%;
@@ -146,6 +201,11 @@
       .container {
         width: var(--container);
         margin-inline: auto;
+        min-width: 0;
+      }
+
+      main section[id] {
+        scroll-margin-top: 0;
       }
 
       .site-nav {
@@ -422,6 +482,7 @@
         width: fit-content;
         max-width: 100%;
         overflow: hidden;
+        overflow-wrap: anywhere;
         clip-path: ellipse(120% 0% at 50% 0%);
         transform: translate3d(0, 2.25rem, 0);
         opacity: 0;
@@ -578,6 +639,13 @@
         background: var(--paper-2);
       }
 
+      .hero-media picture,
+      .menu-card picture {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
       .hero-media img {
         width: 100%;
         height: 100%;
@@ -641,7 +709,7 @@
         font-weight: 900;
         letter-spacing: -0.075em;
         text-transform: uppercase;
-        overflow-wrap: normal;
+        overflow-wrap: anywhere;
         word-break: normal;
         text-wrap: balance;
       }
@@ -755,7 +823,7 @@
         gap: 2rem;
         padding: 0.75rem 0;
         will-change: transform;
-        animation: marquee 28s linear infinite;
+        animation: marquee 52s linear infinite;
       }
 
       .marquee.reverse .marquee-track {
@@ -842,7 +910,7 @@
         line-height: 0.86;
         letter-spacing: -0.058em;
         text-transform: uppercase;
-        overflow-wrap: normal;
+        overflow-wrap: anywhere;
         word-break: normal;
         text-wrap: balance;
       }
@@ -1116,7 +1184,7 @@
         line-height: 0.84;
         letter-spacing: -0.07em;
         text-transform: uppercase;
-        overflow-wrap: normal;
+        overflow-wrap: anywhere;
         word-break: normal;
         text-wrap: balance;
       }
@@ -1142,6 +1210,7 @@
       .field select,
       .field textarea {
         width: 100%;
+        min-width: 0;
         min-height: 3.25rem;
         border: 0;
         border-radius: 0.42rem;
@@ -1149,7 +1218,6 @@
         color: var(--paper);
         background: rgba(244, 244, 237, 0.08);
         box-shadow: inset 0 0 0 1px rgba(244, 244, 237, 0.14);
-        outline: none;
         transition:
           background-color 500ms var(--ease-out),
           box-shadow 500ms var(--ease-out);
@@ -1354,16 +1422,22 @@
       }
 
       .reveal {
-        opacity: 0;
-        transform: translate3d(0, 4rem, 0);
-        filter: blur(10px);
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+        filter: none;
         transition:
           opacity 950ms var(--ease-out),
           transform 950ms var(--ease-out),
           filter 950ms var(--ease-out);
       }
 
-      .reveal.is-visible {
+      .js .reveal.is-visible {
         opacity: 1;
         transform: translate3d(0, 0, 0);
         filter: blur(0);
@@ -1447,6 +1521,7 @@
       .preloader.is-hidden {
         opacity: 0;
         visibility: hidden;
+        pointer-events: none;
       }
 
       .preloader-logo {
@@ -1752,7 +1827,10 @@
         }
 
         .menu-link {
-          font-size: clamp(3rem, 17vw, 4.7rem);
+          width: 100%;
+          font-size: clamp(2.35rem, 12.4vw, 3.35rem);
+          line-height: 0.92;
+          letter-spacing: -0.045em;
         }
 
         .section {
@@ -1760,7 +1838,66 @@
         }
 
         .section-title {
-          font-size: clamp(3rem, 18vw, 5.7rem);
+          font-size: clamp(2.7rem, 13.3vw, 4.2rem);
+          line-height: 0.88;
+          letter-spacing: -0.052em;
+          max-width: 100%;
+        }
+
+        .lead-copy {
+          font-size: clamp(1.8rem, 8.2vw, 2.55rem);
+          line-height: 1.02;
+          letter-spacing: -0.03em;
+        }
+
+        .body-copy,
+        .hero-copy,
+        .service-row p,
+        .service-row .deliverables,
+        .process-step p {
+          max-width: 100%;
+          font-size: 0.98rem;
+          line-height: 1.5;
+        }
+
+        .services-layout,
+        .cta-grid,
+        .intro-grid,
+        .sticky-heading,
+        .service-list,
+        .proposal-shell,
+        .proposal-card {
+          min-width: 0;
+          max-width: 100%;
+        }
+
+        .service-row {
+          padding-inline: 0;
+        }
+
+        .service-row h3 {
+          font-size: clamp(1.55rem, 7.9vw, 2.35rem);
+          line-height: 0.95;
+          letter-spacing: -0.045em;
+          overflow-wrap: anywhere;
+        }
+
+        .proposal-shell {
+          padding: 0.38rem;
+        }
+
+        .proposal-card {
+          padding: 1.25rem;
+        }
+
+        .proposal-card h3 {
+          font-size: clamp(2rem, 10vw, 2.8rem);
+          line-height: 0.9;
+          letter-spacing: -0.05em;
+        }
+
+        .form-status {
+          overflow-wrap: anywhere;
         }
 
         .social-card {
@@ -1796,6 +1933,7 @@
     </style>
   </head>
   <body data-theme="light">
+    <a class="skip-link" href="#topo">Ir para o conteúdo</a>
     <div class="preloader" aria-hidden="true">
       <div class="preloader-logo">
         <strong>Krio</strong>
@@ -1838,12 +1976,18 @@
     <aside class="menu-overlay" aria-hidden="true">
       <div class="menu-gallery" aria-hidden="true">
         <div class="menu-card is-active" style="--tilt: -1.5deg" data-menu-image="0">
-          <img src="assets/krio-hero.png" alt="" />
+          <picture>
+            <source srcset="assets/krio-hero-640.webp" type="image/webp" />
+            <img src="assets/krio-hero.png" alt="" width="1503" height="1047" loading="lazy" decoding="async" />
+          </picture>
         </div>
         <div class="menu-card pattern" style="--tilt: 1deg" data-menu-image="1"></div>
         <div class="menu-card pattern" style="--tilt: 2deg" data-menu-image="2"></div>
         <div class="menu-card" style="--tilt: -0.8deg" data-menu-image="3">
-          <img src="assets/krio-hero.png" alt="" />
+          <picture>
+            <source srcset="assets/krio-hero-640.webp" type="image/webp" />
+            <img src="assets/krio-hero.png" alt="" width="1503" height="1047" loading="lazy" decoding="async" />
+          </picture>
         </div>
       </div>
       <div class="menu-links">
@@ -1890,7 +2034,26 @@
           </div>
           <div class="hero-media-shell reveal">
             <div class="hero-media wipe">
-              <img src="assets/krio-hero.png" alt="Composição editorial da Krio com painéis de conteúdo, estratégia e métricas em verde brat, preto e off-white." />
+              <picture>
+                <source
+                  type="image/avif"
+                  srcset="assets/krio-hero-640.avif 640w, assets/krio-hero-960.avif 960w, assets/krio-hero-1280.avif 1280w"
+                  sizes="(max-width: 860px) 92vw, 44vw"
+                />
+                <source
+                  type="image/webp"
+                  srcset="assets/krio-hero-640.webp 640w, assets/krio-hero-960.webp 960w, assets/krio-hero-1280.webp 1280w"
+                  sizes="(max-width: 860px) 92vw, 44vw"
+                />
+                <img
+                  src="assets/krio-hero.png"
+                  width="1503"
+                  height="1047"
+                  fetchpriority="high"
+                  decoding="async"
+                  alt="Composição editorial da Krio com painéis de conteúdo, estratégia e métricas em verde brat, preto e off-white."
+                />
+              </picture>
             </div>
             <div class="hero-badge">
               <small>Foco</small>
@@ -2196,6 +2359,8 @@
           <a href="#processo">Processo</a>
           <a href="mailto:contato@agenciakrio.com">contato@agenciakrio.com</a>
           <a href="https://www.instagram.com/agenciakrio" target="_blank" rel="noreferrer">@agenciakrio</a>
+          <a href="/privacidade.html">Privacidade</a>
+          <a href="/termos.html">Termos</a>
         </nav>
       </div>
       <div class="container footer-bottom">
@@ -2223,7 +2388,8 @@
         const preloader = document.querySelector(".preloader");
 
         window.addEventListener("load", () => {
-          window.setTimeout(() => preloader?.classList.add("is-hidden"), 650);
+          window.setTimeout(() => preloader?.classList.add("is-hidden"), 260);
+          window.setTimeout(() => preloader?.remove(), 950);
         });
 
         function splitText(selector = "[data-split]") {
@@ -2415,6 +2581,27 @@
           if (event.key === "Escape") setMenu(false);
         });
 
+        function getNavOffset() {
+          return 0;
+        }
+
+        function scrollToTarget(target, smooth = true) {
+          const navOffset = getNavOffset();
+          if (lenis) {
+            lenis.scrollTo(target, {
+              duration: smooth ? 1.05 : 0,
+              immediate: !smooth,
+              offset: -navOffset
+            });
+            return;
+          }
+
+          window.scrollTo({
+            top: target.getBoundingClientRect().top + window.scrollY - navOffset,
+            behavior: smooth ? "smooth" : "auto"
+          });
+        }
+
         document.querySelectorAll('a[href^="#"]').forEach((link) => {
           link.addEventListener("click", (event) => {
             const hash = link.getAttribute("href");
@@ -2424,18 +2611,19 @@
 
             event.preventDefault();
             if (body.classList.contains("menu-open")) setMenu(false);
+            window.history.pushState(null, "", hash);
 
             window.requestAnimationFrame(() => {
-              if (lenis) {
-                lenis.scrollTo(target, { duration: 1.05, offset: 0 });
-              } else {
-                window.scrollTo({
-                  top: target.getBoundingClientRect().top + window.scrollY,
-                  behavior: "smooth"
-                });
-              }
+              scrollToTarget(target, true);
             });
           });
+        });
+
+        window.addEventListener("load", () => {
+          if (!window.location.hash) return;
+          const target = document.querySelector(window.location.hash);
+          if (!target) return;
+          window.setTimeout(() => scrollToTarget(target, false), 120);
         });
 
         document.querySelectorAll(".magnetic").forEach((button) => {
@@ -2477,20 +2665,21 @@
       })();
     </script>
     <script type="module">
-      import * as THREE from "three";
-
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const compactViewport = window.matchMedia("(max-width: 860px)").matches;
+      const saveData = navigator.connection?.saveData;
       const canvas = document.getElementById("krio-gl");
 
-      if (!prefersReduced && canvas) {
+      if (!prefersReduced && !compactViewport && !saveData && canvas) {
+        const THREE = await import("three");
         const renderer = new THREE.WebGLRenderer({
           canvas,
           alpha: true,
-          antialias: true,
-          preserveDrawingBuffer: true,
+          antialias: false,
+          preserveDrawingBuffer: false,
           powerPreference: "high-performance"
         });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.2));
 
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 20);
@@ -2532,7 +2721,7 @@
 
         function contour(index, radius, color, opacity) {
           const points = [];
-          const count = 160;
+          const count = 84;
           for (let i = 0; i <= count; i += 1) {
             const a = (i / count) * Math.PI * 2;
             const wobble = 1 + Math.sin(a * (2 + index * 0.23)) * 0.13 + Math.cos(a * (3.4 + index * 0.11)) * 0.08;
@@ -2545,18 +2734,18 @@
           line.rotation.z = Math.random() * Math.PI;
           line.scale.setScalar(0.55 + Math.random() * 1.2);
           line.userData = {
-            speed: 0.00009 + Math.random() * 0.00016,
+            speed: 0.000025 + Math.random() * 0.000045,
             drift: Math.random() * Math.PI * 2
           };
           group.add(line);
         }
 
-        for (let i = 0; i < 18; i += 1) {
+        for (let i = 0; i < 10; i += 1) {
           contour(i, 0.24 + Math.random() * 0.42, i % 4 === 0 ? colors.lime : colors.green, i % 4 === 0 ? 0.16 : 0.09);
         }
 
         const pointGeo = new THREE.BufferGeometry();
-        const pointCount = 170;
+        const pointCount = 86;
         const positions = new Float32Array(pointCount * 3);
         for (let i = 0; i < pointCount; i += 1) {
           positions[i * 3] = (Math.random() - 0.5) * 3.8;
@@ -2588,7 +2777,7 @@
           const mesh = new THREE.Mesh(geo, mat);
           mesh.position.set(0.55 + Math.random() * 0.9, -0.4 + Math.random() * 1.35, -0.4 - i * 0.03);
           mesh.rotation.z = -0.12 + Math.random() * 0.24;
-          mesh.userData = { speed: 0.00018 + Math.random() * 0.00012 };
+          mesh.userData = { speed: 0.000045 + Math.random() * 0.000035 };
           plates.add(mesh);
         }
 
@@ -2602,16 +2791,16 @@
         function animate(time) {
           const scroll = window.scrollY || document.documentElement.scrollTop || 0;
           group.children.forEach((line, i) => {
-            line.rotation.z += line.userData.speed * (i % 2 ? 1 : -1) * time * 0.003;
+            line.rotation.z += line.userData.speed * (i % 2 ? 1 : -1) * time * 0.0009;
             line.position.y += Math.sin(time * line.userData.speed + line.userData.drift) * 0.00045;
           });
           plates.children.forEach((plate, i) => {
             plate.rotation.z += Math.sin(time * plate.userData.speed + i) * 0.0009;
             plate.position.y += Math.cos(time * 0.0004 + i) * 0.00045;
           });
-          group.position.x = mouseX * 0.035;
-          group.position.y = -mouseY * 0.025 + Math.sin(scroll * 0.001) * 0.035;
-          points.rotation.z = scroll * 0.00006;
+          group.position.x = mouseX * 0.022;
+          group.position.y = -mouseY * 0.016 + Math.sin(scroll * 0.00045) * 0.022;
+          points.rotation.z = scroll * 0.000025;
           renderer.render(scene, camera);
         }
 
