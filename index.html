@@ -1,0 +1,2624 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agência Krio - Autoridade digital para profissionais autônomos</title>
+    <meta
+      name="description"
+      content="Marketing digital para nutricionistas, dermatologistas, personal trainers e profissionais liberais que precisam transformar expertise em influência, agenda e receita."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Fraunces:opsz,wght@9..144,600..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --lime: #d2ff00;
+        --lime-soft: #b2c73a;
+        --ink: #111112;
+        --ink-2: #1f2419;
+        --green: #282c20;
+        --green-2: #363b25;
+        --paper: #f4f4ed;
+        --paper-2: #e9ecde;
+        --paper-3: #d4d7ca;
+        --muted: #8d927f;
+        --line: rgba(17, 17, 18, 0.16);
+        --line-dark: rgba(244, 244, 237, 0.18);
+        --font-display: "Fraunces", ui-serif, Georgia, serif;
+        --font-body: "Archivo", ui-sans-serif, system-ui, sans-serif;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-inout: cubic-bezier(0.65, 0.05, 0, 1);
+        --nav-h: 4.5rem;
+        --container: min(92vw, 1560px);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
+        color: var(--ink);
+        overflow-x: hidden;
+        text-rendering: geometricPrecision;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-weight: 600;
+        letter-spacing: 0;
+        overflow-x: hidden;
+        transition:
+          background-color 900ms var(--ease-out),
+          color 900ms var(--ease-out);
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        pointer-events: none;
+        opacity: 0.055;
+        background-image:
+          radial-gradient(circle at 20% 30%, rgba(17, 17, 18, 0.28) 0 1px, transparent 1px),
+          radial-gradient(circle at 70% 60%, rgba(17, 17, 18, 0.18) 0 1px, transparent 1px);
+        background-size: 4px 4px, 6px 6px;
+        mix-blend-mode: multiply;
+      }
+
+      body[data-theme="dark"],
+      body[data-theme="green"] {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button {
+        border: 0;
+        cursor: pointer;
+      }
+
+      img,
+      canvas,
+      svg {
+        display: block;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      a,
+      button {
+        overflow-wrap: break-word;
+      }
+
+      .screen-reader {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .gl-wrap {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .gl-wrap canvas {
+        width: 100%;
+        height: 100%;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+      }
+
+      .container {
+        width: var(--container);
+        margin-inline: auto;
+      }
+
+      .site-nav {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        right: 1rem;
+        z-index: 40;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: start;
+        pointer-events: none;
+      }
+
+      .brand-lockup,
+      .nav-actions,
+      .nav-mark {
+        pointer-events: auto;
+      }
+
+      .brand-lockup {
+        justify-self: start;
+        display: grid;
+        gap: 0.1rem;
+        line-height: 0.82;
+        color: currentColor;
+        text-transform: uppercase;
+      }
+
+      .brand-lockup span:first-child {
+        font-family: var(--font-display);
+        font-size: clamp(1.9rem, 3vw, 3.15rem);
+        font-weight: 800;
+      }
+
+      .brand-lockup span:last-child {
+        font-size: clamp(1.65rem, 2.6vw, 2.7rem);
+        font-weight: 900;
+        letter-spacing: -0.04em;
+      }
+
+      .nav-mark {
+        justify-self: center;
+        width: 3.35rem;
+        height: 3.35rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(244, 244, 237, 0.7);
+        color: var(--ink);
+        box-shadow: inset 0 0 0 1px rgba(17, 17, 18, 0.08);
+        transition:
+          transform 700ms var(--ease-out),
+          background-color 700ms var(--ease-out),
+          color 700ms var(--ease-out);
+      }
+
+      body[data-theme="dark"] .nav-mark,
+      body[data-theme="green"] .nav-mark {
+        background: rgba(17, 17, 18, 0.35);
+        color: var(--paper);
+        box-shadow: inset 0 0 0 1px rgba(244, 244, 237, 0.12);
+      }
+
+      .nav-actions {
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+      }
+
+      .btn {
+        --btn-bg: var(--lime);
+        --btn-fg: var(--ink);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.72rem;
+        min-height: 3.85rem;
+        padding: 0.62rem 0.72rem 0.62rem 1.15rem;
+        border-radius: 0.54rem;
+        background: var(--btn-bg);
+        color: var(--btn-fg);
+        text-transform: uppercase;
+        font-size: 0.84rem;
+        font-weight: 900;
+        letter-spacing: -0.025em;
+        text-align: left;
+        box-shadow: inset 0 -1px 0 rgba(17, 17, 18, 0.18);
+        transition:
+          transform 600ms var(--ease-out),
+          background-color 600ms var(--ease-out),
+          color 600ms var(--ease-out);
+        will-change: transform;
+      }
+
+      .btn:hover {
+        transform: translate3d(0, -2px, 0);
+      }
+
+      .btn:active {
+        transform: translate3d(0, 1px, 0) scale(0.985);
+      }
+
+      .btn-icon {
+        width: 2.3rem;
+        height: 2.3rem;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 0.45rem;
+        background: rgba(17, 17, 18, 0.08);
+        transition: transform 600ms var(--ease-out);
+      }
+
+      .btn:hover .btn-icon {
+        transform: translate3d(3px, -2px, 0) rotate(-4deg);
+      }
+
+      .btn.secondary {
+        --btn-bg: var(--ink);
+        --btn-fg: var(--paper);
+        box-shadow: inset 0 0 0 1px rgba(244, 244, 237, 0.14);
+      }
+
+      .btn.secondary .btn-icon {
+        background: rgba(244, 244, 237, 0.1);
+      }
+
+      body[data-theme="dark"] .btn.secondary,
+      body[data-theme="green"] .btn.secondary {
+        --btn-bg: var(--paper);
+        --btn-fg: var(--ink);
+      }
+
+      .menu-toggle {
+        position: relative;
+        width: 3.85rem;
+        height: 3.85rem;
+        border-radius: 0.54rem;
+        background: rgba(244, 244, 237, 0.84);
+        color: var(--ink);
+        box-shadow: inset 0 0 0 2px currentColor;
+        transition:
+          transform 600ms var(--ease-out),
+          background-color 600ms var(--ease-out),
+          color 600ms var(--ease-out);
+      }
+
+      body[data-theme="dark"] .menu-toggle,
+      body[data-theme="green"] .menu-toggle {
+        background: rgba(244, 244, 237, 0.96);
+        color: var(--ink);
+      }
+
+      .menu-toggle:hover {
+        transform: translate3d(0, -2px, 0);
+      }
+
+      .menu-toggle span {
+        position: absolute;
+        left: 1.2rem;
+        width: 1.38rem;
+        height: 0.16rem;
+        border-radius: 999px;
+        background: currentColor;
+        transition:
+          transform 650ms var(--ease-out),
+          opacity 650ms var(--ease-out);
+      }
+
+      .menu-toggle span:first-child {
+        top: 1.55rem;
+        transform: translateX(0.42rem);
+      }
+
+      .menu-toggle span:last-child {
+        top: 2.1rem;
+        transform: translateX(-0.18rem);
+      }
+
+      .menu-open .menu-toggle {
+        background: var(--lime);
+        color: var(--ink);
+      }
+
+      .menu-open .menu-toggle span:first-child {
+        transform: translateY(0.28rem) rotate(45deg);
+      }
+
+      .menu-open .menu-toggle span:last-child {
+        transform: translateY(-0.28rem) rotate(-45deg);
+      }
+
+      .menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(26rem, 0.9fr);
+        gap: clamp(2rem, 5vw, 6rem);
+        padding: 8.8rem 3.2vw 3.4rem;
+        background: rgba(31, 36, 25, 0.96);
+        color: var(--paper);
+        opacity: 0;
+        visibility: hidden;
+        transform: translate3d(0, -2rem, 0);
+        transition:
+          opacity 700ms var(--ease-out),
+          transform 700ms var(--ease-out),
+          visibility 0s linear 700ms;
+      }
+
+      .menu-open .menu-overlay {
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(0, 0, 0);
+        transition-delay: 0s;
+      }
+
+      .menu-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(10rem, 1fr));
+        gap: 2rem;
+        align-content: start;
+      }
+
+      .menu-card {
+        min-height: clamp(14rem, 32vw, 22rem);
+        overflow: hidden;
+        background: color-mix(in srgb, var(--paper) 18%, transparent);
+        filter: saturate(0.2);
+        opacity: 0.55;
+        transform: translate3d(0, 2rem, 0) rotate(var(--tilt));
+        transition:
+          transform 900ms var(--ease-out),
+          opacity 900ms var(--ease-out),
+          filter 900ms var(--ease-out);
+      }
+
+      .menu-open .menu-card {
+        transform: translate3d(0, 0, 0) rotate(var(--tilt));
+      }
+
+      .menu-card.is-active,
+      .menu-card:hover {
+        opacity: 1;
+        filter: saturate(1);
+      }
+
+      .menu-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .menu-card.pattern {
+        padding: 1rem;
+        background:
+          radial-gradient(circle at 20% 30%, var(--lime) 0 0.55rem, transparent 0.58rem),
+          repeating-linear-gradient(115deg, rgba(210, 255, 0, 0.12) 0 2px, transparent 2px 18px),
+          var(--green-2);
+      }
+
+      .menu-links {
+        align-self: center;
+        display: grid;
+        gap: 0.25rem;
+      }
+
+      .menu-link {
+        position: relative;
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        overflow: hidden;
+        clip-path: ellipse(120% 0% at 50% 0%);
+        transform: translate3d(0, 2.25rem, 0);
+        opacity: 0;
+        font-size: clamp(3rem, 5.2vw, 5.8rem);
+        line-height: 0.88;
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: -0.065em;
+        transition:
+          clip-path 950ms var(--ease-out),
+          transform 950ms var(--ease-out),
+          opacity 950ms var(--ease-out),
+          color 500ms var(--ease-out);
+      }
+
+      .menu-open .menu-link {
+        clip-path: ellipse(120% 120% at 50% 18%);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+        transition-delay: calc(var(--i) * 70ms + 140ms);
+      }
+
+      .menu-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 0.17em;
+        background: var(--lime);
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 520ms var(--ease-out);
+      }
+
+      .menu-link:hover::after,
+      .menu-link:focus-visible::after {
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+
+      .menu-contact {
+        margin-top: 3rem;
+        display: flex;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+        color: var(--paper-3);
+        text-transform: uppercase;
+        font-size: 0.74rem;
+        font-weight: 900;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 88dvh;
+        padding: clamp(6.4rem, 8vw, 8rem) 0 4.2rem;
+        display: grid;
+        align-items: center;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.98fr) minmax(22rem, 0.86fr);
+        gap: clamp(1.5rem, 4vw, 4.75rem);
+        align-items: center;
+      }
+
+      .hero-copy-block {
+        position: relative;
+        z-index: 2;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.35rem;
+        color: color-mix(in srgb, currentColor 86%, var(--muted));
+        text-transform: uppercase;
+        font-size: 0.63rem;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 0.35rem rgba(210, 255, 0, 0.16);
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: clamp(4.8rem, 11.2vw, 12rem);
+        font-weight: 850;
+        line-height: 0.8;
+        letter-spacing: -0.07em;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-wrap: balance;
+      }
+
+      .hero-statement {
+        margin: 1.25rem 0 0;
+        max-width: 12ch;
+        font-size: clamp(2rem, 4.1vw, 4.8rem);
+        line-height: 0.92;
+        font-weight: 900;
+        letter-spacing: -0.065em;
+        word-spacing: 0.04em;
+        text-transform: uppercase;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-wrap: balance;
+      }
+
+      .hero-copy {
+        max-width: 44rem;
+        margin: 1.55rem 0 0;
+        color: color-mix(in srgb, currentColor 88%, var(--muted));
+        font-size: clamp(1rem, 1.2vw, 1.2rem);
+        line-height: 1.35;
+        font-weight: 700;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .hero-media-shell {
+        position: relative;
+        align-self: stretch;
+        min-height: min(62dvh, 41rem);
+        padding: 0.55rem;
+        border-radius: 0.8rem;
+        background: rgba(17, 17, 18, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(17, 17, 18, 0.08);
+        transform: rotate(-1deg);
+      }
+
+      .hero-media {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 0.48rem;
+        background: var(--paper-2);
+      }
+
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 57% center;
+        transform: scale(1.02);
+      }
+
+      .hero-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(244, 244, 237, 0.78), transparent 42%);
+        pointer-events: none;
+      }
+
+      .hero-badge {
+        position: absolute;
+        left: 0;
+        bottom: 2.4rem;
+        width: min(17rem, calc(100% - 2rem));
+        padding: 1rem;
+        border-radius: 0.55rem;
+        background: rgba(244, 244, 237, 0.86);
+        color: var(--ink);
+        box-shadow: inset 0 0 0 1px rgba(17, 17, 18, 0.25);
+      }
+
+      .hero-badge strong {
+        display: block;
+        margin-top: 0.85rem;
+        max-width: 12ch;
+        font-size: clamp(1.38rem, 2.05vw, 1.75rem);
+        line-height: 0.92;
+        letter-spacing: -0.055em;
+        text-transform: uppercase;
+        overflow-wrap: normal;
+      }
+
+      .hero-badge small {
+        display: block;
+        text-transform: uppercase;
+        font-size: 0.56rem;
+        font-weight: 900;
+        color: var(--green-2);
+      }
+
+      .section {
+        position: relative;
+        padding: clamp(6rem, 11vw, 12rem) 0;
+      }
+
+      .section.compact {
+        padding-block: clamp(4rem, 8vw, 8rem);
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(3.3rem, 8.2vw, 10.2rem);
+        line-height: 0.82;
+        font-weight: 900;
+        letter-spacing: -0.075em;
+        text-transform: uppercase;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-wrap: balance;
+      }
+
+      .section-title .serif {
+        display: block;
+        font-family: var(--font-display);
+        font-weight: 850;
+        color: var(--lime-soft);
+      }
+
+      .intro-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(24rem, 1.2fr);
+        gap: clamp(2rem, 6vw, 7rem);
+        align-items: start;
+      }
+
+      .lead-copy {
+        font-family: var(--font-display);
+        font-size: clamp(1.85rem, 3.1vw, 4.4rem);
+        line-height: 0.98;
+        font-weight: 760;
+        letter-spacing: -0.05em;
+        text-wrap: balance;
+      }
+
+      .body-copy {
+        color: color-mix(in srgb, currentColor 88%, var(--muted));
+        font-size: clamp(1rem, 1.15vw, 1.2rem);
+        line-height: 1.46;
+        font-weight: 650;
+        text-wrap: pretty;
+      }
+
+      .pain-grid {
+        margin-top: 3.2rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(14rem, auto);
+        gap: 0;
+      }
+
+      .pain-item {
+        position: relative;
+        min-height: 14rem;
+        padding: clamp(1.1rem, 2vw, 1.55rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-top: 1px solid var(--line);
+        border-right: 1px solid var(--line);
+        background: color-mix(in srgb, var(--paper) 82%, transparent);
+        transition:
+          transform 700ms var(--ease-out),
+          background-color 700ms var(--ease-out);
+      }
+
+      .pain-item:nth-child(even) {
+        border-right: 0;
+      }
+
+      .pain-item:nth-child(2) {
+        margin-top: 0;
+      }
+
+      .pain-item:nth-child(3) {
+        margin-top: 0;
+      }
+
+      .pain-item:hover {
+        transform: translate3d(0, -0.45rem, 0);
+        background: var(--lime);
+      }
+
+      .pain-item b {
+        text-transform: uppercase;
+        font-size: clamp(1.4rem, 2vw, 2.2rem);
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+      }
+
+      .pain-item p {
+        max-width: 28rem;
+        margin: 1.4rem 0 0;
+        color: color-mix(in srgb, currentColor 88%, var(--muted));
+        font-size: 0.9rem;
+        line-height: 1.35;
+      }
+
+      @media (min-width: 1181px) {
+        .pain-item:nth-child(2) {
+          margin-top: 0;
+        }
+
+        .pain-item:nth-child(3) {
+          margin-top: 0;
+        }
+      }
+
+      .marquee {
+        overflow: hidden;
+        border-block: 1px solid currentColor;
+        color: var(--lime);
+        background: var(--ink);
+      }
+
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        gap: 2rem;
+        padding: 0.75rem 0;
+        will-change: transform;
+        animation: marquee 28s linear infinite;
+      }
+
+      .marquee.reverse .marquee-track {
+        animation-direction: reverse;
+      }
+
+      .marquee span {
+        white-space: nowrap;
+        text-transform: uppercase;
+        font-size: clamp(2.4rem, 5vw, 5.5rem);
+        line-height: 0.82;
+        font-weight: 900;
+        letter-spacing: -0.065em;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translate3d(0, 0, 0);
+        }
+        to {
+          transform: translate3d(-50%, 0, 0);
+        }
+      }
+
+      .horizontal-section {
+        position: relative;
+        min-height: 100dvh;
+        overflow: hidden;
+        color: var(--paper);
+        background: var(--green);
+      }
+
+      .horizontal-sticky {
+        position: relative;
+        height: 100dvh;
+        min-height: 100dvh;
+        display: flex;
+        align-items: stretch;
+        overflow: hidden;
+      }
+
+      .horizontal-track {
+        display: flex;
+        align-items: stretch;
+        width: max-content;
+        will-change: transform;
+      }
+
+      .h-panel {
+        width: min(88vw, 48rem);
+        min-height: 100dvh;
+        padding: 9.6rem clamp(1.25rem, 3vw, 3.2rem) 3rem;
+        display: grid;
+        grid-template-rows: auto auto auto minmax(12rem, 1fr);
+        align-content: stretch;
+        gap: clamp(1.4rem, 2.4vw, 2.4rem);
+        overflow: hidden;
+        border-right: 1px solid rgba(244, 244, 237, 0.16);
+      }
+
+      .h-panel.wide {
+        width: min(86vw, 58rem);
+      }
+
+      .h-panel.wide .section-title {
+        max-width: 9ch;
+        font-size: clamp(3.8rem, 5.55vw, 6.9rem);
+        line-height: 0.88;
+        letter-spacing: -0.055em;
+      }
+
+      .h-panel .num {
+        color: var(--lime);
+        font-family: var(--font-display);
+        font-size: clamp(4rem, 11vw, 13rem);
+        line-height: 0.75;
+        letter-spacing: -0.08em;
+      }
+
+      .h-panel h3 {
+        max-width: 13ch;
+        margin: 0;
+        font-size: clamp(3.2rem, 5.7vw, 6.8rem);
+        line-height: 0.86;
+        letter-spacing: -0.058em;
+        text-transform: uppercase;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-wrap: balance;
+      }
+
+      .h-panel h3 .serif {
+        display: block;
+        font-family: var(--font-display);
+        letter-spacing: -0.032em;
+        word-spacing: 0.18em;
+        color: var(--lime);
+      }
+
+      .h-panel p {
+        max-width: 38rem;
+        color: color-mix(in srgb, var(--paper) 88%, var(--muted));
+        font-size: clamp(1rem, 1.15vw, 1.22rem);
+        line-height: 1.42;
+        text-wrap: pretty;
+      }
+
+      .h-panel-media {
+        align-self: end;
+        min-height: 16rem;
+        overflow: hidden;
+        border-radius: 0.5rem;
+        background:
+          radial-gradient(circle at 18% 24%, var(--lime) 0 0.55rem, transparent 0.57rem),
+          repeating-linear-gradient(135deg, rgba(210, 255, 0, 0.1) 0 2px, transparent 2px 22px),
+          var(--ink);
+        box-shadow: inset 0 0 0 1px rgba(244, 244, 237, 0.16);
+      }
+
+      .pill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1.2rem 0 0;
+      }
+
+      .pill {
+        display: inline-flex;
+        padding: 0.55rem 0.72rem;
+        border-radius: 999px;
+        border: 1px solid currentColor;
+        color: color-mix(in srgb, currentColor 88%, var(--muted));
+        text-transform: uppercase;
+        font-size: 0.62rem;
+        font-weight: 900;
+      }
+
+      .services-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.76fr) minmax(28rem, 1.24fr);
+        gap: clamp(2rem, 6vw, 7rem);
+        align-items: start;
+      }
+
+      #autoridade,
+      #servicos,
+      #diagnostico,
+      .social-section {
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .sticky-heading {
+        position: sticky;
+        top: 8rem;
+      }
+
+      .service-list {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .service-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 5.2rem minmax(0, 1fr);
+        gap: 1.25rem;
+        padding: clamp(1.2rem, 2.5vw, 2rem);
+        border-top: 1px solid var(--line);
+        overflow: hidden;
+        background: rgba(244, 244, 237, 0.96);
+        transition:
+          transform 700ms var(--ease-out),
+          color 700ms var(--ease-out),
+          background-color 700ms var(--ease-out);
+      }
+
+      .service-row::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--lime);
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 760ms var(--ease-out);
+        z-index: -1;
+      }
+
+      .service-row:hover {
+        transform: translate3d(-0.6rem, 0, 0);
+      }
+
+      .service-row:hover::before {
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+
+      .service-row .number {
+        font-family: var(--font-display);
+        font-size: 4rem;
+        line-height: 0.82;
+        letter-spacing: -0.08em;
+      }
+
+      .service-row h3 {
+        margin: 0 0 0.8rem;
+        font-size: clamp(1.8rem, 3.1vw, 3.8rem);
+        line-height: 0.88;
+        letter-spacing: -0.07em;
+        text-transform: uppercase;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-wrap: balance;
+      }
+
+      .service-row p {
+        margin: 0;
+        color: color-mix(in srgb, currentColor 88%, var(--muted));
+        line-height: 1.45;
+      }
+
+      .service-row .deliverables {
+        margin-top: 1.35rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(17, 17, 18, 0.15);
+        color: color-mix(in srgb, currentColor 88%, var(--muted));
+        font-size: 0.86rem;
+        line-height: 1.35;
+      }
+
+      .process-section {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .process-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.42fr);
+        gap: 2rem;
+        align-items: end;
+        margin-bottom: 4rem;
+      }
+
+      .process-stack {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .process-step {
+        position: sticky;
+        top: calc(var(--nav-h) + 1rem);
+        min-height: 21rem;
+        display: grid;
+        grid-template-columns: 0.32fr 1fr;
+        gap: clamp(1.4rem, 4vw, 5rem);
+        align-items: end;
+        padding: clamp(1.4rem, 3.5vw, 3rem);
+        border-radius: 0.65rem;
+        color: var(--ink);
+        background: var(--paper);
+        box-shadow: inset 0 0 0 1px rgba(17, 17, 18, 0.12);
+      }
+
+      .process-step:nth-child(even) {
+        background: var(--lime);
+      }
+
+      .process-step .step-num {
+        font-family: var(--font-display);
+        font-size: clamp(5rem, 13vw, 14rem);
+        line-height: 0.72;
+        letter-spacing: -0.08em;
+      }
+
+      .process-step h3 {
+        margin: 0 0 1rem;
+        max-width: 16ch;
+        font-size: clamp(2.2rem, 4vw, 5.2rem);
+        line-height: 0.84;
+        letter-spacing: -0.075em;
+        text-transform: uppercase;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-wrap: balance;
+      }
+
+      .process-step p {
+        max-width: 46rem;
+        margin: 0;
+        color: color-mix(in srgb, currentColor 86%, var(--muted));
+        font-size: clamp(1rem, 1.15vw, 1.2rem);
+        line-height: 1.42;
+      }
+
+      .stats-band {
+        display: grid;
+        grid-template-columns: 1fr 0.7fr 1.25fr;
+        gap: 1px;
+        background: var(--line);
+        margin-top: 4rem;
+      }
+
+      .stat {
+        min-height: 14rem;
+        display: grid;
+        align-content: space-between;
+        padding: 1.4rem;
+        background: var(--paper);
+      }
+
+      .stat strong {
+        font-family: var(--font-display);
+        font-size: clamp(4rem, 8vw, 9rem);
+        line-height: 0.78;
+        letter-spacing: -0.09em;
+      }
+
+      .stat span {
+        max-width: 15rem;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        font-weight: 900;
+        color: var(--green-2);
+      }
+
+      .cta-section {
+        min-height: 100dvh;
+        display: grid;
+        align-items: center;
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .cta-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.86fr) minmax(24rem, 0.72fr);
+        gap: clamp(2rem, 7vw, 8rem);
+        align-items: center;
+      }
+
+      .proposal-shell {
+        padding: 0.55rem;
+        border-radius: 0.9rem;
+        background: rgba(17, 17, 18, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(17, 17, 18, 0.1);
+      }
+
+      .proposal-card {
+        padding: clamp(1.25rem, 3vw, 2rem);
+        border-radius: 0.55rem;
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .proposal-card h3 {
+        margin: 0 0 1.2rem;
+        font-size: clamp(2.2rem, 4vw, 4.5rem);
+        line-height: 0.84;
+        letter-spacing: -0.07em;
+        text-transform: uppercase;
+        overflow-wrap: normal;
+        word-break: normal;
+        text-wrap: balance;
+      }
+
+      .field-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .field {
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      .field label {
+        text-transform: uppercase;
+        font-size: 0.66rem;
+        font-weight: 900;
+        color: var(--paper-3);
+      }
+
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        min-height: 3.25rem;
+        border: 0;
+        border-radius: 0.42rem;
+        padding: 0.92rem;
+        color: var(--paper);
+        background: rgba(244, 244, 237, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(244, 244, 237, 0.14);
+        outline: none;
+        transition:
+          background-color 500ms var(--ease-out),
+          box-shadow 500ms var(--ease-out);
+      }
+
+      .field textarea {
+        min-height: 7rem;
+        resize: vertical;
+      }
+
+      @media (min-width: 1181px) {
+        .intro-grid {
+          grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+          gap: clamp(4rem, 7vw, 8.5rem);
+        }
+
+        .intro-grid .section-title,
+        .services-layout .section-title,
+        .cta-grid .section-title {
+          max-width: 8.2ch;
+          font-size: clamp(4.6rem, 6.15vw, 8.1rem);
+          line-height: 0.86;
+          letter-spacing: -0.058em;
+        }
+
+        .intro-grid .lead-copy {
+          max-width: 19ch;
+          font-size: clamp(2.2rem, 2.7vw, 3.55rem);
+          line-height: 1.03;
+          letter-spacing: -0.038em;
+        }
+
+        .intro-grid .body-copy {
+          max-width: 62rem;
+        }
+
+        .services-layout {
+          grid-template-columns: minmax(24rem, 0.68fr) minmax(0, 1.24fr);
+          gap: clamp(4rem, 6.5vw, 7.5rem);
+        }
+
+        .sticky-heading {
+          max-width: 43rem;
+        }
+
+        .sticky-heading .body-copy {
+          max-width: 32rem;
+        }
+
+        .cta-section {
+          padding-block: clamp(7rem, 9vw, 11rem);
+        }
+
+        .cta-grid {
+          grid-template-columns: minmax(0, 0.88fr) minmax(29rem, 0.8fr);
+          gap: clamp(4rem, 6.5vw, 7.5rem);
+          align-items: center;
+        }
+
+        .cta-grid > div:first-child {
+          max-width: 50rem;
+        }
+
+        .cta-grid .lead-copy {
+          max-width: 16ch;
+          font-size: clamp(2rem, 2.65vw, 3.5rem);
+          line-height: 1.02;
+          letter-spacing: -0.036em;
+        }
+      }
+
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        background: rgba(244, 244, 237, 0.12);
+        box-shadow: inset 0 0 0 2px var(--lime);
+      }
+
+      .form-status {
+        min-height: 1.35rem;
+        color: var(--lime);
+        font-size: 0.82rem;
+        line-height: 1.35;
+      }
+
+      .submit-row {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+        flex-wrap: wrap;
+      }
+
+      .submit-row .btn {
+        min-width: 13rem;
+      }
+
+      .social-section {
+        overflow: hidden;
+        background: var(--paper);
+      }
+
+      .social-fan {
+        position: relative;
+        min-height: 40rem;
+        display: grid;
+        place-items: center;
+        margin-top: 3rem;
+      }
+
+      .social-card {
+        position: absolute;
+        width: min(18rem, 34vw);
+        aspect-ratio: 0.72;
+        display: grid;
+        align-content: end;
+        padding: 1rem;
+        overflow: hidden;
+        border-radius: 1.5rem;
+        color: var(--paper);
+        background: var(--green);
+        transform: rotate(var(--rot)) translateY(var(--shift));
+        transform-origin: 50% 100%;
+        box-shadow: inset 0 0 0 1px rgba(244, 244, 237, 0.16);
+        transition: transform 800ms var(--ease-out);
+      }
+
+      .social-card:hover {
+        transform: rotate(var(--rot)) translateY(calc(var(--shift) - 1.1rem));
+      }
+
+      .social-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 22% 22%, var(--lime) 0 0.6rem, transparent 0.62rem),
+          linear-gradient(160deg, transparent 0 44%, rgba(210, 255, 0, 0.68) 44% 48%, transparent 48%),
+          repeating-linear-gradient(90deg, rgba(244, 244, 237, 0.12) 0 1px, transparent 1px 19px);
+        opacity: 0.9;
+      }
+
+      .social-card strong,
+      .social-card span {
+        position: relative;
+      }
+
+      .social-card strong {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+      }
+
+      .social-card span {
+        color: var(--paper-3);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+      }
+
+      .site-footer {
+        position: relative;
+        padding: 4rem 0 2rem;
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.6fr;
+        gap: 3rem;
+        align-items: end;
+      }
+
+      .footer-logo {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: clamp(4rem, 12vw, 14rem);
+        line-height: 0.76;
+        letter-spacing: -0.08em;
+        text-transform: uppercase;
+      }
+
+      .footer-links {
+        display: grid;
+        gap: 0.7rem;
+        justify-items: start;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 900;
+      }
+
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 3rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line-dark);
+        color: var(--paper-3);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translate3d(0, 4rem, 0);
+        filter: blur(10px);
+        transition:
+          opacity 950ms var(--ease-out),
+          transform 950ms var(--ease-out),
+          filter 950ms var(--ease-out);
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        filter: blur(0);
+      }
+
+      [data-split] .char {
+        display: inline-block;
+        transform: translate3d(0, 105%, 0);
+        transition: transform 900ms var(--ease-out);
+        transition-delay: calc(var(--i) * 15ms);
+      }
+
+      [data-split].is-visible .char,
+      .menu-open [data-split-menu] .char {
+        transform: translate3d(0, 0, 0);
+      }
+
+      .split-mask {
+        display: inline-block;
+        overflow: hidden;
+      }
+
+      .wipe {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .wipe::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: var(--lime);
+        transform: scaleX(1);
+        transform-origin: right center;
+        transition: transform 900ms var(--ease-inout);
+      }
+
+      .wipe.is-visible::after {
+        transform: scaleX(0);
+      }
+
+      .scroll-progress {
+        position: fixed;
+        left: 1rem;
+        bottom: 1rem;
+        z-index: 35;
+        width: 0.22rem;
+        height: 7rem;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(17, 17, 18, 0.16);
+      }
+
+      body[data-theme="dark"] .scroll-progress,
+      body[data-theme="green"] .scroll-progress {
+        background: rgba(244, 244, 237, 0.16);
+      }
+
+      .scroll-progress span {
+        display: block;
+        width: 100%;
+        height: var(--scroll-p, 0%);
+        background: var(--lime);
+        transform-origin: bottom center;
+      }
+
+      .preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        display: grid;
+        place-items: center;
+        background: var(--paper);
+        color: var(--ink);
+        transition:
+          opacity 800ms var(--ease-out),
+          visibility 0s linear 800ms;
+      }
+
+      .preloader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .preloader-logo {
+        display: grid;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .preloader-logo strong {
+        font-family: var(--font-display);
+        font-size: clamp(4rem, 12vw, 12rem);
+        line-height: 0.8;
+        letter-spacing: -0.08em;
+        text-transform: uppercase;
+      }
+
+      .preloader-bar {
+        width: min(24rem, 78vw);
+        height: 0.45rem;
+        overflow: hidden;
+        background: rgba(17, 17, 18, 0.12);
+      }
+
+      .preloader-bar span {
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: var(--lime);
+        transform-origin: left center;
+        animation: loadbar 1300ms var(--ease-inout) forwards;
+      }
+
+      @keyframes loadbar {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+
+      @media (max-width: 1180px) {
+        .hero-grid,
+        .intro-grid,
+        .services-layout,
+        .cta-grid,
+        .process-head,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .sticky-heading {
+          position: static;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-bottom: clamp(4rem, 8vw, 6rem);
+        }
+
+        .hero-media-shell {
+          min-height: min(34rem, 58vw);
+          transform: none;
+        }
+
+        .hero-badge {
+          left: 1.25rem;
+          bottom: 1.25rem;
+          width: min(16rem, calc(100% - 2.5rem));
+        }
+
+        .pain-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .pain-item {
+          border-right: 0;
+        }
+
+        .pain-item:nth-child(2),
+        .pain-item:nth-child(3) {
+          margin-top: 0;
+        }
+
+        .process-step {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 860px) {
+        .site-nav {
+          grid-template-columns: 1fr auto;
+          align-items: start;
+        }
+
+        .nav-mark {
+          display: none;
+        }
+
+        .nav-actions .btn {
+          display: none;
+        }
+
+        .menu-overlay {
+          grid-template-columns: 1fr;
+          padding: 7rem 1rem 2rem;
+          overflow-y: auto;
+        }
+
+        .menu-gallery {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.8rem;
+        }
+
+        .menu-card {
+          min-height: 9rem;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 6.35rem;
+          padding-bottom: 4.5rem;
+          align-items: start;
+        }
+
+        .hero-grid {
+          gap: 0;
+          align-items: start;
+        }
+
+        .hero h1 {
+          font-size: clamp(4rem, 22vw, 6.15rem);
+          line-height: 0.82;
+          letter-spacing: -0.065em;
+        }
+
+        .hero-statement {
+          max-width: 100%;
+          font-size: clamp(2.15rem, 9.6vw, 3.05rem);
+          line-height: 0.94;
+          letter-spacing: -0.035em;
+          word-spacing: 0.1em;
+        }
+
+        .hero-copy {
+          max-width: 32rem;
+          margin-top: 1.35rem;
+          font-size: 1rem;
+          line-height: 1.45;
+        }
+
+        .hero-actions {
+          width: 100%;
+          margin-top: 1.1rem;
+        }
+
+        .hero-actions .btn {
+          width: min(100%, 23rem);
+          justify-content: space-between;
+          min-height: 3.2rem;
+          padding: 0.52rem 0.58rem 0.52rem 0.88rem;
+          font-size: 0.72rem;
+          white-space: normal;
+        }
+
+        .hero-media-shell {
+          position: relative;
+          left: auto;
+          right: auto;
+          bottom: auto;
+          z-index: 1;
+          width: 100%;
+          min-height: 17rem;
+          margin-top: 1.65rem;
+          filter: none;
+          pointer-events: auto;
+          transform: none;
+        }
+
+        .hero-media-shell.reveal.is-visible {
+          opacity: 1;
+        }
+
+        .hero-media::after {
+          background: linear-gradient(180deg, rgba(244, 244, 237, 0.2), rgba(244, 244, 237, 0.48));
+        }
+
+        .hero-badge {
+          display: none;
+        }
+
+        .hero-actions .secondary {
+          display: none;
+        }
+
+        .pain-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .pain-item:nth-child(2),
+        .pain-item:nth-child(3) {
+          margin-top: 0;
+        }
+
+        .horizontal-section {
+          height: auto !important;
+          min-height: 0;
+          overflow: visible;
+        }
+
+        .horizontal-sticky {
+          position: relative;
+          height: auto;
+          min-height: 0;
+          overflow: visible;
+        }
+
+        .horizontal-track {
+          display: grid;
+          width: 100%;
+          transform: none !important;
+        }
+
+        .h-panel,
+        .h-panel.wide {
+          width: 100%;
+          min-height: auto;
+          padding: 5rem 1rem;
+        }
+
+        .h-panel h3 {
+          font-size: clamp(2.55rem, 13vw, 4.6rem);
+          max-width: 12ch;
+        }
+
+        .h-panel .num {
+          font-size: clamp(4.4rem, 24vw, 7rem);
+        }
+
+        .h-panel-media {
+          min-height: 13rem;
+        }
+
+        .services-layout,
+        .cta-grid,
+        .intro-grid {
+          gap: 2.8rem;
+        }
+
+        .service-row {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-band {
+          grid-template-columns: 1fr;
+        }
+
+        .process-step {
+          position: relative;
+          top: auto;
+          min-height: auto;
+        }
+
+        .process-step .step-num {
+          font-size: clamp(4.4rem, 24vw, 7rem);
+        }
+
+        .social-fan {
+          min-height: auto;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.75rem;
+          place-items: stretch;
+          margin-top: 2rem;
+        }
+
+        .social-card {
+          position: relative;
+          left: auto !important;
+          width: 100%;
+          aspect-ratio: 0.82;
+          border-radius: 0.8rem;
+          transform: none;
+        }
+
+        .social-card:hover {
+          transform: translateY(-0.35rem);
+        }
+
+        .social-card:nth-child(3) {
+          grid-column: 1 / -1;
+          aspect-ratio: 2.35;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .brand-lockup span:first-child {
+          font-size: 2rem;
+        }
+
+        .brand-lockup span:last-child {
+          font-size: 1.75rem;
+        }
+
+        .menu-link {
+          font-size: clamp(3rem, 17vw, 4.7rem);
+        }
+
+        .section {
+          padding-block: 5rem;
+        }
+
+        .section-title {
+          font-size: clamp(3rem, 18vw, 5.7rem);
+        }
+
+        .social-card {
+          aspect-ratio: 0.9;
+        }
+
+        .social-card:nth-child(3) {
+          aspect-ratio: 2.05;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.001ms !important;
+        }
+
+        .gl-wrap {
+          display: none;
+        }
+
+        .reveal,
+        [data-split] .char {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+      }
+    </style>
+  </head>
+  <body data-theme="light">
+    <div class="preloader" aria-hidden="true">
+      <div class="preloader-logo">
+        <strong>Krio</strong>
+        <div class="preloader-bar"><span></span></div>
+      </div>
+    </div>
+
+    <div class="gl-wrap" aria-hidden="true">
+      <canvas id="krio-gl"></canvas>
+    </div>
+
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a href="#topo" class="brand-lockup" aria-label="Agência Krio">
+        <span>Agência</span>
+        <span>Krio</span>
+      </a>
+      <a href="#topo" class="nav-mark" aria-label="Voltar ao topo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M7 22V6h3.8v6.2L17.1 6H22l-7.1 7.2L22.6 22h-5l-5.2-6.4-1.6 1.6V22H7Z" fill="currentColor" />
+        </svg>
+      </a>
+      <div class="nav-actions">
+        <a class="btn magnetic" href="#diagnostico">
+          Diagnóstico
+          <span class="btn-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+              <path d="M5 13L13 5M7 5h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
+            </svg>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+
+    <aside class="menu-overlay" aria-hidden="true">
+      <div class="menu-gallery" aria-hidden="true">
+        <div class="menu-card is-active" style="--tilt: -1.5deg" data-menu-image="0">
+          <img src="assets/krio-hero.png" alt="" />
+        </div>
+        <div class="menu-card pattern" style="--tilt: 1deg" data-menu-image="1"></div>
+        <div class="menu-card pattern" style="--tilt: 2deg" data-menu-image="2"></div>
+        <div class="menu-card" style="--tilt: -0.8deg" data-menu-image="3">
+          <img src="assets/krio-hero.png" alt="" />
+        </div>
+      </div>
+      <div class="menu-links">
+        <a class="menu-link" style="--i: 0" data-preview="0" href="#topo">Home</a>
+        <a class="menu-link" style="--i: 1" data-preview="1" href="#pilares">Pilares</a>
+        <a class="menu-link" style="--i: 2" data-preview="2" href="#servicos">Serviços</a>
+        <a class="menu-link" style="--i: 3" data-preview="3" href="#processo">Processo</a>
+        <a class="menu-link" style="--i: 4" data-preview="0" href="#diagnostico">Diagnóstico</a>
+        <div class="menu-contact">
+          <a href="mailto:contato@agenciakrio.com">contato@agenciakrio.com</a>
+          <a href="https://www.instagram.com/agenciakrio" target="_blank" rel="noreferrer">@agenciakrio</a>
+        </div>
+      </div>
+    </aside>
+
+    <main id="topo" class="page">
+      <section class="hero" data-theme-section="light">
+        <div class="container hero-grid">
+          <div class="hero-copy-block">
+            <span class="eyebrow reveal">Sua autoridade digital começa aqui</span>
+            <h1 data-split>Krio</h1>
+            <p class="hero-statement reveal">Transforme sua expertise em influência digital.</p>
+            <p class="hero-copy reveal">
+              Especialistas em marketing digital para profissionais autônomos que buscam crescimento, reconhecimento e resultados reais.
+            </p>
+            <div class="hero-actions reveal">
+              <a class="btn magnetic" href="#diagnostico">
+                Agendar diagnóstico gratuito
+                <span class="btn-icon" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+                    <path d="M5 13L13 5M7 5h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
+                  </svg>
+                </span>
+              </a>
+              <a class="btn secondary magnetic" href="#servicos">
+                Ver serviços
+                <span class="btn-icon" aria-hidden="true">
+                  <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+                    <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="hero-media-shell reveal">
+            <div class="hero-media wipe">
+              <img src="assets/krio-hero.png" alt="Composição editorial da Krio com painéis de conteúdo, estratégia e métricas em verde brat, preto e off-white." />
+            </div>
+            <div class="hero-badge">
+              <small>Foco</small>
+              <strong>agenda, autoridade, receita</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="autoridade" class="section compact" data-theme-section="light">
+        <div class="container intro-grid">
+          <div>
+            <span class="eyebrow reveal">Você é especialista</span>
+            <h2 class="section-title reveal">Nós tornamos você <span class="serif">visível.</span></h2>
+          </div>
+          <div>
+            <p class="lead-copy reveal">
+              Para nutricionistas, dermatologistas, personal trainers e profissionais liberais que precisam aparecer com confiança.
+            </p>
+            <p class="body-copy reveal">
+              Você dedicou anos para dominar sua área. Sua paixão é ajudar pessoas, e seu conhecimento é valioso. Mas, no mundo digital de hoje, ser especialista não é o suficiente. É preciso ser visível, engajador e influente para atrair os clientes certos e escalar seu negócio.
+            </p>
+            <p class="body-copy reveal">
+              A Krio vira seu braço direito no marketing digital: estratégia, criação, performance e posicionamento trabalhando para transformar expertise em atração e autoridade.
+            </p>
+          </div>
+        </div>
+        <div class="container pain-grid">
+          <article class="pain-item reveal">
+            <b>Falta de tempo</b>
+            <p>Liberamos você da gestão das redes sociais para que possa focar no que faz melhor: atender seus clientes.</p>
+          </article>
+          <article class="pain-item reveal">
+            <b>Conteúdo ineficaz</b>
+            <p>Criamos conteúdo estratégico que educa, engaja e converte, alinhado à sua marca e aos seus objetivos.</p>
+          </article>
+          <article class="pain-item reveal">
+            <b>Baixa conversão</b>
+            <p>Transformamos seguidores em pacientes, alunos ou clientes pagantes por meio de estratégias digitais comprovadas.</p>
+          </article>
+          <article class="pain-item reveal">
+            <b>Medo de exposição</b>
+            <p>Orientamos seu posicionamento com confiança e autenticidade para construir uma marca pessoal forte e respeitada.</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Estratégia</span><span>Criação</span><span>Performance</span><span>Autoridade</span>
+          <span>Estratégia</span><span>Criação</span><span>Performance</span><span>Autoridade</span>
+        </div>
+      </div>
+
+      <section id="pilares" class="horizontal-section" data-theme-section="green">
+        <div class="horizontal-sticky">
+          <div class="horizontal-track">
+            <article class="h-panel wide">
+              <span class="eyebrow">Nossos pilares</span>
+              <h2 class="section-title">Estratégia, <span class="serif">criação</span> e performance.</h2>
+              <p>
+                Uma equipe compacta e multidisciplinar operando como extensão do seu consultório, estúdio ou agenda profissional.
+              </p>
+            </article>
+            <article class="h-panel">
+              <div class="num">01</div>
+              <h3>Estratégia <span class="serif">e comercial</span></h3>
+              <p>
+                Sua visão vira roteiro: liderança estratégica, prospecção inteligente e relacionamento próximo para transformar objetivos em planos personalizados.
+              </p>
+              <div class="h-panel-media"></div>
+            </article>
+            <article class="h-panel">
+              <div class="num">02</div>
+              <h3>Criação <span class="serif">e design</span></h3>
+              <p>
+                Do design de posts à edição de Reels, garantimos que sua presença visual seja profissional, coesa e impossível de ignorar.
+              </p>
+              <div class="h-panel-media"></div>
+            </article>
+            <article class="h-panel">
+              <div class="num">03</div>
+              <h3>Performance <span class="serif">e copy</span></h3>
+              <p>
+                Tráfego pago otimizado e copies persuasivas colocam sua mensagem na frente do público certo, no momento certo.
+              </p>
+              <div class="h-panel-media"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="servicos" class="section" data-theme-section="light">
+        <div class="container services-layout">
+          <div class="sticky-heading">
+            <span class="eyebrow reveal">O caminho para sua influência</span>
+            <h2 class="section-title reveal">Serviços <span class="serif">integrados.</span></h2>
+            <p class="body-copy reveal">
+              Soluções desenhadas para o profissional autônomo que precisa crescer sem transformar marketing em uma segunda profissão.
+            </p>
+          </div>
+          <div class="service-list">
+            <article class="service-row reveal">
+              <div class="number">1</div>
+              <div>
+                <h3>Gestão de Instagram com crescimento orgânico</h3>
+                <p>
+                  Construímos uma comunidade engajada ao redor da sua marca com calendário editorial, posts, stories e Reels que educam, inspiram e posicionam.
+                </p>
+                <div class="deliverables">
+                  Você recebe: calendário editorial personalizado, produção de conteúdo, otimização de perfil, interação estratégica e relatórios mensais.
+                </div>
+              </div>
+            </article>
+            <article class="service-row reveal">
+              <div class="number">2</div>
+              <div>
+                <h3>Tráfego pago estratégico</h3>
+                <p>
+                  Campanhas segmentadas em Meta Ads e Google Ads para colocar seu serviço na frente de quem já procura pelo que você oferece.
+                </p>
+                <div class="deliverables">
+                  Você recebe: planejamento de campanhas, criativos, copies otimizadas, configuração, monitoramento diário e relatórios detalhados.
+                </div>
+              </div>
+            </article>
+            <article class="service-row reveal">
+              <div class="number">3</div>
+              <div>
+                <h3>Consultoria para influência e autoridade</h3>
+                <p>
+                  Mentorias estratégicas para desenvolver sua marca pessoal, aprimorar comunicação e criar conteúdo que posicione você como referência.
+                </p>
+                <div class="deliverables">
+                  Você recebe: sessões individualizadas, plano de conteúdo para autoridade, suporte para lives e estratégias de networking.
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="container stats-band reveal">
+          <div class="stat">
+            <strong data-count="6">06</strong>
+            <span>etapas claras do primeiro contato ao relatório mensal</span>
+          </div>
+          <div class="stat">
+            <strong data-count="3">03</strong>
+            <span>frentes de operação: conteúdo, autoridade e aquisição</span>
+          </div>
+          <div class="stat">
+            <strong data-count="1">01</strong>
+            <span>parceiro dedicado a tornar sua expertise impossível de ignorar</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="processo" class="section process-section" data-theme-section="dark">
+        <div class="container process-head">
+          <div>
+            <span class="eyebrow reveal">Transparência e eficiência</span>
+            <h2 class="section-title reveal">Processo sem <span class="serif">mistério.</span></h2>
+          </div>
+          <p class="body-copy reveal">
+            Do primeiro contato à entrega mensal, você tem clareza, aprovação e acompanhamento em cada etapa.
+          </p>
+        </div>
+        <div class="container process-stack">
+          <article class="process-step">
+            <div class="step-num">01</div>
+            <div>
+              <h3>Diagnóstico gratuito</h3>
+              <p>Entendemos suas necessidades, analisamos seu perfil atual e identificamos as melhores oportunidades de crescimento.</p>
+            </div>
+          </article>
+          <article class="process-step">
+            <div class="step-num">02</div>
+            <div>
+              <h3>Kick-off e onboarding</h3>
+              <p>Alinhamos expectativas, coletamos acessos e mergulhamos nos seus objetivos para construir uma estratégia sólida.</p>
+            </div>
+          </article>
+          <article class="process-step">
+            <div class="step-num">03</div>
+            <div>
+              <h3>Planejamento mensal</h3>
+              <p>Desenvolvemos um plano de conteúdo e campanhas detalhado, sempre com sua aprovação antes da execução.</p>
+            </div>
+          </article>
+          <article class="process-step">
+            <div class="step-num">04</div>
+            <div>
+              <h3>Criação e aprovação</h3>
+              <p>Nossa equipe produz o material e você valida a direção antes de qualquer publicação ou campanha ir ao ar.</p>
+            </div>
+          </article>
+          <article class="process-step">
+            <div class="step-num">05</div>
+            <div>
+              <h3>Execução contínua</h3>
+              <p>Publicamos, agendamos e otimizamos campanhas e conteúdo, monitorando métricas diariamente.</p>
+            </div>
+          </article>
+          <article class="process-step">
+            <div class="step-num">06</div>
+            <div>
+              <h3>Resultados e próximos passos</h3>
+              <p>Apresentamos resultados, aprendizados e ajustes para que o mês seguinte comece mais inteligente.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="diagnostico" class="section cta-section" data-theme-section="light">
+        <div class="container cta-grid">
+          <div>
+            <span class="eyebrow reveal">Invista na sua marca</span>
+            <h2 class="section-title reveal">Colha <span class="serif">resultados reais.</span></h2>
+            <p class="lead-copy reveal">
+              Não deixe sua expertise escondida. A Krio é a parceira que você precisa para conquistar reconhecimento e clientes.
+            </p>
+            <p class="body-copy reveal">
+              Nossos pacotes são flexíveis e desenhados para atender às suas necessidades e ao seu momento de carreira. Solicite uma proposta personalizada e descubra o investimento ideal para o seu crescimento.
+            </p>
+          </div>
+          <div class="proposal-shell reveal">
+            <form class="proposal-card" id="proposal-form" novalidate>
+              <h3>Solicitar proposta personalizada</h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="name">Nome</label>
+                  <input id="name" name="name" autocomplete="name" placeholder="Seu nome" />
+                </div>
+                <div class="field">
+                  <label for="specialty">Área de atuação</label>
+                  <select id="specialty" name="specialty">
+                    <option value="">Selecione uma opção</option>
+                    <option>Nutrição</option>
+                    <option>Dermatologia</option>
+                    <option>Personal trainer</option>
+                    <option>Outro profissional liberal</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="contact">Contato</label>
+                  <input id="contact" name="contact" autocomplete="email" placeholder="E-mail ou WhatsApp" />
+                </div>
+                <div class="field">
+                  <label for="goal">Principal objetivo</label>
+                  <textarea id="goal" name="goal" placeholder="Ex: lotar agenda, vender consultoria, construir autoridade..."></textarea>
+                </div>
+              </div>
+              <div class="submit-row">
+                <button class="btn magnetic" type="submit">
+                  Agendar agora
+                  <span class="btn-icon" aria-hidden="true">
+                    <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+                      <path d="M5 13L13 5M7 5h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
+                    </svg>
+                  </span>
+                </button>
+                <div class="form-status" role="status" aria-live="polite"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="section social-section" data-theme-section="light">
+        <div class="container" style="text-align: center">
+          <span class="eyebrow reveal" style="margin-inline: auto">Sua influência começa aqui</span>
+          <h2 class="section-title reveal">Conteúdo que <span class="serif">aparece.</span></h2>
+          <p class="body-copy reveal" style="margin-inline: auto; max-width: 42rem">
+            Do feed ao anúncio, da mentoria ao relatório: tudo precisa parecer parte da mesma marca.
+          </p>
+        </div>
+        <div class="container social-fan reveal" aria-hidden="true">
+          <div class="social-card" style="--rot: -18deg; --shift: 3.5rem; left: 10%">
+            <strong>Instagram</strong><span>conteúdo e comunidade</span>
+          </div>
+          <div class="social-card" style="--rot: -7deg; --shift: 0rem; left: 28%">
+            <strong>Reels</strong><span>roteiro, edição e ritmo</span>
+          </div>
+          <div class="social-card" style="--rot: 0deg; --shift: -1rem; left: 43%; z-index: 2">
+            <strong>Autoridade</strong><span>posicionamento público</span>
+          </div>
+          <div class="social-card" style="--rot: 8deg; --shift: 0.4rem; left: 57%">
+            <strong>Ads</strong><span>demanda e conversão</span>
+          </div>
+          <div class="social-card" style="--rot: 18deg; --shift: 3.2rem; left: 72%">
+            <strong>Relatórios</strong><span>decisão com clareza</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" data-theme-section="dark">
+      <div class="container footer-grid">
+        <p class="footer-logo">Krio</p>
+        <nav class="footer-links" aria-label="Links de rodapé">
+          <a href="#autoridade">Autoridade</a>
+          <a href="#pilares">Pilares</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#processo">Processo</a>
+          <a href="mailto:contato@agenciakrio.com">contato@agenciakrio.com</a>
+          <a href="https://www.instagram.com/agenciakrio" target="_blank" rel="noreferrer">@agenciakrio</a>
+        </nav>
+      </div>
+      <div class="container footer-bottom">
+        <span>Agência Krio: sua influência começa aqui.</span>
+        <span>www.agenciakrio.com - em breve</span>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.13/dist/lenis.min.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script>
+      (() => {
+        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const root = document.documentElement;
+        const body = document.body;
+        const progress = document.querySelector(".scroll-progress span");
+        const preloader = document.querySelector(".preloader");
+
+        window.addEventListener("load", () => {
+          window.setTimeout(() => preloader?.classList.add("is-hidden"), 650);
+        });
+
+        function splitText(selector = "[data-split]") {
+          document.querySelectorAll(selector).forEach((el) => {
+            if (el.dataset.splitReady) return;
+            const text = el.textContent.trim();
+            el.setAttribute("aria-label", text);
+            el.textContent = "";
+            Array.from(text).forEach((char, index) => {
+              const wrap = document.createElement("span");
+              wrap.className = "split-mask";
+              const inner = document.createElement("span");
+              inner.className = "char";
+              inner.style.setProperty("--i", index);
+              inner.setAttribute("aria-hidden", "true");
+              inner.textContent = char === " " ? "\u00a0" : char;
+              wrap.appendChild(inner);
+              el.appendChild(wrap);
+            });
+            el.dataset.splitReady = "true";
+          });
+        }
+
+        splitText();
+
+        let lenis = null;
+        if (!prefersReduced && window.Lenis) {
+          lenis = new Lenis({
+            lerp: 0.1,
+            smoothWheel: true,
+            touchMultiplier: 1.2,
+            syncTouch: true
+          });
+          window.lenis = lenis;
+          function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+          }
+          requestAnimationFrame(raf);
+        }
+
+        if (window.gsap && window.ScrollTrigger) {
+          gsap.registerPlugin(ScrollTrigger);
+          if (lenis) {
+            lenis.on("scroll", ScrollTrigger.update);
+            gsap.ticker.add((time) => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0);
+          }
+
+          ScrollTrigger.create({
+            start: 0,
+            end: "max",
+            onUpdate: (self) => {
+              root.style.setProperty("--scroll-p", `${Math.round(self.progress * 100)}%`);
+            }
+          });
+
+          const mm = gsap.matchMedia();
+          mm.add("(min-width: 861px)", () => {
+            const cleanups = [];
+            document.querySelectorAll(".horizontal-section").forEach((section) => {
+              const sticky = section.querySelector(".horizontal-sticky");
+              const track = section.querySelector(".horizontal-track");
+              if (!sticky || !track) return;
+
+              const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth);
+              gsap.set(track, { x: 0 });
+              const tween = gsap.to(track, {
+                x: () => -getDistance(),
+                ease: "none",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top top",
+                  end: () => `+=${getDistance()}`,
+                  pin: sticky,
+                  pinSpacing: true,
+                  anticipatePin: 1,
+                  scrub: 1,
+                  invalidateOnRefresh: true
+                }
+              });
+              cleanups.push(() => {
+                tween.scrollTrigger?.kill();
+                tween.kill();
+              });
+
+              section.querySelectorAll(".h-panel-media").forEach((media) => {
+                const panel = media.closest(".h-panel");
+                const mediaTween = gsap.fromTo(
+                  media,
+                  { x: "-4rem" },
+                  {
+                    x: "4rem",
+                    ease: "none",
+                    scrollTrigger: {
+                      trigger: panel,
+                      containerAnimation: tween,
+                      start: "left right",
+                      end: "right left",
+                      scrub: true
+                    }
+                  }
+                );
+                cleanups.push(() => {
+                  mediaTween.scrollTrigger?.kill();
+                  mediaTween.kill();
+                });
+              });
+            });
+
+            return () => cleanups.forEach((cleanup) => cleanup());
+          });
+
+          document.querySelectorAll("[data-theme-section]").forEach((section) => {
+            ScrollTrigger.create({
+              trigger: section,
+              start: "top center",
+              end: "bottom center",
+              onEnter: () => body.setAttribute("data-theme", section.dataset.themeSection),
+              onEnterBack: () => body.setAttribute("data-theme", section.dataset.themeSection)
+            });
+          });
+
+          document.querySelectorAll("[data-count]").forEach((el) => {
+            const target = Number(el.dataset.count || 0);
+            ScrollTrigger.create({
+              trigger: el,
+              start: "top 88%",
+              once: true,
+              onEnter: () => {
+                gsap.to(
+                  { value: 0 },
+                  {
+                    value: target,
+                    duration: 1.1,
+                    ease: "power2.out",
+                    onUpdate() {
+                      el.textContent = String(Math.round(this.targets()[0].value)).padStart(2, "0");
+                    }
+                  }
+                );
+              }
+            });
+          });
+
+          ScrollTrigger.create({
+            trigger: ".marquee",
+            start: "top bottom",
+            end: "bottom top",
+            onUpdate: (self) => {
+              document.querySelectorAll(".marquee").forEach((marquee) => {
+                marquee.classList.toggle("reverse", self.direction < 0);
+              });
+            }
+          });
+        }
+
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+
+        document.querySelectorAll(".reveal, .wipe, [data-split]").forEach((el) => revealObserver.observe(el));
+
+        const menuButton = document.querySelector(".menu-toggle");
+        const menuOverlay = document.querySelector(".menu-overlay");
+        function setMenu(open) {
+          body.classList.toggle("menu-open", open);
+          menuButton?.setAttribute("aria-expanded", String(open));
+          menuButton?.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+          menuOverlay?.setAttribute("aria-hidden", String(!open));
+          if (lenis) open ? lenis.stop() : lenis.start();
+        }
+        menuButton?.addEventListener("click", () => setMenu(!body.classList.contains("menu-open")));
+        document.querySelectorAll(".menu-link").forEach((link) => {
+          link.addEventListener("mouseenter", () => {
+            document.querySelectorAll(".menu-card").forEach((card) => card.classList.remove("is-active"));
+            document.querySelector(`[data-menu-image="${link.dataset.preview}"]`)?.classList.add("is-active");
+          });
+          link.addEventListener("click", () => setMenu(false));
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") setMenu(false);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach((link) => {
+          link.addEventListener("click", (event) => {
+            const hash = link.getAttribute("href");
+            if (!hash || hash === "#") return;
+            const target = document.querySelector(hash);
+            if (!target) return;
+
+            event.preventDefault();
+            if (body.classList.contains("menu-open")) setMenu(false);
+
+            window.requestAnimationFrame(() => {
+              if (lenis) {
+                lenis.scrollTo(target, { duration: 1.05, offset: 0 });
+              } else {
+                window.scrollTo({
+                  top: target.getBoundingClientRect().top + window.scrollY,
+                  behavior: "smooth"
+                });
+              }
+            });
+          });
+        });
+
+        document.querySelectorAll(".magnetic").forEach((button) => {
+          button.addEventListener("pointermove", (event) => {
+            const rect = button.getBoundingClientRect();
+            const x = (event.clientX - rect.left - rect.width / 2) * 0.16;
+            const y = (event.clientY - rect.top - rect.height / 2) * 0.16;
+            button.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          });
+          button.addEventListener("pointerleave", () => {
+            button.style.transform = "";
+          });
+        });
+
+        const form = document.querySelector("#proposal-form");
+        form?.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const status = form.querySelector(".form-status");
+          const data = new FormData(form);
+          const missing = ["name", "specialty", "contact"].filter((key) => !String(data.get(key) || "").trim());
+          if (missing.length) {
+            status.textContent = "Preencha nome, área e contato para solicitar o diagnóstico.";
+            status.style.color = "#d2ff00";
+            return;
+          }
+          const button = form.querySelector("button[type='submit']");
+          button.disabled = true;
+          status.textContent = "Preparando seu pedido de diagnóstico...";
+          window.setTimeout(() => {
+            status.textContent = "Pedido registrado. A Krio entrará em contato para alinhar os próximos passos.";
+            button.disabled = false;
+            form.reset();
+          }, 850);
+        });
+
+        window.addEventListener("resize", () => {
+          window.ScrollTrigger?.refresh();
+        });
+      })();
+    </script>
+    <script type="module">
+      import * as THREE from "three";
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const canvas = document.getElementById("krio-gl");
+
+      if (!prefersReduced && canvas) {
+        const renderer = new THREE.WebGLRenderer({
+          canvas,
+          alpha: true,
+          antialias: true,
+          preserveDrawingBuffer: true,
+          powerPreference: "high-performance"
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 20);
+        camera.position.z = 8;
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const colors = {
+          ink: new THREE.Color("#111112"),
+          lime: new THREE.Color("#d2ff00"),
+          green: new THREE.Color("#282c20"),
+          paper: new THREE.Color("#f4f4ed")
+        };
+
+        const wash = new THREE.Mesh(
+          new THREE.PlaneGeometry(4, 2.4),
+          new THREE.MeshBasicMaterial({
+            color: colors.lime,
+            transparent: true,
+            opacity: 0.018,
+            depthWrite: false
+          })
+        );
+        wash.position.z = -1.2;
+        scene.add(wash);
+
+        function resize() {
+          const width = window.innerWidth;
+          const height = window.innerHeight;
+          renderer.setSize(width, height, false);
+          const aspect = width / height;
+          camera.left = -aspect;
+          camera.right = aspect;
+          camera.top = 1;
+          camera.bottom = -1;
+          camera.updateProjectionMatrix();
+        }
+
+        function contour(index, radius, color, opacity) {
+          const points = [];
+          const count = 160;
+          for (let i = 0; i <= count; i += 1) {
+            const a = (i / count) * Math.PI * 2;
+            const wobble = 1 + Math.sin(a * (2 + index * 0.23)) * 0.13 + Math.cos(a * (3.4 + index * 0.11)) * 0.08;
+            points.push(new THREE.Vector3(Math.cos(a) * radius * wobble, Math.sin(a) * radius * wobble, 0));
+          }
+          const geo = new THREE.BufferGeometry().setFromPoints(points);
+          const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity });
+          const line = new THREE.Line(geo, mat);
+          line.position.set((Math.random() - 0.5) * 3, (Math.random() - 0.5) * 1.8, -index * 0.02);
+          line.rotation.z = Math.random() * Math.PI;
+          line.scale.setScalar(0.55 + Math.random() * 1.2);
+          line.userData = {
+            speed: 0.00009 + Math.random() * 0.00016,
+            drift: Math.random() * Math.PI * 2
+          };
+          group.add(line);
+        }
+
+        for (let i = 0; i < 18; i += 1) {
+          contour(i, 0.24 + Math.random() * 0.42, i % 4 === 0 ? colors.lime : colors.green, i % 4 === 0 ? 0.16 : 0.09);
+        }
+
+        const pointGeo = new THREE.BufferGeometry();
+        const pointCount = 170;
+        const positions = new Float32Array(pointCount * 3);
+        for (let i = 0; i < pointCount; i += 1) {
+          positions[i * 3] = (Math.random() - 0.5) * 3.8;
+          positions[i * 3 + 1] = (Math.random() - 0.5) * 2.2;
+          positions[i * 3 + 2] = (Math.random() - 0.5) * 0.4;
+        }
+        pointGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+        const points = new THREE.Points(
+          pointGeo,
+          new THREE.PointsMaterial({
+            color: colors.lime,
+            size: 0.008,
+            transparent: true,
+            opacity: 0.28
+          })
+        );
+        scene.add(points);
+
+        const plates = new THREE.Group();
+        scene.add(plates);
+        for (let i = 0; i < 5; i += 1) {
+          const geo = new THREE.PlaneGeometry(0.34 + Math.random() * 0.28, 0.18 + Math.random() * 0.22);
+          const mat = new THREE.MeshBasicMaterial({
+            color: i % 2 ? colors.ink : colors.lime,
+            transparent: true,
+            opacity: i % 2 ? 0.055 : 0.11,
+            side: THREE.DoubleSide
+          });
+          const mesh = new THREE.Mesh(geo, mat);
+          mesh.position.set(0.55 + Math.random() * 0.9, -0.4 + Math.random() * 1.35, -0.4 - i * 0.03);
+          mesh.rotation.z = -0.12 + Math.random() * 0.24;
+          mesh.userData = { speed: 0.00018 + Math.random() * 0.00012 };
+          plates.add(mesh);
+        }
+
+        let mouseX = 0;
+        let mouseY = 0;
+        window.addEventListener("pointermove", (event) => {
+          mouseX = (event.clientX / window.innerWidth - 0.5) * 2;
+          mouseY = (event.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        function animate(time) {
+          const scroll = window.scrollY || document.documentElement.scrollTop || 0;
+          group.children.forEach((line, i) => {
+            line.rotation.z += line.userData.speed * (i % 2 ? 1 : -1) * time * 0.003;
+            line.position.y += Math.sin(time * line.userData.speed + line.userData.drift) * 0.00045;
+          });
+          plates.children.forEach((plate, i) => {
+            plate.rotation.z += Math.sin(time * plate.userData.speed + i) * 0.0009;
+            plate.position.y += Math.cos(time * 0.0004 + i) * 0.00045;
+          });
+          group.position.x = mouseX * 0.035;
+          group.position.y = -mouseY * 0.025 + Math.sin(scroll * 0.001) * 0.035;
+          points.rotation.z = scroll * 0.00006;
+          renderer.render(scene, camera);
+        }
+
+        resize();
+        window.addEventListener("resize", resize);
+        renderer.setAnimationLoop(animate);
+      }
+    </script>
+  </body>
+</html>
