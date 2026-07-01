@@ -2671,6 +2671,22 @@
       const canvas = document.getElementById("krio-gl");
 
       if (!prefersReduced && !compactViewport && !saveData && canvas) {
+        await new Promise((resolve) => {
+          const schedule = () => {
+            if ("requestIdleCallback" in window) {
+              window.requestIdleCallback(resolve, { timeout: 2200 });
+            } else {
+              window.setTimeout(resolve, 1200);
+            }
+          };
+
+          if (document.readyState === "complete") {
+            schedule();
+          } else {
+            window.addEventListener("load", schedule, { once: true });
+          }
+        });
+
         const THREE = await import("three");
         const renderer = new THREE.WebGLRenderer({
           canvas,
