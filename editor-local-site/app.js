@@ -12,6 +12,8 @@
     future: [],
     moving: null,
     lastImageDataUrl: "",
+    clipboardHtml: "",
+    safeMode: true,
     saveTimer: 0
   };
 
@@ -29,6 +31,7 @@
     undoBtn: qs("#undoBtn"),
     redoBtn: qs("#redoBtn"),
     saveSnapshotBtn: qs("#saveSnapshotBtn"),
+    safeModeToggle: qs("#safeModeToggle"),
     documentName: qs("#documentName"),
     statusText: qs("#statusText"),
     selectedTag: qs("#selectedTag"),
@@ -40,6 +43,9 @@
     imageDrop: qs("#imageDrop"),
     bgImageBtn: qs("#bgImageBtn"),
     hiddenBgInput: qs("#hiddenBgInput"),
+    bgSizeSelect: qs("#bgSizeSelect"),
+    bgPositionSelect: qs("#bgPositionSelect"),
+    clearBgBtn: qs("#clearBgBtn"),
     componentGrid: qs("#componentGrid"),
     animationPreset: qs("#animationPreset"),
     applyAnimationBtn: qs("#applyAnimationBtn"),
@@ -48,13 +54,40 @@
     applyCodeBtn: qs("#applyCodeBtn"),
     previewShell: qs("#previewShell"),
     editTextBtn: qs("#editTextBtn"),
+    copyBtn: qs("#copyBtn"),
+    pasteBtn: qs("#pasteBtn"),
+    cutBtn: qs("#cutBtn"),
     duplicateBtn: qs("#duplicateBtn"),
     deleteBtn: qs("#deleteBtn"),
     makeFlexBtn: qs("#makeFlexBtn"),
     makeGridBtn: qs("#makeGridBtn"),
     wrapBtn: qs("#wrapBtn"),
     resetMoveBtn: qs("#resetMoveBtn"),
-    stageWrap: qs("#stageWrap")
+    applyTransformBtn: qs("#applyTransformBtn"),
+    resetTransformBtn: qs("#resetTransformBtn"),
+    stageWrap: qs("#stageWrap"),
+    widthValue: qs("#widthValue"),
+    widthUnit: qs("#widthUnit"),
+    heightValue: qs("#heightValue"),
+    heightUnit: qs("#heightUnit"),
+    fontSizeValue: qs("#fontSizeValue"),
+    fontSizeUnit: qs("#fontSizeUnit"),
+    radiusValue: qs("#radiusValue"),
+    radiusUnit: qs("#radiusUnit"),
+    paddingTopValue: qs("#paddingTopValue"),
+    paddingRightValue: qs("#paddingRightValue"),
+    paddingBottomValue: qs("#paddingBottomValue"),
+    paddingLeftValue: qs("#paddingLeftValue"),
+    marginTopValue: qs("#marginTopValue"),
+    marginRightValue: qs("#marginRightValue"),
+    marginBottomValue: qs("#marginBottomValue"),
+    marginLeftValue: qs("#marginLeftValue"),
+    moveXInput: qs("#moveXInput"),
+    moveYInput: qs("#moveYInput"),
+    rotateInput: qs("#rotateInput"),
+    scaleInput: qs("#scaleInput"),
+    skewXInput: qs("#skewXInput"),
+    skewYInput: qs("#skewYInput")
   };
 
   state.iframe = els.iframe;
@@ -165,6 +198,33 @@
       }
     })();
   `;
+
+  const unitControls = [
+    { prop: "width", valueEl: els.widthValue, unitEl: els.widthUnit, fallbackUnit: "px" },
+    { prop: "minHeight", valueEl: els.heightValue, unitEl: els.heightUnit, fallbackUnit: "px" },
+    { prop: "fontSize", valueEl: els.fontSizeValue, unitEl: els.fontSizeUnit, fallbackUnit: "px" },
+    { prop: "borderRadius", valueEl: els.radiusValue, unitEl: els.radiusUnit, fallbackUnit: "px" }
+  ];
+
+  const boxControls = [
+    { prop: "paddingTop", input: els.paddingTopValue },
+    { prop: "paddingRight", input: els.paddingRightValue },
+    { prop: "paddingBottom", input: els.paddingBottomValue },
+    { prop: "paddingLeft", input: els.paddingLeftValue },
+    { prop: "marginTop", input: els.marginTopValue },
+    { prop: "marginRight", input: els.marginRightValue },
+    { prop: "marginBottom", input: els.marginBottomValue },
+    { prop: "marginLeft", input: els.marginLeftValue }
+  ];
+
+  const transformInputs = {
+    x: els.moveXInput,
+    y: els.moveYInput,
+    rotate: els.rotateInput,
+    scale: els.scaleInput,
+    skewX: els.skewXInput,
+    skewY: els.skewYInput
+  };
 
   function setStatus(text) {
     els.statusText.textContent = text;
@@ -349,8 +409,80 @@
     });
   }
 
+  function prepareHtmlForPreview(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(String(html || ""), "text/html");
+    if (!doc.documentElement) return String(html || "");
+    if (state.safeMode) {
+      neutralizeImportedScripts(doc);
+    } else {
+      restoreOriginalScripts(doc.documentElement);
+    }
+    return `<!doctype html>\n${doc.documentElement.outerHTML}`;
+  }
+
+  function neutralizeImportedScripts(root) {
+    qsa("script", root).forEach((script) => {
+      if (script.hasAttribute("data-ve-effects-script") || script.hasAttribute("data-ve-custom-js")) return;
+      if (script.hasAttribute("data-ve-original-script")) return;
+      script.setAttribute("data-ve-original-script", "");
+      if (script.hasAttribute("src")) {
+        script.setAttribute("data-ve-original-src", script.getAttribute("src"));
+        script.removeAttribute("src");
+      }
+      if (script.hasAttribute("type")) {
+        script.setAttribute("data-ve-original-type", script.getAttribute("type"));
+      }
+      script.setAttribute("type", "text/plain");
+    });
+  }
+
+  function restoreOriginalScripts(root) {
+    qsa("script[data-ve-original-script]", root).forEach((script) => {
+      const originalSrc = script.getAttribute("data-ve-original-src");
+      const originalType = script.getAttribute("data-ve-original-type");
+      if (originalSrc) {
+        script.setAttribute("src", originalSrc);
+      } else {
+        script.removeAttribute("src");
+      }
+      if (originalType) {
+        script.setAttribute("type", originalType);
+      } else {
+        script.removeAttribute("type");
+      }
+      script.removeAttribute("data-ve-original-script");
+      script.removeAttribute("data-ve-original-src");
+      script.removeAttribute("data-ve-original-type");
+    });
+  }
+
+  function getScrollState() {
+    const frameWindow = state.iframe?.contentWindow;
+    return {
+      frameX: frameWindow?.scrollX || 0,
+      frameY: frameWindow?.scrollY || 0,
+      stageX: els.stageWrap.scrollLeft || 0,
+      stageY: els.stageWrap.scrollTop || 0,
+      selectedId: state.selected?.dataset.veId || ""
+    };
+  }
+
+  function restoreScrollState(scrollState) {
+    if (!scrollState) return;
+    window.requestAnimationFrame(() => {
+      els.stageWrap.scrollTo(scrollState.stageX || 0, scrollState.stageY || 0);
+      state.iframe.contentWindow?.scrollTo(scrollState.frameX || 0, scrollState.frameY || 0);
+      window.requestAnimationFrame(() => {
+        els.stageWrap.scrollTo(scrollState.stageX || 0, scrollState.stageY || 0);
+        state.iframe.contentWindow?.scrollTo(scrollState.frameX || 0, scrollState.frameY || 0);
+      });
+    });
+  }
+
   function setDocument(html, name = "site-editado.html", options = {}) {
     const remember = options.remember !== false;
+    const previewHtml = prepareHtmlForPreview(html);
     state.currentName = name;
     els.documentName.textContent = name;
     els.empty.classList.add("is-hidden");
@@ -360,12 +492,18 @@
       state.doc = state.iframe.contentDocument;
       state.selected = null;
       prepareDocument();
+      if (options.restoreScroll?.selectedId) {
+        const selected = state.doc.querySelector(`[data-ve-id="${CSS.escape(options.restoreScroll.selectedId)}"]`);
+        if (selected && canSelect(selected)) state.selected = selected;
+      }
+      if (state.selected) state.selected.setAttribute("data-ve-selected", "");
       if (remember) pushHistory(true);
       refreshPanels();
       updatePreviewScale();
-      setStatus("Preview carregado. Clique em qualquer elemento para editar.");
+      restoreScrollState(options.restoreScroll);
+      setStatus(options.statusText || "Preview carregado. Clique em qualquer elemento para editar.");
     };
-    state.iframe.srcdoc = html;
+    state.iframe.srcdoc = previewHtml;
   }
 
   function prepareDocument() {
@@ -413,14 +551,24 @@
     doc.addEventListener("dragover", (event) => event.preventDefault());
     doc.addEventListener("drop", onFrameDrop, true);
     doc.addEventListener("input", scheduleHistory, true);
+    doc.addEventListener("keydown", handleShortcut, true);
   }
 
   function assignIds() {
     if (!state.doc) return;
+    const used = new Set();
     let index = 1;
+    qsa("body *[data-ve-id]", state.doc).forEach((el) => {
+      const id = el.dataset.veId;
+      used.add(id);
+      const match = String(id || "").match(/^ve-(\d+)$/);
+      if (match) index = Math.max(index, Number(match[1]) + 1);
+    });
     qsa("body *", state.doc).forEach((el) => {
       if (!el.dataset.veId) {
+        while (used.has(`ve-${index}`)) index += 1;
         el.dataset.veId = `ve-${index}`;
+        used.add(el.dataset.veId);
         index += 1;
       }
     });
@@ -483,10 +631,12 @@
     const nextY = state.moving.currentY + dy;
     cancelAnimationFrame(state.moving.frame);
     state.moving.frame = requestAnimationFrame(() => {
-      state.moving.el.dataset.veMoveX = String(Math.round(nextX));
-      state.moving.el.dataset.veMoveY = String(Math.round(nextY));
-      state.moving.el.style.transform = `translate3d(${Math.round(nextX)}px, ${Math.round(nextY)}px, 0)`;
+      setTransformValues(state.moving.el, {
+        x: Math.round(nextX),
+        y: Math.round(nextY)
+      });
       state.moving.el.style.willChange = "transform";
+      updateTransformInputs();
     });
   }
 
@@ -622,6 +772,9 @@
         input.value = value;
       }
     });
+    updateNumericInputs();
+    updateTransformInputs();
+    updateBackgroundInputs();
   }
 
   function toHexColor(value) {
@@ -641,6 +794,143 @@
     } else {
       state.selected.style[prop] = value;
     }
+    scheduleHistory();
+  }
+
+  function parseCssNumeric(value, fallbackUnit = "px") {
+    const raw = String(value || "").trim();
+    if (!raw) return { number: "", unit: fallbackUnit };
+    if (raw === "auto") return { number: "", unit: "auto" };
+    const match = raw.match(/^(-?\d*\.?\d+)([a-z%]+)?$/i);
+    if (!match) return { number: "", unit: fallbackUnit };
+    return { number: match[1], unit: match[2] || fallbackUnit };
+  }
+
+  function setSelectValue(select, value) {
+    if (!select) return;
+    const exists = [...select.options].some((option) => option.value === value);
+    select.value = exists ? value : select.options[0]?.value || "";
+  }
+
+  function updateNumericInputs() {
+    const el = state.selected;
+    unitControls.forEach((control) => {
+      if (!control.valueEl || !control.unitEl) return;
+      if (!el) {
+        control.valueEl.value = "";
+        setSelectValue(control.unitEl, control.fallbackUnit);
+        return;
+      }
+      const value = el.style[control.prop] || getComputedStyle(el)[control.prop] || "";
+      const parsed = parseCssNumeric(value, control.fallbackUnit);
+      control.valueEl.value = parsed.number;
+      setSelectValue(control.unitEl, parsed.unit);
+    });
+
+    boxControls.forEach((control) => {
+      if (!control.input) return;
+      if (!el) {
+        control.input.value = "";
+        return;
+      }
+      const value = el.style[control.prop] || getComputedStyle(el)[control.prop] || "";
+      control.input.value = parseCssNumeric(value, "px").number;
+    });
+  }
+
+  function applyUnitControl(control) {
+    if (!state.selected || !control.valueEl || !control.unitEl) return;
+    const unit = control.unitEl.value;
+    const value = control.valueEl.value;
+    if (unit === "auto") {
+      state.selected.style[control.prop] = "auto";
+    } else if (value === "") {
+      state.selected.style[control.prop] = "";
+    } else {
+      state.selected.style[control.prop] = `${value}${unit}`;
+    }
+    scheduleHistory();
+  }
+
+  function applyBoxControl(control) {
+    if (!state.selected || !control.input) return;
+    state.selected.style[control.prop] = control.input.value === "" ? "" : `${control.input.value}px`;
+    scheduleHistory();
+  }
+
+  function numericValue(input, fallback) {
+    const value = Number(input?.value);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function readTransformValues(el) {
+    return {
+      x: Number(el?.dataset.veMoveX || 0),
+      y: Number(el?.dataset.veMoveY || 0),
+      rotate: Number(el?.dataset.veRotate || 0),
+      scale: Number(el?.dataset.veScale || 1),
+      skewX: Number(el?.dataset.veSkewX || 0),
+      skewY: Number(el?.dataset.veSkewY || 0)
+    };
+  }
+
+  function writeTransformData(el, values) {
+    const defaults = { x: 0, y: 0, rotate: 0, scale: 1, skewX: 0, skewY: 0 };
+    const names = {
+      x: "veMoveX",
+      y: "veMoveY",
+      rotate: "veRotate",
+      scale: "veScale",
+      skewX: "veSkewX",
+      skewY: "veSkewY"
+    };
+    Object.entries(names).forEach(([key, dataName]) => {
+      const value = Number(values[key]);
+      if (!Number.isFinite(value) || value === defaults[key]) {
+        delete el.dataset[dataName];
+      } else {
+        el.dataset[dataName] = String(value);
+      }
+    });
+  }
+
+  function applyTransformStyle(el) {
+    const values = readTransformValues(el);
+    const parts = [];
+    if (values.x || values.y) parts.push(`translate3d(${values.x}px, ${values.y}px, 0)`);
+    if (values.rotate) parts.push(`rotate(${values.rotate}deg)`);
+    if (values.scale !== 1) parts.push(`scale(${values.scale})`);
+    if (values.skewX || values.skewY) parts.push(`skew(${values.skewX}deg, ${values.skewY}deg)`);
+    el.style.transform = parts.join(" ");
+  }
+
+  function setTransformValues(el, values) {
+    if (!el) return;
+    const next = { ...readTransformValues(el), ...values };
+    writeTransformData(el, next);
+    applyTransformStyle(el);
+  }
+
+  function updateTransformInputs() {
+    const values = state.selected ? readTransformValues(state.selected) : { x: "", y: "", rotate: "", scale: "", skewX: "", skewY: "" };
+    if (transformInputs.x) transformInputs.x.value = values.x;
+    if (transformInputs.y) transformInputs.y.value = values.y;
+    if (transformInputs.rotate) transformInputs.rotate.value = values.rotate;
+    if (transformInputs.scale) transformInputs.scale.value = values.scale;
+    if (transformInputs.skewX) transformInputs.skewX.value = values.skewX;
+    if (transformInputs.skewY) transformInputs.skewY.value = values.skewY;
+  }
+
+  function applyTransformFromInputs() {
+    if (!state.selected) return;
+    setTransformValues(state.selected, {
+      x: numericValue(transformInputs.x, 0),
+      y: numericValue(transformInputs.y, 0),
+      rotate: numericValue(transformInputs.rotate, 0),
+      scale: numericValue(transformInputs.scale, 1),
+      skewX: numericValue(transformInputs.skewX, 0),
+      skewY: numericValue(transformInputs.skewY, 0)
+    });
     scheduleHistory();
   }
 
@@ -739,7 +1029,11 @@
   }
 
   function restoreHistory(html) {
-    setDocument(html, state.currentName, { remember: false });
+    setDocument(html, state.currentName, {
+      remember: false,
+      restoreScroll: getScrollState(),
+      statusText: "Historico restaurado sem mover o preview para o topo."
+    });
   }
 
   function undo() {
@@ -768,6 +1062,7 @@
     if (!keepEditor) {
       qsa("[data-ve-id]", clone).forEach((el) => el.removeAttribute("data-ve-id"));
       qsa("style[data-ve-editor-style]", clone).forEach((el) => el.remove());
+      restoreOriginalScripts(clone);
     }
     if (!qsa("style[data-ve-custom-css]", clone).length && els.customCss.value.trim()) {
       const style = clone.ownerDocument.createElement("style");
@@ -838,23 +1133,71 @@
     setDocument(rewritten, htmlFile.name);
   }
 
+  function backgroundTarget() {
+    if (!state.doc) return null;
+    if (!state.selected) return state.doc.body;
+    if (state.selected.tagName.toLowerCase() === "img") return state.selected.parentElement || state.selected;
+    return state.selected;
+  }
+
+  function updateBackgroundInputs() {
+    const target = backgroundTarget();
+    if (!target) return;
+    if (els.bgSizeSelect) {
+      const size = target.style.backgroundSize || "cover";
+      setSelectValue(els.bgSizeSelect, size);
+    }
+    if (els.bgPositionSelect) {
+      const position = target.style.backgroundPosition || "center";
+      setSelectValue(els.bgPositionSelect, position);
+    }
+  }
+
+  function applyBackgroundOptions() {
+    const target = backgroundTarget();
+    if (!target) return;
+    target.style.backgroundSize = els.bgSizeSelect.value || "cover";
+    target.style.backgroundPosition = els.bgPositionSelect.value || "center";
+    target.style.backgroundRepeat = "no-repeat";
+    scheduleHistory();
+  }
+
+  function clearBackground() {
+    const target = backgroundTarget();
+    if (!target) return;
+    target.style.backgroundImage = "";
+    target.style.backgroundSize = "";
+    target.style.backgroundPosition = "";
+    target.style.backgroundRepeat = "";
+    pushHistory();
+    setStatus("Fundo removido do elemento selecionado.");
+  }
+
   async function applyImageFile(file, asBackground = false) {
     if (!file || !state.doc) return;
     const dataUrl = await readFileAsDataUrl(file);
     state.lastImageDataUrl = dataUrl;
     const selected = state.selected;
-    if (asBackground && selected) {
-      selected.style.backgroundImage = `url("${dataUrl}")`;
-      selected.style.backgroundSize = "cover";
-      selected.style.backgroundPosition = "center";
-      selected.style.backgroundRepeat = "no-repeat";
+    if (asBackground) {
+      const target = backgroundTarget();
+      if (!target) return;
+      target.style.backgroundImage = `url("${dataUrl}")`;
+      target.style.backgroundSize = els.bgSizeSelect.value || "cover";
+      target.style.backgroundPosition = els.bgPositionSelect.value || "center";
+      target.style.backgroundRepeat = "no-repeat";
+      if (target !== state.doc.body && !target.style.minHeight && target.getBoundingClientRect().height < 80) {
+        target.style.minHeight = "240px";
+      }
+      selectElement(target);
       pushHistory();
+      setStatus("Imagem aplicada como fundo do elemento selecionado.");
       return;
     }
     if (selected && selected.tagName.toLowerCase() === "img") {
       selected.src = dataUrl;
       selected.alt = safeText(file.name, "Imagem");
       pushHistory();
+      setStatus("Imagem substituida no elemento selecionado.");
       return;
     }
     const img = await createComponent("image");
@@ -863,6 +1206,7 @@
     insertIntoTarget(selected || state.doc.body, img);
     selectElement(img);
     pushHistory();
+    setStatus("Imagem inserida. Use Transformar para ajustar tamanho, posicao, escala ou rotacao.");
   }
 
   function applyAnimation() {
@@ -897,9 +1241,117 @@
     if (!state.selected) return;
     delete state.selected.dataset.veMoveX;
     delete state.selected.dataset.veMoveY;
+    delete state.selected.dataset.veRotate;
+    delete state.selected.dataset.veScale;
+    delete state.selected.dataset.veSkewX;
+    delete state.selected.dataset.veSkewY;
     state.selected.style.transform = "";
     state.selected.style.willChange = "";
+    updateTransformInputs();
     pushHistory();
+  }
+
+  function cleanEditorAttributes(root) {
+    root.removeAttribute("data-ve-id");
+    root.removeAttribute("data-ve-selected");
+    root.removeAttribute("data-ve-hover");
+    root.removeAttribute("contenteditable");
+    qsa("[data-ve-selected], [data-ve-hover]", root).forEach((el) => {
+      el.removeAttribute("data-ve-selected");
+      el.removeAttribute("data-ve-hover");
+    });
+    qsa("[data-ve-id]", root).forEach((el) => el.removeAttribute("data-ve-id"));
+    qsa("[contenteditable]", root).forEach((el) => el.removeAttribute("contenteditable"));
+  }
+
+  function copySelected() {
+    if (!state.selected) return;
+    const clone = state.selected.cloneNode(true);
+    clone.removeAttribute("data-ve-selected");
+    clone.removeAttribute("data-ve-hover");
+    clone.removeAttribute("contenteditable");
+    cleanEditorAttributes(clone);
+    state.clipboardHtml = clone.outerHTML;
+    navigator.clipboard?.writeText(state.clipboardHtml).catch(() => {});
+    setStatus("Elemento copiado. Use Ctrl+V ou Colar para inserir.");
+  }
+
+  function cutSelected() {
+    if (!state.selected) return;
+    copySelected();
+    const parent = state.selected.parentElement;
+    state.selected.remove();
+    state.selected = null;
+    if (canSelect(parent)) selectElement(parent);
+    refreshPanels();
+    pushHistory();
+    setStatus("Elemento cortado.");
+  }
+
+  async function pasteElement() {
+    if (!state.doc) return;
+    let html = state.clipboardHtml;
+    if (!html && navigator.clipboard?.readText) {
+      html = await navigator.clipboard.readText().catch(() => "");
+    }
+    if (!html.trim()) return;
+    const template = state.doc.createElement("template");
+    template.innerHTML = html.trim();
+    const node = [...template.content.childNodes].find((item) => item.nodeType === 1);
+    if (!node) return;
+    const pasted = node.cloneNode(true);
+    if (state.selected && !isContainerLike(state.selected)) {
+      state.selected.after(pasted);
+    } else {
+      (state.selected || state.doc.body).appendChild(pasted);
+    }
+    assignIds();
+    selectElement(pasted);
+    pushHistory();
+    setStatus("Elemento colado no documento.");
+  }
+
+  function isTypingTarget(target) {
+    if (!target || target === document.body) return false;
+    const tag = target.tagName?.toLowerCase();
+    return target.isContentEditable || ["input", "textarea", "select"].includes(tag);
+  }
+
+  function handleShortcut(event) {
+    const key = event.key.toLowerCase();
+    const isCtrl = event.ctrlKey || event.metaKey;
+    if (!isCtrl || isTypingTarget(event.target)) return;
+    if (key === "z") {
+      event.preventDefault();
+      if (event.shiftKey) redo();
+      else undo();
+    } else if (key === "y") {
+      event.preventDefault();
+      redo();
+    } else if (key === "c") {
+      event.preventDefault();
+      copySelected();
+    } else if (key === "x") {
+      event.preventDefault();
+      cutSelected();
+    } else if (key === "v") {
+      event.preventDefault();
+      pasteElement();
+    } else if (key === "d") {
+      event.preventDefault();
+      duplicateSelected();
+    }
+  }
+
+  function duplicateSelected() {
+    if (!state.selected) return;
+    const clone = state.selected.cloneNode(true);
+    cleanEditorAttributes(clone);
+    state.selected.after(clone);
+    assignIds();
+    selectElement(clone);
+    pushHistory();
+    setStatus("Elemento duplicado.");
   }
 
   function initEvents() {
@@ -913,6 +1365,17 @@
     els.exportBtn.addEventListener("click", downloadHtml);
     els.undoBtn.addEventListener("click", undo);
     els.redoBtn.addEventListener("click", redo);
+    els.safeModeToggle.addEventListener("change", () => {
+      state.safeMode = els.safeModeToggle.checked;
+      if (!state.doc) return;
+      setDocument(serializeDocument({ keepEditor: true }), state.currentName, {
+        remember: false,
+        restoreScroll: getScrollState(),
+        statusText: state.safeMode
+          ? "Modo seguro ativo: scripts importados ficam bloqueados no preview."
+          : "Modo seguro desligado: scripts importados podem rodar no preview."
+      });
+    });
     els.saveSnapshotBtn.addEventListener("click", () => {
       pushHistory(true);
       setStatus("Estado salvo no historico local.");
@@ -922,6 +1385,24 @@
       input.addEventListener("input", () => applyStyle(input.dataset.style, input.value));
       input.addEventListener("change", () => applyStyle(input.dataset.style, input.value));
     });
+
+    unitControls.forEach((control) => {
+      control.valueEl?.addEventListener("input", () => applyUnitControl(control));
+      control.valueEl?.addEventListener("change", () => applyUnitControl(control));
+      control.unitEl?.addEventListener("change", () => applyUnitControl(control));
+    });
+
+    boxControls.forEach((control) => {
+      control.input?.addEventListener("input", () => applyBoxControl(control));
+      control.input?.addEventListener("change", () => applyBoxControl(control));
+    });
+
+    Object.values(transformInputs).forEach((input) => {
+      input?.addEventListener("input", applyTransformFromInputs);
+      input?.addEventListener("change", applyTransformFromInputs);
+    });
+    els.applyTransformBtn.addEventListener("click", applyTransformFromInputs);
+    els.resetTransformBtn.addEventListener("click", resetMove);
 
     els.componentGrid.addEventListener("click", async (event) => {
       const btn = event.target.closest("[data-component]");
@@ -942,6 +1423,9 @@
     els.imageInput.addEventListener("change", (event) => applyImageFile(event.target.files[0]));
     els.hiddenBgInput.addEventListener("change", (event) => applyImageFile(event.target.files[0], true));
     els.bgImageBtn.addEventListener("click", () => els.hiddenBgInput.click());
+    els.bgSizeSelect.addEventListener("change", applyBackgroundOptions);
+    els.bgPositionSelect.addEventListener("change", applyBackgroundOptions);
+    els.clearBgBtn.addEventListener("click", clearBackground);
 
     ["dragenter", "dragover"].forEach((type) => {
       els.imageDrop.addEventListener(type, (event) => {
@@ -964,14 +1448,11 @@
       setStatus("Edicao de texto ativa. Clique fora ou exporte quando terminar.");
     });
     els.duplicateBtn.addEventListener("click", () => {
-      if (!state.selected) return;
-      const clone = state.selected.cloneNode(true);
-      clone.removeAttribute("data-ve-selected");
-      state.selected.after(clone);
-      assignIds();
-      selectElement(clone);
-      pushHistory();
+      duplicateSelected();
     });
+    els.copyBtn.addEventListener("click", copySelected);
+    els.cutBtn.addEventListener("click", cutSelected);
+    els.pasteBtn.addEventListener("click", pasteElement);
     els.deleteBtn.addEventListener("click", () => {
       if (!state.selected) return;
       const next = state.selected.parentElement;
@@ -1015,9 +1496,11 @@
     });
 
     window.addEventListener("resize", updatePreviewScale);
+    window.addEventListener("keydown", handleShortcut, true);
   }
 
   initEvents();
+  els.safeModeToggle.checked = state.safeMode;
   els.stageWrap.dataset.viewport = "desktop";
   updatePreviewScale();
   els.iframe.classList.add("is-hidden");
