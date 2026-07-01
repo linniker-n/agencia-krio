@@ -2820,7 +2820,7 @@
           line.rotation.z = Math.random() * Math.PI;
           line.scale.setScalar(0.55 + Math.random() * 1.2);
           line.userData = {
-            speed: 0.000025 + Math.random() * 0.000045,
+            speed: 0.000012 + Math.random() * 0.000018,
             drift: Math.random() * Math.PI * 2
           };
           group.add(line);
@@ -2863,7 +2863,7 @@
           const mesh = new THREE.Mesh(geo, mat);
           mesh.position.set(0.55 + Math.random() * 0.9, -0.4 + Math.random() * 1.35, -0.4 - i * 0.03);
           mesh.rotation.z = -0.12 + Math.random() * 0.24;
-          mesh.userData = { speed: 0.000045 + Math.random() * 0.000035 };
+          mesh.userData = { speed: 0.000018 + Math.random() * 0.000014 };
           plates.add(mesh);
         }
 
@@ -2877,16 +2877,16 @@
         function animate(time) {
           const scroll = window.scrollY || document.documentElement.scrollTop || 0;
           group.children.forEach((line, i) => {
-            line.rotation.z += line.userData.speed * (i % 2 ? 1 : -1) * time * 0.0009;
-            line.position.y += Math.sin(time * line.userData.speed + line.userData.drift) * 0.00045;
+            line.rotation.z += line.userData.speed * (i % 2 ? 1 : -1) * time * 0.00045;
+            line.position.y += Math.sin(time * line.userData.speed + line.userData.drift) * 0.0002;
           });
           plates.children.forEach((plate, i) => {
-            plate.rotation.z += Math.sin(time * plate.userData.speed + i) * 0.0009;
-            plate.position.y += Math.cos(time * 0.0004 + i) * 0.00045;
+            plate.rotation.z += Math.sin(time * plate.userData.speed + i) * 0.00045;
+            plate.position.y += Math.cos(time * 0.0002 + i) * 0.0002;
           });
           group.position.x = mouseX * 0.022;
-          group.position.y = -mouseY * 0.016 + Math.sin(scroll * 0.00045) * 0.022;
-          points.rotation.z = scroll * 0.000025;
+          group.position.y = -mouseY * 0.016 + Math.sin(scroll * 0.00025) * 0.014;
+          points.rotation.z = scroll * 0.000014;
           renderer.render(scene, camera);
         }
 
