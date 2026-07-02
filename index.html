@@ -3,27 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agência Krio | Estratégia, Conteúdo e Tráfego Pago para Marcas Crescerem</title>
+    <title>Agência Krio | Conteúdo, Design e Anúncios para Empresas</title>
     <meta
       name="description"
-      content="Agência de marketing para marcas e negócios que querem crescer com estratégia: posicionamento, conteúdo, design e mídia paga integrados em um só time. Diagnóstico gratuito."
+      content="A Krio organiza oferta, calendário editorial, design e anúncios para empresas que precisam vender melhor sem montar um time interno. Peça um diagnóstico."
     />
     <link rel="canonical" href="https://agencia-krio.pages.dev/" />
     <meta name="theme-color" content="#f4f4ed" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:title" content="Krio — Sua marca não precisa gritar mais alto. Precisa ser vista pelas pessoas certas." />
+    <meta property="og:title" content="Krio — plano, conteúdo e anúncios trabalhando no mesmo calendário." />
     <meta
       property="og:description"
-      content="Estratégia, criação, conteúdo e performance para marcas que precisam de presença digital consistente e demanda qualificada, não só &quot;postagens&quot;."
+      content="Planejamento, produção, design e tráfego pago para empresas que precisam publicar melhor, medir o que funciona e vender com menos improviso."
     />
     <meta property="og:url" content="https://agencia-krio.pages.dev/" />
     <meta property="og:image" content="https://agencia-krio.pages.dev/assets/krio-hero-1280.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Agência Krio | Marketing estratégico para marcas em crescimento" />
+    <meta name="twitter:title" content="Agência Krio | Conteúdo e anúncios para empresas" />
     <meta
       name="twitter:description"
-      content="Posicionamento, conteúdo e mídia paga trabalhando juntos — não em silos. Peça um diagnóstico gratuito."
+      content="Oferta, calendário, peças e mídia paga no mesmo plano. Peça um diagnóstico."
     />
     <meta name="twitter:image" content="https://agencia-krio.pages.dev/assets/krio-hero-1280.webp" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -90,9 +90,18 @@
         background: var(--paper);
         color: var(--ink);
         overflow-x: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
         scroll-padding-top: calc(var(--nav-h) + 2.25rem);
         scroll-behavior: smooth;
         text-rendering: geometricPrecision;
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
       }
 
       body {
@@ -1643,6 +1652,7 @@
       }
 
       .scroll-progress {
+        display: none;
         position: fixed;
         left: 1rem;
         bottom: 1rem;
@@ -2179,6 +2189,46 @@
           filter: none;
         }
       }
+
+      h1,
+      h2,
+      h3,
+      .section-title,
+      .hero-statement,
+      .lead-copy,
+      .h-panel h3,
+      .service-row h3,
+      .process-step h3,
+      .proposal-card h3,
+      .menu-link,
+      .footer-logo,
+      .brand-lockup,
+      .brand-lockup span,
+      .btn,
+      .hero-badge strong,
+      .pain-item b,
+      .marquee-track span {
+        letter-spacing: 0 !important;
+      }
+
+      .brand-lockup,
+      .brand-lockup span {
+        line-height: 1.12 !important;
+      }
+
+      .footer-logo {
+        line-height: 1.22 !important;
+      }
+
+      .section-title,
+      .hero-statement,
+      .h-panel.wide .section-title,
+      .h-panel h3,
+      .service-row h3,
+      .process-step h3,
+      .proposal-card h3 {
+        line-height: 1.14 !important;
+      }
     </style>
   </head>
   <body data-theme="light">
@@ -2256,15 +2306,15 @@
       <section class="hero" data-theme-section="light" data-config-background="hero" data-config-block="hero">
         <div class="container hero-grid">
           <div class="hero-copy-block">
-            <span class="eyebrow reveal">Marketing estratégico, sem enrolação</span>
+            <span class="eyebrow reveal">Marketing sem improviso</span>
             <h1 data-split>Krio</h1>
-            <p class="hero-statement reveal">Sua marca não tem um problema de estética. Tem um problema de estratégia.</p>
+            <p class="hero-statement reveal">Antes de trocar o visual, arrume a direção.</p>
             <p class="hero-copy reveal">
-              Unimos posicionamento, conteúdo, design e mídia paga em uma única operação — para que sua marca pare de ser "bonitinha" e comece a ser lembrada, procurada e escolhida.
+              A Krio organiza oferta, calendário, peças e anúncios para que sua empresa saiba o que publicar, onde investir e como medir o retorno.
             </p>
             <div class="hero-actions reveal">
               <a class="btn magnetic" href="#diagnostico">
-                Quero um diagnóstico gratuito →
+                Pedir diagnóstico
                 <span class="btn-icon" aria-hidden="true">
                   <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
                     <path d="M5 13L13 5M7 5h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
@@ -2272,7 +2322,7 @@
                 </span>
               </a>
               <a class="btn secondary magnetic" href="#servicos">
-                Ver serviços
+                Ver o que fazemos
                 <span class="btn-icon" aria-hidden="true">
                   <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
                     <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
@@ -2300,13 +2350,13 @@
                   height="1047"
                   fetchpriority="high"
                   decoding="async"
-                  alt="Composição editorial da Krio com painéis de conteúdo, estratégia e métricas em verde brat, preto e off-white."
+                  alt="Composição editorial da Krio com painéis de conteúdo, campanhas e métricas em verde brat, preto e off-white."
                 />
               </picture>
             </div>
             <div class="hero-badge">
-              <small>Foco</small>
-              <strong>presença, demanda, receita</strong>
+              <small>Base</small>
+              <strong>oferta, calendário, anúncios</strong>
             </div>
           </div>
         </div>
@@ -2315,18 +2365,18 @@
       <section id="autoridade" class="section compact" data-theme-section="light" data-config-background="autoridade" data-config-block="autoridade">
         <div class="container intro-grid">
           <div>
-            <span class="eyebrow reveal">Foco: presença, demanda, receita</span>
-            <h2 class="section-title reveal">Ser visto não é o suficiente. Você precisa ser escolhido.</h2>
+            <span class="eyebrow reveal">Plano, canal, venda</span>
+            <h2 class="section-title reveal">Aparecer muito não resolve quando a mensagem sai solta.</h2>
           </div>
           <div>
             <p class="lead-copy reveal">
-              Para marcas, empresas e projetos que precisam aparecer com clareza, consistência e intenção comercial — não só com volume.
+              Para empresas que já vendem, mas ainda comunicam no improviso: post isolado, anúncio sem leitura e site que não explica bem a oferta.
             </p>
             <p class="body-copy reveal">
-              Ter uma boa oferta não basta se a comunicação não constrói percepção, confiança e desejo. A Krio organiza toda a sua presença digital para que cada post, anúncio e página trabalhe puxando na mesma direção: crescimento.
+              A Krio transforma oferta, calendário e campanha em uma rotina única. Cada post, página e anúncio passa a cumprir uma tarefa: explicar, provar, convidar ou vender.
             </p>
             <p class="body-copy reveal">
-              Atuamos como uma extensão estratégica do seu negócio — posicionamento, conteúdo, design, mídia e análise, tudo conectado, tudo puxando a marca para virar demanda real.
+              Entramos como apoio do seu time comercial e de marketing. Organizamos narrativa, conteúdo visual, mídia paga e relatório para decisões menos no palpite.
             </p>
           </div>
         </div>
@@ -2334,30 +2384,30 @@
           <article class="pain-item reveal">
             <b>Falta de direção</b>
             <p class="pain-quote">"A gente posta, mas não sabe se está funcionando."</p>
-            <p>Organizamos prioridades, canais e mensagens para a comunicação parar de depender de improviso.</p>
+            <p>Definimos prioridades, canais e mensagens para a comunicação parar de depender do improviso.</p>
           </article>
           <article class="pain-item reveal">
-            <b>Conteúdo sem estratégia</b>
-            <p class="pain-quote">"O conteúdo é bonito, mas não vende."</p>
-            <p>Criamos conteúdo com função clara: explicar valor, construir confiança e atrair o público certo — não só engajamento.</p>
+            <b>Conteúdo sem função</b>
+            <p class="pain-quote">"O post fica bonito, mas não leva ninguém para o próximo passo."</p>
+            <p>Cada peça passa a ter uma tarefa: explicar, provar, convidar ou vender.</p>
           </article>
           <article class="pain-item reveal">
-            <b>Demanda inconsistente</b>
-            <p class="pain-quote">"Um mês vem cliente, no outro, silêncio."</p>
-            <p>Conectamos presença orgânica e mídia paga para criar um fluxo de oportunidades mais previsível.</p>
+            <b>Agenda irregular</b>
+            <p class="pain-quote">"Quando para de anunciar, para de chegar gente."</p>
+            <p>Ligamos conteúdo, campanha e leitura semanal para reduzir picos e buracos no mês.</p>
           </article>
           <article class="pain-item reveal">
-            <b>Posicionamento difuso</b>
-            <p class="pain-quote">"Ninguém entende exatamente o que a marca faz de diferente."</p>
-            <p>Ajustamos narrativa, visual e oferta para a marca ser reconhecida pelo que ela realmente entrega.</p>
+            <b>Oferta confusa</b>
+            <p class="pain-quote">"A pessoa entende o post, mas não entende por que comprar de você."</p>
+            <p>Ajustamos narrativa, visual e oferta para deixar evidente o que muda para o cliente.</p>
           </article>
         </div>
       </section>
 
       <div class="marquee" aria-hidden="true">
         <div class="marquee-track">
-          <span>Estratégia</span><span>Criação</span><span>Performance</span><span>Posicionamento</span>
-          <span>Estratégia</span><span>Criação</span><span>Performance</span><span>Posicionamento</span>
+          <span>Planejamento</span><span>Produção</span><span>Anúncios</span><span>Métrica</span>
+          <span>Planejamento</span><span>Produção</span><span>Anúncios</span><span>Métrica</span>
         </div>
       </div>
 
@@ -2366,32 +2416,32 @@
           <div class="horizontal-track">
             <article class="h-panel wide" data-config-block="pillarIntro">
               <span class="eyebrow">Nossos pilares</span>
-              <h2 class="section-title">Três frentes. Um só resultado.</h2>
+              <h2 class="section-title">Um plano. Três rotinas.</h2>
               <p>
-                Um time enxuto e multidisciplinar, operando como extensão do seu marketing, vendas e marca — sem os custos e a lentidão de contratar uma estrutura interna.
+                Equipe enxuta para cobrir o trabalho que normalmente fica espalhado entre marketing, vendas e design, sem montar uma operação interna do zero.
               </p>
             </article>
             <article class="h-panel" data-config-block="pillar1">
               <div class="num">01</div>
-              <h3>Estratégia <span class="serif">comercial</span></h3>
+              <h3>Plano <span class="serif">comercial</span></h3>
               <p>
-                Sua visão vira plano de ação: posicionamento, prioridades comerciais e um roteiro claro para transformar objetivo em execução.
+                Transformamos meta, oferta e público em prioridades de comunicação para o mês.
               </p>
               <div class="h-panel-media" data-config-media="pillar1"></div>
             </article>
             <article class="h-panel" data-config-block="pillar2">
               <div class="num">02</div>
-              <h3>Criação <span class="serif">e design</span></h3>
+              <h3>Conteúdo <span class="serif">e design</span></h3>
               <p>
-                Do conceito visual às peças de campanha — cada entrega parece parte da mesma marca, não um mosaico de fornecedores diferentes.
+                Do conceito às peças de campanha: cada entrega segue a mesma linha visual e a mesma mensagem.
               </p>
               <div class="h-panel-media" data-config-media="pillar2"></div>
             </article>
             <article class="h-panel" data-config-block="pillar3">
               <div class="num">03</div>
-              <h3>Mídia <span class="serif">e copy</span></h3>
+              <h3>Anúncios <span class="serif">e texto</span></h3>
               <p>
-                Mídia, copy e análise colocando a mensagem certa na frente do público certo — com aprendizado contínuo, não achismo.
+                Campanhas, páginas e textos levam a mesma oferta aos canais certos, com revisão semanal.
               </p>
               <div class="h-panel-media" data-config-media="pillar3"></div>
             </article>
@@ -2402,46 +2452,46 @@
       <section id="servicos" class="section" data-theme-section="light" data-config-background="servicos" data-config-block="servicos">
         <div class="container services-layout">
           <div class="sticky-heading">
-            <span class="eyebrow reveal">O caminho para crescer</span>
-            <h2 class="section-title reveal">Marca, conteúdo e aquisição — sem depender de três fornecedores que não se falam.</h2>
+            <span class="eyebrow reveal">Como trabalhamos</span>
+            <h2 class="section-title reveal">Conteúdo, anúncios e marca no mesmo calendário.</h2>
             <p class="body-copy reveal">
-              Soluções para negócios que precisam alinhar presença, comunicação e geração de demanda sem perder o foco na operação do dia a dia.
+              Para empresas que precisam publicar, vender e acompanhar resultado sem lidar com três fornecedores desconectados.
             </p>
           </div>
           <div class="service-list">
             <article class="service-row reveal" data-config-block="service1">
               <div class="number">1</div>
               <div>
-                <h3>Presença digital e conteúdo</h3>
+                <h3>Conteúdo para canais digitais</h3>
                 <p>
-                  Uma rotina editorial de verdade — sua marca aparecendo com consistência, clareza e relevância nos canais certos, todo mês.
+                  Montamos uma rotina editorial com temas, formatos e peças para cada canal.
                 </p>
                 <div class="deliverables">
-                  Você recebe: calendário editorial, produção de conteúdo, direção visual, otimização de canais e relatório mensal de performance.
+                  Você recebe: calendário editorial, roteiros, peças, direção visual, ajustes de canal e relatório mensal.
                 </div>
               </div>
             </article>
             <article class="service-row reveal" data-config-block="service2">
               <div class="number">2</div>
               <div>
-                <h3>Mídia paga e aquisição</h3>
+                <h3>Anúncios e captação</h3>
                 <p>
-                  Campanhas segmentadas para gerar demanda qualificada, testar mensagens e ampliar o alcance da sua oferta — com orçamento otimizado, não só "impulsionado".
+                  Campanhas para testar argumentos, alcançar compradores prováveis e colocar orçamento onde há sinal de retorno.
                 </p>
                 <div class="deliverables">
-                  Você recebe: planejamento de campanhas, criativos, copy, configuração, monitoramento e leitura de performance.
+                  Você recebe: planejamento de campanhas, criativos, textos, configuração, acompanhamento e leitura de resultado.
                 </div>
               </div>
             </article>
             <article class="service-row reveal" data-config-block="service3">
               <div class="number">3</div>
               <div>
-                <h3>Estratégia de marca e posicionamento</h3>
+                <h3>Posicionamento e oferta</h3>
                 <p>
-                  Direção estratégica para ajustar narrativa, diferenciais, ofertas e comunicação antes de escalar a presença — porque escalar o que não está claro só amplia a confusão.
+                  Revisamos narrativa, diferenciais e páginas antes de ampliar investimento, para não comprar tráfego para uma mensagem confusa.
                 </p>
                 <div class="deliverables">
-                  Você recebe: diagnóstico de posicionamento, plano de mensagens, direcionamento criativo e rituais de acompanhamento.
+                  Você recebe: diagnóstico de oferta, mapa de mensagens, direção criativa e rituais de acompanhamento.
                 </div>
               </div>
             </article>
@@ -2450,15 +2500,15 @@
         <div class="container stats-band reveal">
           <div class="stat">
             <strong data-count="6">06</strong>
-            <span>etapas claras — do primeiro contato ao relatório mensal</span>
+            <span>etapas: do primeiro contato ao relatório mensal</span>
           </div>
           <div class="stat">
             <strong data-count="3">03</strong>
-            <span>frentes de operação — conteúdo, marca e aquisição</span>
+            <span>rotinas: conteúdo, marca e anúncios</span>
           </div>
           <div class="stat">
             <strong data-count="1">01</strong>
-            <span>parceiro dedicado a tornar sua marca impossível de ignorar</span>
+            <span>time cuidando do plano e da execução</span>
           </div>
         </div>
       </section>
@@ -2466,54 +2516,54 @@
       <section id="processo" class="section process-section" data-theme-section="dark" data-config-background="processo" data-config-block="processo">
         <div class="container process-head">
           <div>
-            <span class="eyebrow reveal">Transparência e eficiência</span>
-            <h2 class="section-title reveal">Sem caixa-preta. Você aprova cada etapa.</h2>
+            <span class="eyebrow reveal">Acompanhamento sem caixa-preta</span>
+            <h2 class="section-title reveal">Você sabe o que está sendo feito e aprova antes de ir ao ar.</h2>
           </div>
           <p class="body-copy reveal">
-            Do primeiro contato à entrega mensal, você acompanha, aprova e entende exatamente o que está sendo feito — e por quê.
+            Do primeiro contato ao relatório mensal, mostramos decisões, peças e próximos ajustes antes da execução.
           </p>
         </div>
         <div class="container process-stack">
           <article class="process-step" data-config-block="process1">
             <div class="step-num">01</div>
             <div>
-              <h3>Diagnóstico gratuito</h3>
-              <p>Entendemos o momento da marca, analisamos a presença atual e identificamos as melhores oportunidades de crescimento.</p>
+              <h3>Diagnóstico</h3>
+              <p>Mapeamos oferta, canais atuais, público, histórico de anúncios e gargalos de comunicação.</p>
             </div>
           </article>
           <article class="process-step" data-config-block="process2">
             <div class="step-num">02</div>
             <div>
-              <h3>Kick-off e onboarding</h3>
-              <p>Alinhamos expectativas, coletamos os insumos e mergulhamos nos objetivos para construir uma estratégia sólida.</p>
+              <h3>Onboarding</h3>
+              <p>Reunimos acessos, referências, metas comerciais e regras da operação antes de produzir.</p>
             </div>
           </article>
           <article class="process-step" data-config-block="process3">
             <div class="step-num">03</div>
             <div>
-              <h3>Planejamento mensal</h3>
-              <p>Desenvolvemos o plano de conteúdo, campanhas e prioridades — sempre com aprovação antes da execução.</p>
+              <h3>Plano mensal</h3>
+              <p>Definimos temas, campanhas e prioridades do mês, com aprovação antes da execução.</p>
             </div>
           </article>
           <article class="process-step" data-config-block="process4">
             <div class="step-num">04</div>
             <div>
-              <h3>Criação e aprovação</h3>
-              <p>Produzimos as peças e você valida a direção antes de qualquer publicação ou campanha ir ao ar.</p>
+              <h3>Produção e revisão</h3>
+              <p>Criamos as peças e você valida texto, visual e chamada antes da publicação.</p>
             </div>
           </article>
           <article class="process-step" data-config-block="process5">
             <div class="step-num">05</div>
             <div>
-              <h3>Execução contínua</h3>
-              <p>Programamos, publicamos e otimizamos campanhas e conteúdo, monitorando métricas diariamente.</p>
+              <h3>Publicação e ajustes</h3>
+              <p>Publicamos, acompanhamos sinais de resposta e ajustamos campanha e conteúdo durante o mês.</p>
             </div>
           </article>
           <article class="process-step" data-config-block="process6">
             <div class="step-num">06</div>
             <div>
-              <h3>Resultados e próximos passos</h3>
-              <p>Apresentamos resultados, aprendizados e ajustes para que o mês seguinte comece mais inteligente que o anterior.</p>
+              <h3>Relatório e próximos ajustes</h3>
+              <p>Fechamos o ciclo com números, leitura do que funcionou e mudanças para o mês seguinte.</p>
             </div>
           </article>
         </div>
@@ -2522,18 +2572,18 @@
       <section id="diagnostico" class="section cta-section" data-theme-section="light" data-config-background="diagnostico" data-config-block="diagnostico">
         <div class="container cta-grid">
           <div>
-            <span class="eyebrow reveal">Invista na sua marca</span>
-            <h2 class="section-title reveal">Pare de parecer menor do que você é.</h2>
+            <span class="eyebrow reveal">Próximo passo</span>
+            <h2 class="section-title reveal">Se a comunicação parece menor que a entrega, corrija o plano.</h2>
             <p class="lead-copy reveal">
-              Sua marca merece presença, consistência e demanda condizentes com a qualidade do que você entrega. Vamos desenhar isso juntos.
+              Mostre melhor o que sua empresa faz, para quem vende e por que alguém deveria escolher você.
             </p>
             <p class="body-copy reveal">
-              Cada projeto é construído a partir do momento da empresa, dos canais disponíveis e da meta comercial — não de um pacote fechado. Preencha os campos abaixo e receba uma proposta personalizada.
+              O projeto começa pelo momento da empresa, canais disponíveis e meta comercial. Preencha os campos e receba uma proposta com escopo, prioridade e sequência de trabalho.
             </p>
           </div>
           <div class="proposal-shell reveal">
             <form class="proposal-card" id="proposal-form" novalidate>
-              <h3>Solicitar proposta personalizada</h3>
+              <h3>Pedir proposta</h3>
               <div class="field-grid">
                 <div class="field">
                   <label for="name">Nome</label>
@@ -2556,12 +2606,12 @@
                 </div>
                 <div class="field">
                   <label for="goal">Qual o principal objetivo agora?</label>
-                  <textarea id="goal" name="goal" placeholder="Ex: mais leads, mais reconhecimento, organizar a presença"></textarea>
+                  <textarea id="goal" name="goal" placeholder="Ex: gerar leads, reposicionar oferta, organizar calendário"></textarea>
                 </div>
               </div>
               <div class="submit-row">
                 <button class="btn magnetic" type="submit">
-                  Quero minha análise gratuita
+                  Quero receber uma proposta
                   <span class="btn-icon" aria-hidden="true">
                     <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
                       <path d="M5 13L13 5M7 5h6v6" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
@@ -2577,24 +2627,24 @@
 
       <section class="section social-section" data-theme-section="light" data-config-background="social" data-config-block="social">
         <div class="container" style="text-align: center">
-          <span class="eyebrow reveal" style="margin-inline: auto">Sua marca em movimento</span>
-          <h2 class="section-title reveal">Do feed ao relatório: tudo com a cara da mesma marca.</h2>
+          <span class="eyebrow reveal" style="margin-inline: auto">Rotina de publicação</span>
+          <h2 class="section-title reveal">Do post ao relatório, tudo aponta para a mesma oferta.</h2>
         </div>
         <div class="container social-fan reveal" aria-hidden="true">
           <div class="social-card" style="--rot: -18deg; --shift: 3.5rem; left: 10%" data-config-media="social1" data-config-block="social1">
-            <strong>Instagram</strong><span>conteúdo e comunidade</span>
+            <strong>Instagram</strong><span>publicação e relacionamento</span>
           </div>
           <div class="social-card" style="--rot: -7deg; --shift: 0rem; left: 28%" data-config-media="social2" data-config-block="social2">
-            <strong>Reels</strong><span>roteiro, edição e ritmo</span>
+            <strong>Reels</strong><span>roteiro e edição</span>
           </div>
           <div class="social-card" style="--rot: 0deg; --shift: -1rem; left: 43%; z-index: 2" data-config-media="social3" data-config-block="social3">
-            <strong>Presença</strong><span>posicionamento público</span>
+            <strong>Site</strong><span>oferta explicada</span>
           </div>
           <div class="social-card" style="--rot: 8deg; --shift: 0.4rem; left: 57%" data-config-media="social4" data-config-block="social4">
-            <strong>Ads</strong><span>demanda e conversão</span>
+            <strong>Anúncios</strong><span>tráfego e teste</span>
           </div>
           <div class="social-card" style="--rot: 18deg; --shift: 3.2rem; left: 72%" data-config-media="social5" data-config-block="social5">
-            <strong>Relatórios</strong><span>decisão com clareza</span>
+            <strong>Relatórios</strong><span>métrica para decisão</span>
           </div>
         </div>
       </section>
@@ -2604,7 +2654,7 @@
       <div class="container footer-grid">
         <div>
           <p class="footer-logo" data-logo="footer">Krio</p>
-          <p class="footer-tagline">Krio — marketing estratégico para marcas que querem ser lembradas.</p>
+          <p class="footer-tagline">Krio — marketing prático para empresas que precisam vender melhor.</p>
         </div>
         <nav class="footer-links" aria-label="Links de rodapé">
           <a href="#autoridade">Marca</a>
@@ -2618,7 +2668,7 @@
         </nav>
       </div>
       <div class="container footer-bottom">
-        <span>Agência Krio — sua marca em movimento.</span>
+        <span>Agência Krio — plano, conteúdo e anúncios.</span>
         <span>www.agenciakrio.com — em breve</span>
       </div>
     </footer>
@@ -3104,15 +3154,15 @@
           const data = new FormData(form);
           const missing = ["name", "specialty", "contact"].filter((key) => !String(data.get(key) || "").trim());
           if (missing.length) {
-            status.textContent = "Preencha nome, área de atuação e e-mail ou WhatsApp para solicitar a análise.";
+            status.textContent = "Preencha nome, área de atuação e e-mail ou WhatsApp para pedir a proposta.";
             status.style.color = "#d2ff00";
             return;
           }
           const button = form.querySelector("button[type='submit']");
           button.disabled = true;
-          status.textContent = "Preparando seu pedido de análise gratuita...";
+          status.textContent = "Preparando seu pedido de proposta...";
           window.setTimeout(() => {
-            status.textContent = "Pedido registrado. A Krio entrará em contato para alinhar os próximos passos.";
+            status.textContent = "Pedido registrado. A Krio entrará em contato com os próximos passos.";
             button.disabled = false;
             form.reset();
           }, 850);
