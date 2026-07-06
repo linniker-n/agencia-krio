@@ -39,7 +39,7 @@ window.KRIO_SITE_CONFIG = {
       webp: "assets/krio-hero-640.webp 640w, assets/krio-hero-960.webp 960w, assets/krio-hero-1280.webp 1280w",
       src: "assets/krio-hero.png",
       sizes: "(max-width: 860px) 92vw, 44vw",
-      alt: "Composição editorial da Krio com painéis de conteúdo, campanhas e métricas.",
+      alt: "Composição editorial da Agência Krio com painéis de gestão de social media, identidade visual e métricas de campanhas.",
       position: "57% center",
       fit: "cover"
     },
