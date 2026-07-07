@@ -10,17 +10,19 @@
 
 window.KRIO_SITE_CONFIG = {
   logo: {
-    // Para aplicar um logo em imagem no menu, preloader e rodapé:
-    // image: "assets/logo-krio.svg",
+    // O menu já usa o logo oficial da Krio (SVG embutido no index.html).
+    // Para trocar por outra imagem: image: "assets/krio-logo.svg"
+    // (versão para fundo escuro: "assets/krio-logo-negativo.svg").
     image: "",
     alt: "Agência Krio",
 
-    // Usado quando image está vazio.
-    navText: ["Agência", "Krio"],
+    // Usado quando image está vazio. Deixe [] para manter o logo oficial;
+    // preencha (ex.: ["Agência", "Krio"]) para voltar ao texto.
+    navText: [],
     footerText: "Krio",
 
     // Opcional: use uma versão reduzida para o círculo central.
-    // markImage: "assets/logo-simbolo.svg",
+    // markImage: "assets/krio-icon.svg",
     markImage: "",
     markText: "",
 
