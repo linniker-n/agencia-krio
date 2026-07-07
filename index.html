@@ -209,61 +209,6 @@
         min-width: 0;
       }
 
-      /* ---------- Preloader: contador 0–100 + cortina ---------- */
-      .preloader {
-        position: fixed;
-        inset: 0;
-        z-index: 90;
-        display: grid;
-        align-content: space-between;
-        padding: clamp(1.2rem, 3vw, 2.4rem);
-        background: var(--ink);
-        color: var(--paper);
-      }
-
-      .preloader.is-done {
-        pointer-events: none;
-      }
-
-      .preloader-top {
-        display: flex;
-        justify-content: space-between;
-        text-transform: uppercase;
-        font-size: 0.72rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        color: var(--paper-3);
-      }
-
-      .preloader-count {
-        font-family: var(--font-display);
-        font-size: clamp(5rem, 18vw, 16rem);
-        line-height: 0.8;
-        letter-spacing: -0.03em;
-        color: var(--lime);
-        font-variant-numeric: tabular-nums;
-      }
-
-      .preloader-brand {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 1rem;
-      }
-
-      .preloader-brand strong {
-        font-family: var(--font-display);
-        font-size: clamp(3rem, 9vw, 8rem);
-        line-height: 0.85;
-        letter-spacing: -0.03em;
-        text-transform: uppercase;
-      }
-
-      .preloader-brand strong .char {
-        display: inline-block;
-        transform: translateY(110%);
-      }
-
       /* ---------- Transição de página (cortina com curva SVG) ---------- */
       .page-transition {
         position: fixed;
@@ -2358,7 +2303,6 @@
         opacity: var(--config-media-pattern-opacity, 0.22);
       }
 
-      html:not(.js) .preloader,
       html:not(.js) .page-transition,
       html:not(.js) .cursor,
       html:not(.js) .cursor-label {
@@ -2378,8 +2322,7 @@
         .reveal,
         .js .reveal,
         .hero h1 .char,
-        .hero h1 .hero-logo path,
-        .preloader-brand strong .char {
+        .hero h1 .hero-logo path {
           opacity: 1 !important;
           transform: none !important;
         }
@@ -2399,17 +2342,6 @@
   </head>
   <body data-theme="light">
     <a class="skip-link" href="#topo">Ir para o conteúdo</a>
-
-    <div class="preloader" aria-hidden="true">
-      <div class="preloader-top">
-        <span>Agência Krio</span>
-        <span>Marketing e social media</span>
-      </div>
-      <div class="preloader-count" data-pre-count>000</div>
-      <div class="preloader-brand">
-        <strong data-pre-brand>Krio</strong>
-      </div>
-    </div>
 
     <div class="page-transition" aria-hidden="true">
       <svg viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -3087,9 +3019,7 @@
         Object.entries(siteConfig.blocks || {}).forEach(([key, block]) => applyBlock(key, block));
 
         /* ---------- Fallback estatico se o GSAP nao carregar ---------- */
-        const preloader = document.querySelector(".preloader");
         function staticFallback() {
-          preloader?.remove();
           document.querySelectorAll("[data-split-lines]").forEach((el) => el.classList.add("split-ready"));
           document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
         }
@@ -3170,10 +3100,7 @@
           });
         }
 
-        /* ---------- Preloader: contador + cortina ---------- */
-        const preCount = document.querySelector("[data-pre-count]");
-        const preBrand = document.querySelector("[data-pre-brand]");
-
+        /* ---------- Intro do hero ---------- */
         function playIntro() {
           if (heroChars) {
             introTl.to(heroChars, {
@@ -3187,41 +3114,6 @@
           introTl.play();
         }
 
-        function runPreloader() {
-          if (prefersReduced || !preloader) {
-            preloader?.remove();
-            playIntro();
-            return;
-          }
-          const counter = { value: 0 };
-          const tl = gsap.timeline({
-            onComplete: () => {
-              preloader.remove();
-            }
-          });
-          if (preBrand && window.SplitText) {
-            const brandSplit = new SplitText(preBrand, { type: "chars", charsClass: "char" });
-            tl.to(brandSplit.chars, { y: 0, duration: 0.55, ease: easeOut, stagger: 0.035 }, 0);
-          }
-          tl.to(counter, {
-            value: 100,
-            duration: 0.8,
-            ease: "power2.inOut",
-            onUpdate: () => {
-              if (preCount) preCount.textContent = String(Math.round(counter.value)).padStart(3, "0");
-            }
-          }, 0);
-          tl.add(() => {
-            preloader.classList.add("is-done");
-            playIntro();
-          });
-          tl.to(preloader, {
-            yPercent: -100,
-            duration: 0.75,
-            ease: easeInOut
-          }, "-=0.1");
-        }
-
         function whenFontsReady(fn) {
           if (document.fonts?.ready) {
             document.fonts.ready.then(fn).catch(fn);
@@ -3232,7 +3124,7 @@
 
         whenFontsReady(() => {
           buildSplits();
-          runPreloader();
+          playIntro();
           ScrollTrigger.refresh();
         });
 
