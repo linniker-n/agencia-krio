@@ -826,6 +826,17 @@
         will-change: transform;
       }
 
+      .hero h1 .hero-logo {
+        display: block;
+        margin-top: 1.5rem;
+        width: min(100%, 46rem);
+        height: auto;
+      }
+
+      .hero h1 .hero-logo path {
+        will-change: transform;
+      }
+
       .hero-statement {
         margin: 1.25rem 0 0;
         max-width: 22ch;
@@ -1759,6 +1770,22 @@
         -webkit-text-stroke: 2px var(--paper);
       }
 
+      .footer-marquee-group .marquee-logo {
+        display: block;
+        height: clamp(3.4rem, 9.8vw, 10.6rem);
+        width: auto;
+        aspect-ratio: 784.95 / 165.5;
+        padding-block: clamp(0.9rem, 2vw, 2.1rem);
+        box-sizing: content-box;
+      }
+
+      .footer-marquee-group .marquee-logo.is-outline path {
+        fill: none;
+        stroke: var(--paper);
+        stroke-width: 2px;
+        vector-effect: non-scaling-stroke;
+      }
+
       .footer-grid {
         display: grid;
         grid-template-columns: 1fr 0.6fr;
@@ -2351,6 +2378,7 @@
         .reveal,
         .js .reveal,
         .hero h1 .char,
+        .hero h1 .hero-logo path,
         .preloader-brand strong .char {
           opacity: 1 !important;
           transform: none !important;
@@ -2463,7 +2491,12 @@
             <span class="eyebrow reveal">Gestão de social media e identidade visual</span>
             <h1>
               <span class="sr-only">Agência Krio: gestão de social media e identidade visual com propósito</span>
-              <span data-split-chars aria-hidden="true">Krio</span>
+              <svg class="hero-logo" data-hero-logo viewBox="0 0 784.95 165.5" aria-hidden="true" focusable="false">
+                <path fill="var(--lime)" d="M0 0V160.7H50.13V98.82H56.63L134.63 160.7H201.71L102.66 80.35V72.67L201.71 0H134.63L56.63 58.04H50.13V0Z" />
+                <path fill="currentColor" d="M206.52 0V160.7H256.89V105.77H319.49L353.78 160.7H411.11L374.17 101.22C393.12 93.54 404.15 76.27 404.15 56.37V49.17C404.15 22.07 383.53 0 346.83 0ZM256.89 37.66H333.16C347.07 37.66 352.59 43.41 352.59 51.57V54.21C352.59 63.08 347.07 67.64 333.16 67.64H256.89Z" />
+                <path fill="currentColor" d="M415.9 0V40.77H458.83V119.92H415.9V160.7H552.13V119.92H509.2V40.77H552.13V0Z" />
+                <path fill="currentColor" d="M667.9 0C608.18 0 560.45 28.3 560.45 79.15V86.35C560.45 137.19 608.18 165.5 667.9 165.5H679.89C738.18 165.5 784.95 137.19 784.95 86.35V79.15C784.95 28.3 738.18 0 679.89 0ZM667.9 43.17H677.5C712.27 43.17 733.38 55.65 733.38 79.15V86.35C733.38 109.61 712.27 122.32 677.5 122.32H667.9C633.12 122.32 612.02 109.61 612.02 86.35V79.15C612.02 55.65 633.12 43.17 667.9 43.17Z" />
+              </svg>
             </h1>
             <p class="hero-statement" data-split-lines>Seu perfil não precisa de mais posts. Precisa de direção.</p>
             <p class="hero-copy reveal">
@@ -2840,10 +2873,30 @@
       <div class="footer-marquee" aria-hidden="true" data-footer-marquee>
         <div class="footer-marquee-track" data-footer-track>
           <div class="footer-marquee-group">
-            <span>Krio</span>
-            <span class="is-outline">Krio</span>
-            <span>Krio</span>
-            <span class="is-outline">Krio</span>
+            <svg class="marquee-logo" viewBox="0 0 784.95 165.5" focusable="false">
+              <path fill="var(--lime)" d="M0 0V160.7H50.13V98.82H56.63L134.63 160.7H201.71L102.66 80.35V72.67L201.71 0H134.63L56.63 58.04H50.13V0Z" />
+              <path fill="currentColor" d="M206.52 0V160.7H256.89V105.77H319.49L353.78 160.7H411.11L374.17 101.22C393.12 93.54 404.15 76.27 404.15 56.37V49.17C404.15 22.07 383.53 0 346.83 0ZM256.89 37.66H333.16C347.07 37.66 352.59 43.41 352.59 51.57V54.21C352.59 63.08 347.07 67.64 333.16 67.64H256.89Z" />
+              <path fill="currentColor" d="M415.9 0V40.77H458.83V119.92H415.9V160.7H552.13V119.92H509.2V40.77H552.13V0Z" />
+              <path fill="currentColor" d="M667.9 0C608.18 0 560.45 28.3 560.45 79.15V86.35C560.45 137.19 608.18 165.5 667.9 165.5H679.89C738.18 165.5 784.95 137.19 784.95 86.35V79.15C784.95 28.3 738.18 0 679.89 0ZM667.9 43.17H677.5C712.27 43.17 733.38 55.65 733.38 79.15V86.35C733.38 109.61 712.27 122.32 677.5 122.32H667.9C633.12 122.32 612.02 109.61 612.02 86.35V79.15C612.02 55.65 633.12 43.17 667.9 43.17Z" />
+            </svg>
+            <svg class="marquee-logo is-outline" viewBox="0 0 784.95 165.5" focusable="false">
+              <path d="M0 0V160.7H50.13V98.82H56.63L134.63 160.7H201.71L102.66 80.35V72.67L201.71 0H134.63L56.63 58.04H50.13V0Z" />
+              <path d="M206.52 0V160.7H256.89V105.77H319.49L353.78 160.7H411.11L374.17 101.22C393.12 93.54 404.15 76.27 404.15 56.37V49.17C404.15 22.07 383.53 0 346.83 0ZM256.89 37.66H333.16C347.07 37.66 352.59 43.41 352.59 51.57V54.21C352.59 63.08 347.07 67.64 333.16 67.64H256.89Z" />
+              <path d="M415.9 0V40.77H458.83V119.92H415.9V160.7H552.13V119.92H509.2V40.77H552.13V0Z" />
+              <path d="M667.9 0C608.18 0 560.45 28.3 560.45 79.15V86.35C560.45 137.19 608.18 165.5 667.9 165.5H679.89C738.18 165.5 784.95 137.19 784.95 86.35V79.15C784.95 28.3 738.18 0 679.89 0ZM667.9 43.17H677.5C712.27 43.17 733.38 55.65 733.38 79.15V86.35C733.38 109.61 712.27 122.32 677.5 122.32H667.9C633.12 122.32 612.02 109.61 612.02 86.35V79.15C612.02 55.65 633.12 43.17 667.9 43.17Z" />
+            </svg>
+            <svg class="marquee-logo" viewBox="0 0 784.95 165.5" focusable="false">
+              <path fill="var(--lime)" d="M0 0V160.7H50.13V98.82H56.63L134.63 160.7H201.71L102.66 80.35V72.67L201.71 0H134.63L56.63 58.04H50.13V0Z" />
+              <path fill="currentColor" d="M206.52 0V160.7H256.89V105.77H319.49L353.78 160.7H411.11L374.17 101.22C393.12 93.54 404.15 76.27 404.15 56.37V49.17C404.15 22.07 383.53 0 346.83 0ZM256.89 37.66H333.16C347.07 37.66 352.59 43.41 352.59 51.57V54.21C352.59 63.08 347.07 67.64 333.16 67.64H256.89Z" />
+              <path fill="currentColor" d="M415.9 0V40.77H458.83V119.92H415.9V160.7H552.13V119.92H509.2V40.77H552.13V0Z" />
+              <path fill="currentColor" d="M667.9 0C608.18 0 560.45 28.3 560.45 79.15V86.35C560.45 137.19 608.18 165.5 667.9 165.5H679.89C738.18 165.5 784.95 137.19 784.95 86.35V79.15C784.95 28.3 738.18 0 679.89 0ZM667.9 43.17H677.5C712.27 43.17 733.38 55.65 733.38 79.15V86.35C733.38 109.61 712.27 122.32 677.5 122.32H667.9C633.12 122.32 612.02 109.61 612.02 86.35V79.15C612.02 55.65 633.12 43.17 667.9 43.17Z" />
+            </svg>
+            <svg class="marquee-logo is-outline" viewBox="0 0 784.95 165.5" focusable="false">
+              <path d="M0 0V160.7H50.13V98.82H56.63L134.63 160.7H201.71L102.66 80.35V72.67L201.71 0H134.63L56.63 58.04H50.13V0Z" />
+              <path d="M206.52 0V160.7H256.89V105.77H319.49L353.78 160.7H411.11L374.17 101.22C393.12 93.54 404.15 76.27 404.15 56.37V49.17C404.15 22.07 383.53 0 346.83 0ZM256.89 37.66H333.16C347.07 37.66 352.59 43.41 352.59 51.57V54.21C352.59 63.08 347.07 67.64 333.16 67.64H256.89Z" />
+              <path d="M415.9 0V40.77H458.83V119.92H415.9V160.7H552.13V119.92H509.2V40.77H552.13V0Z" />
+              <path d="M667.9 0C608.18 0 560.45 28.3 560.45 79.15V86.35C560.45 137.19 608.18 165.5 667.9 165.5H679.89C738.18 165.5 784.95 137.19 784.95 86.35V79.15C784.95 28.3 738.18 0 679.89 0ZM667.9 43.17H677.5C712.27 43.17 733.38 55.65 733.38 79.15V86.35C733.38 109.61 712.27 122.32 677.5 122.32H667.9C633.12 122.32 612.02 109.61 612.02 86.35V79.15C612.02 55.65 633.12 43.17 667.9 43.17Z" />
+            </svg>
           </div>
         </div>
       </div>
@@ -3080,16 +3133,15 @@
         let heroChars = null;
 
         function buildSplits() {
+          const heroLogo = document.querySelector("[data-hero-logo]");
+          if (heroLogo && window.gsap) {
+            heroChars = Array.from(heroLogo.querySelectorAll("path"));
+            if (!prefersReduced) gsap.set(heroChars, { yPercent: 115, opacity: 0 });
+          }
+
           if (!window.SplitText) {
             document.querySelectorAll("[data-split-lines]").forEach((el) => el.classList.add("split-ready"));
             return;
-          }
-
-          const heroTitle = document.querySelector("[data-split-chars]");
-          if (heroTitle) {
-            const split = new SplitText(heroTitle, { type: "chars", charsClass: "char" });
-            heroChars = split.chars;
-            gsap.set(heroChars, { yPercent: 115, opacity: 0 });
           }
 
           document.querySelectorAll("[data-split-lines]").forEach((el) => {
