@@ -285,7 +285,11 @@
 
     if (footerMark) {
       const rect = footerMark.getBoundingClientRect();
-      const progress = clamp((viewport - rect.top) / (viewport * 0.85), 0, 1);
+      // 0 quando o bloco encosta na base da janela, 1 quando ele cabe inteiro
+      // nela. Antes dividia por 85% da janela e no fim da pagina so chegava a
+      // ~0.58, deixando o wordmark cortado para sempre.
+      const span = Math.max(rect.height, 1);
+      const progress = clamp((viewport - rect.top) / span, 0, 1);
       footerMark.style.setProperty("--footer-reveal", progress.toFixed(4));
     }
 
@@ -470,6 +474,192 @@
       history.replaceState(null, "", selector);
     });
   });
+
+  /* ------------------------------------------------------------------ */
+  /* Contact mesh — trama geometrica que responde ao ponteiro            */
+  /* ------------------------------------------------------------------ */
+  const mesh = document.querySelector("[data-mesh]");
+
+  if (mesh && mesh.getContext) {
+    const ctx = mesh.getContext("2d");
+    const host = mesh.parentElement;
+    const SPACING = 78;
+    const REACH = 240;
+    const PUSH = 20;
+
+    let grid = [];
+    let width = 0;
+    let height = 0;
+    let meshFrame = 0;
+    let onScreen = false;
+    let pointerOn = false;
+    let px = -9999;
+    let py = -9999;
+    let tx = -9999;
+    let ty = -9999;
+
+    const build = () => {
+      const rect = mesh.getBoundingClientRect();
+      width = Math.max(1, Math.round(rect.width));
+      height = Math.max(1, Math.round(rect.height));
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      mesh.width = Math.round(width * dpr);
+      mesh.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const cols = Math.ceil(width / SPACING) + 3;
+      const rows = Math.ceil(height / SPACING) + 3;
+
+      grid = [];
+      for (let r = 0; r < rows; r += 1) {
+        const line = [];
+        for (let c = 0; c < cols; c += 1) {
+          // deslocamento alternado: trama triangular, nao quadriculado
+          const x = c * SPACING + (r % 2) * SPACING * 0.5 - SPACING;
+          const y = r * SPACING * 0.86 - SPACING;
+          line.push({ ox: x, oy: y, x, y });
+        }
+        grid.push(line);
+      }
+    };
+
+    const edge = (a, b) => {
+      // intensidade pela proximidade do ponteiro ao meio do segmento
+      const mx = (a.x + b.x) * 0.5;
+      const my = (a.y + b.y) * 0.5;
+      const d = Math.hypot(mx - px, my - py);
+      const k = pointerOn ? clamp(1 - d / REACH, 0, 1) : 0;
+      const heat = k * k;
+
+      ctx.strokeStyle = heat > 0.01
+        ? `rgba(207, 251, 36, ${(0.05 + heat * 0.5).toFixed(3)})`
+        : "rgba(244, 242, 234, 0.05)";
+      ctx.lineWidth = 1 + heat * 0.9;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    };
+
+    const draw = () => {
+      meshFrame = 0;
+      ctx.clearRect(0, 0, width, height);
+
+      // quanto os pontos ainda estao longe do destino: enquanto houver sobra,
+      // o loop continua, senao a trama congelaria no meio do caminho de volta
+      let drift = 0;
+
+      px += (tx - px) * 0.12;
+      py += (ty - py) * 0.12;
+
+      for (let r = 0; r < grid.length; r += 1) {
+        for (let c = 0; c < grid[r].length; c += 1) {
+          const p = grid[r][c];
+          let gx = p.ox;
+          let gy = p.oy;
+
+          if (pointerOn) {
+            const dx = p.ox - px;
+            const dy = p.oy - py;
+            const d = Math.hypot(dx, dy);
+            if (d < REACH && d > 0.01) {
+              const force = (1 - d / REACH) ** 2 * PUSH;
+              gx += (dx / d) * force;
+              gy += (dy / d) * force;
+            }
+          }
+
+          p.x += (gx - p.x) * 0.16;
+          p.y += (gy - p.y) * 0.16;
+
+          const rest = Math.abs(gx - p.x) + Math.abs(gy - p.y);
+          if (rest > drift) drift = rest;
+        }
+      }
+
+      for (let r = 0; r < grid.length; r += 1) {
+        for (let c = 0; c < grid[r].length; c += 1) {
+          const p = grid[r][c];
+          const right = grid[r][c + 1];
+          const below = grid[r + 1] && grid[r + 1][c];
+          const diag = grid[r + 1] && grid[r + 1][c + (r % 2 ? 1 : -1)];
+
+          if (right) edge(p, right);
+          if (below) edge(p, below);
+          if (diag) edge(p, diag);
+        }
+      }
+
+      // nos acesos perto do ponteiro
+      if (pointerOn) {
+        for (let r = 0; r < grid.length; r += 1) {
+          for (let c = 0; c < grid[r].length; c += 1) {
+            const p = grid[r][c];
+            const d = Math.hypot(p.x - px, p.y - py);
+            if (d > REACH * 0.62) continue;
+            const heat = clamp(1 - d / (REACH * 0.62), 0, 1) ** 2;
+            ctx.fillStyle = `rgba(207, 251, 36, ${(heat * 0.85).toFixed(3)})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 1 + heat * 2.4, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      if (onScreen && (pointerOn || drift > 0.4)) meshFrame = requestAnimationFrame(draw);
+    };
+
+    const requestDraw = () => {
+      if (!meshFrame) meshFrame = requestAnimationFrame(draw);
+    };
+
+    const movable = () => motionOn && finePointer.matches;
+
+    window.addEventListener("pointermove", (event) => {
+      if (!onScreen || !movable()) return;
+      const rect = mesh.getBoundingClientRect();
+      tx = event.clientX - rect.left;
+      ty = event.clientY - rect.top;
+      if (!pointerOn) {
+        pointerOn = true;
+        px = tx;
+        py = ty;
+      }
+      requestDraw();
+    }, { passive: true });
+
+    if (host) {
+      host.addEventListener("pointerleave", () => {
+        pointerOn = false;
+        tx = -9999;
+        ty = -9999;
+        requestDraw();
+      });
+    }
+
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        onScreen = entry.isIntersecting;
+        if (onScreen) requestDraw();
+      });
+    }, { rootMargin: "120px" }).observe(mesh);
+
+    let resizeFrame = 0;
+    const onResize = () => {
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => {
+        build();
+        requestDraw();
+      });
+    };
+
+    window.addEventListener("resize", onResize, { passive: true });
+
+    build();
+    draw(); // primeiro quadro sincrono: a trama ja nasce desenhada
+    mesh.classList.add("is-live");
+  }
 
   /* ------------------------------------------------------------------ */
   /* Respect a mid-session motion preference change                      */

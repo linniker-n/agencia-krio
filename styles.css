@@ -123,6 +123,25 @@ a {
   text-decoration: none;
 }
 
+/* grain do hero — mais denso que o do site inteiro, so sobre a imagem */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='h'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23h)'/%3E%3C/svg%3E");
+  will-change: transform;
+  animation: grain-drift 5.5s steps(5) infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grain {
+    animation: none;
+  }
+}
+
 button,
 input,
 textarea,
@@ -924,9 +943,16 @@ p {
 .intro,
 .services,
 .method,
-.manifesto,
 .contact {
   border-radius: var(--panel-radius) var(--panel-radius) 0 0;
+}
+
+/* O manifesto continua o bloco de papel aberto pelo .method: mesma familia de
+   cor, entao nao leva canto arredondado nem sombra — isso abria uma emenda
+   escura entre duas secoes creme e deixava o hero fixo aparecer pelos cantos. */
+.manifesto {
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .intro {
@@ -938,8 +964,7 @@ p {
   box-shadow: 0 -1.5rem 4rem rgba(20, 20, 21, 0.16);
 }
 
-.method,
-.manifesto {
+.method {
   box-shadow: 0 -1.5rem 4rem rgba(0, 0, 0, 0.3);
 }
 
@@ -1305,7 +1330,24 @@ p {
   animation: glow-breathe 11s var(--ease-in-out) infinite;
 }
 
+.contact-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out);
+}
+
+.contact-mesh.is-live {
+  opacity: 1;
+}
+
 .contact-inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   min-height: 100svh;
   flex-direction: column;
@@ -1368,7 +1410,7 @@ p {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: 1.1fr 0.8fr auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
   gap: 2rem;
   align-items: end;
   margin-top: clamp(4.5rem, 8vw, 8rem);
@@ -1420,7 +1462,7 @@ p {
 .footer-wordmark img {
   width: 100%;
   filter: saturate(0) brightness(3.2);
-  transform: translateY(calc(42% - var(--footer-reveal, 0) * 29%));
+  transform: translateY(calc(38% - var(--footer-reveal, 0) * 38%));
   will-change: transform;
 }
 
@@ -1441,6 +1483,12 @@ p {
    Responsive
    ========================================================================== */
 @media (max-width: 1050px) {
+  /* quatro colunas nao cabem: e-mail, whatsapp, instagram e legal em 2x2 */
+  .contact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2.25rem;
+  }
+
   :root {
     --shell: min(calc(100% - 3rem), 1416px);
   }
