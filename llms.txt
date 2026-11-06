@@ -1,14 +1,35 @@
-# Agência Krio
+# Agência KRIO
 
-> Agência de marketing full service: gestão digital, identidade visual, branding, mídias offline e produção audiovisual. Marcas fortes dentro e fora da internet.
+> Agência criativa brasileira. Estratégia, identidade e campanha — do primeiro traço à rua. A KRIO cria marcas com personalidade para ocupar a tela, o ponto de venda e a memória.
 
 ## Site
 
-- Home: https://agencia-krio.pages.dev/
-- Serviços: https://agencia-krio.pages.dev/#servicos
-- Processo: https://agencia-krio.pages.dev/#processo
-- Diagnóstico: https://agencia-krio.pages.dev/#diagnostico
+- Home: https://krioag.com.br/
+- A KRIO: https://krioag.com.br/#agencia
+- Serviços: https://krioag.com.br/#servicos
+- Método: https://krioag.com.br/#metodo
+- Contato: https://krioag.com.br/#contato
+
+## Serviços
+
+1. Estratégia de marca — organiza o que a marca é, para quem fala e por que merece atenção.
+2. Identidade visual — forma, cor e sistema para a marca ser reconhecida antes de dizer o nome.
+3. Gestão digital — conteúdo e mídia com direção, sem virar barulho de feed.
+4. Campanhas e offline — ideias que saem da tela e ganham rua, ponto de venda e impressão.
+5. Audiovisual — roteiro, captação e movimento.
+
+## Método
+
+Escuta → Direção → Criação → Presença. A conversa começa pelo que precisa mudar; depois se escolhe o caminho e se faz junto. Menos cerimônia, mais clareza.
 
 ## Contexto
 
-A Agência Krio atende marcas e empresas em cinco frentes: gestão digital (redes sociais, conteúdo e anúncios), identidade visual (logo, manual de marca e sistema de aplicação), branding (posicionamento e tom de voz), mídias offline (outdoor, impresso e ponto de venda) e audiovisual (roteiro, captação, edição e motion design). Um time único conduz o trabalho do planejamento à veiculação, com aprovação do cliente em todas as etapas.
+A KRIO atua da estratégia à veiculação com o mesmo time, cobrindo tanto o digital quanto o offline — o que a diferencia de agências restritas a redes sociais. O posicionamento é "marcas com pulso": em vez de decorar marcas, a agência procura o que faz cada uma ser impossível de ignorar.
+
+Base no sul de Minas Gerais (DDD 35), atendimento nacional.
+
+## Contato
+
+- E-mail: contato@agenciakrio.com
+- WhatsApp: (35) 99829-4592
+- Instagram: @krio.ag

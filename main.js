@@ -478,14 +478,21 @@
   /* ------------------------------------------------------------------ */
   /* Contact mesh — trama geometrica que responde ao ponteiro            */
   /* ------------------------------------------------------------------ */
-  const mesh = document.querySelector("[data-mesh]");
+  /* Cada [data-mesh] vira uma trama propria. Os data-* ajustam densidade,
+     alcance e deslocamento, para a mesma malha servir tanto ao rodape quanto
+     a fundos mais discretos, sem duplicar o codigo. */
+  document.querySelectorAll("[data-mesh]").forEach((mesh) => {
+    if (!mesh.getContext) return;
 
-  if (mesh && mesh.getContext) {
     const ctx = mesh.getContext("2d");
     const host = mesh.parentElement;
-    const SPACING = 78;
-    const REACH = 240;
-    const PUSH = 20;
+    const tune = (name, fallback) => {
+      const value = parseFloat(mesh.dataset[name]);
+      return Number.isFinite(value) ? value : fallback;
+    };
+    const SPACING = tune("meshSpacing", 78);
+    const REACH = tune("meshReach", 240);
+    const PUSH = tune("meshPush", 20);
 
     let grid = [];
     let width = 0;
@@ -650,7 +657,10 @@
       window.cancelAnimationFrame(resizeFrame);
       resizeFrame = requestAnimationFrame(() => {
         build();
-        requestDraw();
+        // redimensionar o canvas apaga o conteudo, entao repinta direto em vez
+        // de pedir quadro: um requestDraw e engolido se ja houver um pendente,
+        // e a trama ficaria em branco ate o ponteiro se mexer
+        draw();
       });
     };
 
@@ -659,7 +669,7 @@
     build();
     draw(); // primeiro quadro sincrono: a trama ja nasce desenhada
     mesh.classList.add("is-live");
-  }
+  });
 
   /* ------------------------------------------------------------------ */
   /* Respect a mid-session motion preference change                      */
@@ -674,5 +684,113 @@
 
     syncScroller();
     requestScroll();
+  });
+})();
+
+/* ==========================================================================
+   KRIO — cartas de serviço
+   Inclinação 3D e deslocamento do verniz conforme o ponteiro.
+   Só escreve custom properties; toda a aparência está no styles.css.
+   ========================================================================== */
+(() => {
+  "use strict";
+
+  const cards = [...document.querySelectorAll("[data-holo]")];
+  if (!cards.length) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+  const TILT_X = 9; // graus, eixo vertical do ponteiro
+  const TILT_Y = 11; // graus, eixo horizontal
+
+  const active = () => canHover.matches && !reduceMotion.matches;
+
+  cards.forEach((card) => {
+    const face = card.querySelector(".holo-card__face");
+    if (!face) return;
+
+    let frame = 0;
+    let pending = null;
+
+    const apply = () => {
+      frame = 0;
+      if (!pending) return;
+
+      const { nx, ny, mx, my } = pending;
+
+      // nx/ny vão de -0.5 a 0.5 a partir do centro da carta.
+      // O sinal do eixo X é invertido: mouse acima do centro inclina o topo
+      // para trás, que é como uma carta real responde na mão.
+      face.style.setProperty("--ry", `${(nx * TILT_Y * 2).toFixed(2)}deg`);
+      face.style.setProperty("--rx", `${(-ny * TILT_X * 2).toFixed(2)}deg`);
+      face.style.setProperty("--mx", `${mx.toFixed(1)}%`);
+      face.style.setProperty("--my", `${my.toFixed(1)}%`);
+
+      // o verniz corre mais que o ponteiro, senão parece colado na superfície
+      face.style.setProperty("--fx", `${(mx * 1.6 - 30).toFixed(1)}%`);
+      face.style.setProperty("--fy", `${(my * 1.6 - 30).toFixed(1)}%`);
+    };
+
+    const onMove = (event) => {
+      if (!active()) return;
+
+      const rect = face.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const px = (event.clientX - rect.left) / rect.width;
+      const py = (event.clientY - rect.top) / rect.height;
+
+      pending = {
+        nx: clamp(px - 0.5, -0.5, 0.5),
+        ny: clamp(py - 0.5, -0.5, 0.5),
+        mx: clamp(px * 100, 0, 100),
+        my: clamp(py * 100, 0, 100),
+      };
+
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+
+    const onEnter = () => {
+      if (!active()) return;
+      face.classList.add("is-tracking", "is-lit");
+      face.style.setProperty("--holo", "1");
+    };
+
+    const onLeave = () => {
+      // tira o is-tracking para a transição voltar e a carta assentar sozinha
+      face.classList.remove("is-tracking", "is-lit");
+      face.style.setProperty("--holo", "0");
+      face.style.setProperty("--rx", "0deg");
+      face.style.setProperty("--ry", "0deg");
+      face.style.setProperty("--mx", "50%");
+      face.style.setProperty("--my", "50%");
+      pending = null;
+      if (frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
+    };
+
+    card.addEventListener("pointerenter", onEnter);
+    card.addEventListener("pointermove", onMove, { passive: true });
+    card.addEventListener("pointerleave", onLeave);
+
+    // teclado e leitores de tela: foco acende a carta, sem inclinar
+    card.addEventListener("focusin", onEnter);
+    card.addEventListener("focusout", onLeave);
+  });
+
+  // se a preferência mudar no meio da sessão, tudo volta ao repouso
+  reduceMotion.addEventListener?.("change", () => {
+    if (reduceMotion.matches) {
+      document.querySelectorAll(".holo-card__face").forEach((face) => {
+        face.classList.remove("is-tracking", "is-lit");
+        face.style.setProperty("--holo", "0");
+        face.style.setProperty("--rx", "0deg");
+        face.style.setProperty("--ry", "0deg");
+      });
+    }
   });
 })();

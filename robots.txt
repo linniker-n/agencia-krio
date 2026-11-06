@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://agencia-krio.pages.dev/sitemap.xml
+Sitemap: https://krioag.com.br/sitemap.xml
