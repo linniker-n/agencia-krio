@@ -123,6 +123,22 @@ a {
   text-decoration: none;
 }
 
+/* Seta em SVG, não em caractere. O U+2197 tem apresentação emoji em iOS e
+   Android, e virava um ícone colorido no celular. Desenhada herda a cor do
+   texto e escala com a fonte. */
+.icon-arrow {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  vertical-align: -0.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* grain do hero — mais denso que o do site inteiro, so sobre a imagem */
 .hero-grain {
   position: absolute;
@@ -1866,18 +1882,23 @@ p {
     display: flex;
     gap: 0.9rem;
     overflow-x: auto;
+    overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
-    /* sangra até a borda da tela e devolve o respiro com padding */
-    margin-inline: calc(var(--shell-gutter, 1.5rem) * -1);
-    padding-inline: var(--shell-gutter, 1.5rem);
+    /* Sem sangramento: a versão anterior puxava as margens por uma variável
+       --shell-gutter que não existe, caía no fallback de 1.5rem e estourava
+       8px além do gutter real, cortando a primeira carta fora da tela. */
     padding-bottom: 0.75rem;
     scrollbar-width: thin;
-    scrollbar-color: rgba(207, 251, 36, 0.3) transparent;
+    scrollbar-color: rgba(207, 251, 36, 0.25) transparent;
   }
 
   .holo-card {
-    flex: 0 0 min(62vw, 15.5rem);
+    flex: 0 0 min(66vw, 15.5rem);
     scroll-snap-align: start;
+  }
+
+  .holo-card__face {
+    aspect-ratio: 0.82;
   }
 
   .holo-deck::-webkit-scrollbar {
@@ -1899,8 +1920,11 @@ p {
     transform: none !important;
   }
 
+  /* color-dodge sobre fundo escuro estoura: parado, o verniz virava um
+     borrão verde. Sem mesclagem e mais fraco ele lê como brilho de verniz. */
   .holo-card__foil {
-    opacity: 0.16 !important;
+    opacity: 0.1 !important;
+    mix-blend-mode: normal !important;
   }
 
   .holo-card__glare {
