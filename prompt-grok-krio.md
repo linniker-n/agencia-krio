@@ -18,7 +18,7 @@ A tese da agência, nas palavras dela mesma:
 
 > Se a sua marca parece qualquer uma, ela está pedindo coragem.
 
-Base: Ribeirão Preto, São Paulo.
+Base: Ribeirão Preto, São Paulo. **O foco é regional** — Ribeirão Preto e região, não o Brasil inteiro. Leve isso para a linguagem e para as referências: fale com quem é daqui.
 
 ### Serviços (use esta numeração e estes nomes)
 
@@ -102,4 +102,4 @@ Para a primeira entrega, me dê:
 2. Os **9 primeiros posts** do perfil (o grid de estreia), pensados para serem lidos juntos como uma apresentação da agência — incluindo o post de apresentação, um por serviço e pelo menos um manifesto.
 3. Uma bio de Instagram em até 150 caracteres.
 
-Antes de produzir, **me faça até 5 perguntas** sobre o que ainda está em aberto (público-alvo prioritário, cases que já posso mostrar, se o foco inicial é regional ou nacional, orçamento de mídia, o que eu não quero que apareça). Depois entregue.
+Antes de produzir, **me faça até 5 perguntas** sobre o que ainda está em aberto (público-alvo prioritário, cases que já posso mostrar, orçamento de mídia, o que eu não quero que apareça). Depois entregue.
