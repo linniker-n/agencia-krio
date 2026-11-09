@@ -18,7 +18,7 @@ A tese da agência, nas palavras dela mesma:
 
 > Se a sua marca parece qualquer uma, ela está pedindo coragem.
 
-Base: sul de Minas Gerais (DDD 35), atendimento nacional.
+Base: sul de Minas Gerais, atendimento nacional.
 
 ### Serviços (use esta numeração e estes nomes)
 
@@ -35,7 +35,7 @@ Base: sul de Minas Gerais (DDD 35), atendimento nacional.
 ### Contato
 
 - Instagram: **@krio.ag**
-- WhatsApp: **(35) 99829-4592**
+- WhatsApp: **(16) 99269-5433**
 - Site: **krioag.com.br**
 - E-mail: **contato@agenciakrio.com**
 
