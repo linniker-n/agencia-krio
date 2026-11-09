@@ -534,23 +534,27 @@
 
     if (finePointer.matches) return; // no desktop quem comanda e o mouse
 
-    // iOS so entrega o sensor depois de permissao, e so a partir de um gesto.
-    // O pedido fica preso ao hero e as cartas, que e onde o efeito aparece:
-    // uma caixa de permissao no primeiro toque em qualquer lugar da pagina
-    // assusta mais do que o efeito agrega. No Android nao ha pedido nenhum.
+    // iOS so entrega o sensor apos permissao, e so a partir de um gesto real.
+    //
+    // Usa "click", nao "touchend": touchend dispara tambem ao terminar uma
+    // rolagem, e um touchend de scroll nao carrega ativacao do usuario no
+    // Safari — a permissao era negada em silencio. Click so nasce de um
+    // toque de verdade, o que de quebra evita a caixa aparecer enquanto a
+    // pessoa apenas rola a pagina.
+    //
+    // O listener so sai depois do sim: uma tentativa frustrada nao pode
+    // queimar a unica chance. No Android nao ha pedido nenhum.
     if (typeof DeviceOrientationEvent.requestPermission === "function") {
-      const alvos = [hero, document.querySelector(".holo-deck")].filter(Boolean);
-      const pedirUmaVez = () => {
-        alvos.forEach((alvo) => alvo.removeEventListener("touchend", pedirUmaVez));
+      const pedir = () => {
         DeviceOrientationEvent.requestPermission()
           .then((estado) => {
-            if (estado === "granted") escutar();
+            if (estado !== "granted") return;
+            document.removeEventListener("click", pedir);
+            escutar();
           })
           .catch(() => {});
       };
-      alvos.forEach((alvo) =>
-        alvo.addEventListener("touchend", pedirUmaVez, { passive: true }),
-      );
+      document.addEventListener("click", pedir);
     } else {
       escutar();
     }
