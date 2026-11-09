@@ -1922,13 +1922,32 @@ p {
   }
 }
 
-@media (hover: none), (prefers-reduced-motion: reduce) {
+/* Sem ponteiro, a carta continua se mexendo: o giroscópio comanda, e o
+   scroll serve de reserva quando não há sensor ou a permissão é negada
+   (ver main.js). Só o modo de mesclagem muda, porque color-dodge sobre
+   fundo escuro estoura quando o verniz fica sempre visível. */
+@media (hover: none) {
+  .holo-card__foil {
+    mix-blend-mode: normal;
+    opacity: calc(0.07 + var(--holo, 0) * 0.3);
+  }
+
+  .holo-card__glare {
+    opacity: calc(var(--holo, 0) * 0.3);
+  }
+
+  /* resposta imediata ao encostar na carta */
+  .holo-card__face.is-pressed {
+    border-color: rgba(207, 251, 36, 0.42);
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) scale(0.985);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
   .holo-card__face {
     transform: none !important;
   }
 
-  /* color-dodge sobre fundo escuro estoura: parado, o verniz virava um
-     borrão verde. Sem mesclagem e mais fraco ele lê como brilho de verniz. */
   .holo-card__foil {
     opacity: 0.1 !important;
     mix-blend-mode: normal !important;

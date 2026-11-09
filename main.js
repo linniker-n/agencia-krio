@@ -476,6 +476,87 @@
   });
 
   /* ------------------------------------------------------------------ */
+  /* Giroscopio — no celular, inclinar o aparelho move a estatua e as    */
+  /* cartas. Alimenta as mesmas --pointer-x/y que o mouse usa no desktop */
+  /* e transmite a inclinacao normalizada em krio:tilt.                  */
+  /* ------------------------------------------------------------------ */
+  (() => {
+    if (typeof DeviceOrientationEvent === "undefined") return;
+
+    const LIMITE = 24; // graus de inclinacao do aparelho ate o extremo
+    let neutro = null;
+    let alvoX = 0;
+    let alvoY = 0;
+    let atualX = 0;
+    let atualY = 0;
+    let tiltFrame = 0;
+
+    const render = () => {
+      tiltFrame = 0;
+      atualX += (alvoX - atualX) * 0.12;
+      atualY += (alvoY - atualY) * 0.12;
+
+      if (hero) {
+        hero.style.setProperty("--pointer-x", `${(atualX * 18).toFixed(2)}px`);
+        hero.style.setProperty("--pointer-y", `${(atualY * 14).toFixed(2)}px`);
+      }
+
+      window.dispatchEvent(
+        new CustomEvent("krio:tilt", { detail: { x: atualX, y: atualY } }),
+      );
+
+      if (Math.abs(alvoX - atualX) > 0.002 || Math.abs(alvoY - atualY) > 0.002) {
+        tiltFrame = requestAnimationFrame(render);
+      }
+    };
+
+    const pedir = () => {
+      if (!tiltFrame) tiltFrame = requestAnimationFrame(render);
+    };
+
+    const onOrient = (event) => {
+      if (!motionOn) return;
+      const { beta, gamma } = event;
+      if (beta == null || gamma == null) return;
+
+      // a primeira leitura vira o repouso: serve com o aparelho deitado ou
+      // de pe, sem obrigar o usuario a segurar de um jeito especifico
+      if (!neutro) neutro = { beta, gamma };
+
+      alvoX = clamp((gamma - neutro.gamma) / LIMITE, -1, 1);
+      alvoY = clamp((beta - neutro.beta) / LIMITE, -1, 1);
+      pedir();
+    };
+
+    const escutar = () => {
+      window.addEventListener("deviceorientation", onOrient, { passive: true });
+    };
+
+    if (finePointer.matches) return; // no desktop quem comanda e o mouse
+
+    // iOS so entrega o sensor depois de permissao, e so a partir de um gesto.
+    // O pedido fica preso ao hero e as cartas, que e onde o efeito aparece:
+    // uma caixa de permissao no primeiro toque em qualquer lugar da pagina
+    // assusta mais do que o efeito agrega. No Android nao ha pedido nenhum.
+    if (typeof DeviceOrientationEvent.requestPermission === "function") {
+      const alvos = [hero, document.querySelector(".holo-deck")].filter(Boolean);
+      const pedirUmaVez = () => {
+        alvos.forEach((alvo) => alvo.removeEventListener("touchend", pedirUmaVez));
+        DeviceOrientationEvent.requestPermission()
+          .then((estado) => {
+            if (estado === "granted") escutar();
+          })
+          .catch(() => {});
+      };
+      alvos.forEach((alvo) =>
+        alvo.addEventListener("touchend", pedirUmaVez, { passive: true }),
+      );
+    } else {
+      escutar();
+    }
+  })();
+
+  /* ------------------------------------------------------------------ */
   /* Contact mesh — trama geometrica que responde ao ponteiro            */
   /* ------------------------------------------------------------------ */
   /* Cada [data-mesh] vira uma trama propria. Os data-* ajustam densidade,
@@ -781,6 +862,76 @@
     card.addEventListener("focusin", onEnter);
     card.addEventListener("focusout", onLeave);
   });
+
+  /* ---------------------------------------------------------------- */
+  /* Sem ponteiro: o giroscopio comanda a inclinacao; onde nao houver   */
+  /* sensor (ou a permissao for negada), a carta se inclina conforme    */
+  /* atravessa a tela. Nenhum dos dois disputa o gesto de rolagem.      */
+  /* ---------------------------------------------------------------- */
+  if (!canHover.matches && !reduceMotion.matches) {
+    const faces = cards
+      .map((card) => card.querySelector(".holo-card__face"))
+      .filter(Boolean);
+    let temGyro = false;
+    let scrollFrame = 0;
+
+    const aplicar = (face, x, y, brilho) => {
+      face.style.setProperty("--ry", `${(x * 10).toFixed(2)}deg`);
+      face.style.setProperty("--rx", `${(-y * 8).toFixed(2)}deg`);
+      face.style.setProperty("--holo", brilho.toFixed(3));
+      face.style.setProperty("--mx", `${(50 + x * 32).toFixed(1)}%`);
+      face.style.setProperty("--my", `${(50 + y * 32).toFixed(1)}%`);
+      face.style.setProperty("--fx", `${(50 + x * 58).toFixed(1)}%`);
+      face.style.setProperty("--fy", `${(50 + y * 58).toFixed(1)}%`);
+    };
+
+    window.addEventListener("krio:tilt", (event) => {
+      const { x, y } = event.detail;
+      temGyro = true;
+      const brilho = clamp(Math.hypot(x, y) * 1.25, 0, 1);
+      faces.forEach((face) => aplicar(face, x, y, brilho));
+    });
+
+    const porScroll = () => {
+      scrollFrame = 0;
+      if (temGyro) return;
+
+      const meio = (window.innerHeight || 1) / 2;
+      faces.forEach((face) => {
+        const rect = face.getBoundingClientRect();
+        // -1 entrando por baixo, 0 no centro da tela, 1 saindo por cima
+        const t = clamp((rect.top + rect.height / 2 - meio) / meio, -1, 1);
+        aplicar(face, -t * 0.4, t * 0.6, clamp(1 - Math.abs(t), 0, 1));
+      });
+    };
+
+    const pedirScroll = () => {
+      if (!scrollFrame) scrollFrame = requestAnimationFrame(porScroll);
+    };
+
+    // São cinco cartas: aplicar em todas sai mais barato que manter um
+    // IntersectionObserver vivo, e remove um ponto de falha — a entrega do
+    // observer depende do ciclo de renderização, que nem sempre roda.
+    faces.forEach((face) => face.classList.add("is-tracking"));
+
+    window.addEventListener("scroll", pedirScroll, { passive: true });
+    window.addEventListener("resize", pedirScroll, { passive: true });
+    pedirScroll();
+
+    // encostar na carta responde na hora, sem depender de sensor
+    cards.forEach((card) => {
+      const face = card.querySelector(".holo-card__face");
+      if (!face) return;
+      card.addEventListener("touchstart", () => face.classList.add("is-pressed"), {
+        passive: true,
+      });
+      ["touchend", "touchcancel"].forEach((evento) =>
+        card.addEventListener(evento, () => face.classList.remove("is-pressed"), {
+          passive: true,
+        }),
+      );
+    });
+  }
 
   // se a preferência mudar no meio da sessão, tudo volta ao repouso
   reduceMotion.addEventListener?.("change", () => {
