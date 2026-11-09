@@ -483,7 +483,9 @@
   (() => {
     if (typeof DeviceOrientationEvent === "undefined") return;
 
-    const LIMITE = 24; // graus de inclinacao do aparelho ate o extremo
+    const LIMITE = 14; // graus de inclinacao do aparelho ate o extremo
+    const MORTO = 0.03; // abaixo disso e tremor de mao, nao gesto
+    const RECENTRA = 0.0035; // ~5s: a pose se sustenta antes de virar repouso
     let neutro = null;
     let alvoX = 0;
     let alvoY = 0;
@@ -493,12 +495,12 @@
 
     const render = () => {
       tiltFrame = 0;
-      atualX += (alvoX - atualX) * 0.12;
-      atualY += (alvoY - atualY) * 0.12;
+      atualX += (alvoX - atualX) * 0.15;
+      atualY += (alvoY - atualY) * 0.15;
 
       if (hero) {
-        hero.style.setProperty("--pointer-x", `${(atualX * 18).toFixed(2)}px`);
-        hero.style.setProperty("--pointer-y", `${(atualY * 14).toFixed(2)}px`);
+        hero.style.setProperty("--pointer-x", `${(atualX * 32).toFixed(2)}px`);
+        hero.style.setProperty("--pointer-y", `${(atualY * 26).toFixed(2)}px`);
       }
 
       window.dispatchEvent(
@@ -523,8 +525,23 @@
       // de pe, sem obrigar o usuario a segurar de um jeito especifico
       if (!neutro) neutro = { beta, gamma };
 
-      alvoX = clamp((gamma - neutro.gamma) / LIMITE, -1, 1);
-      alvoY = clamp((beta - neutro.beta) / LIMITE, -1, 1);
+      let dx = (gamma - neutro.gamma) / LIMITE;
+      let dy = (beta - neutro.beta) / LIMITE;
+
+      // zona morta: tremor de mao nao deve tirar a carta do lugar
+      if (Math.abs(dx) < MORTO) dx = 0;
+      if (Math.abs(dy) < MORTO) dy = 0;
+
+      alvoX = clamp(dx, -1, 1);
+      alvoY = clamp(dy, -1, 1);
+
+      // O repouso persegue a posicao real, devagar. Sem isso ele ficava preso
+      // na primeira leitura, e bastava a mao acomodar num angulo diferente
+      // para a carta ficar torta parada. Assim ela responde ao movimento e
+      // sempre volta ao reto quando o aparelho fica quieto.
+      neutro.beta += (beta - neutro.beta) * RECENTRA;
+      neutro.gamma += (gamma - neutro.gamma) * RECENTRA;
+
       pedir();
     };
 
@@ -880,8 +897,8 @@
     let scrollFrame = 0;
 
     const aplicar = (face, x, y, brilho) => {
-      face.style.setProperty("--ry", `${(x * 10).toFixed(2)}deg`);
-      face.style.setProperty("--rx", `${(-y * 8).toFixed(2)}deg`);
+      face.style.setProperty("--ry", `${(x * 16).toFixed(2)}deg`);
+      face.style.setProperty("--rx", `${(-y * 13).toFixed(2)}deg`);
       face.style.setProperty("--holo", brilho.toFixed(3));
       face.style.setProperty("--mx", `${(50 + x * 32).toFixed(1)}%`);
       face.style.setProperty("--my", `${(50 + y * 32).toFixed(1)}%`);
