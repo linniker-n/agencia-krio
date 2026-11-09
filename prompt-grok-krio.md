@@ -18,7 +18,7 @@ A tese da agência, nas palavras dela mesma:
 
 > Se a sua marca parece qualquer uma, ela está pedindo coragem.
 
-Base: sul de Minas Gerais, atendimento nacional.
+Base: Ribeirão Preto, São Paulo.
 
 ### Serviços (use esta numeração e estes nomes)
 
