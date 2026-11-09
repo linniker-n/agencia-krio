@@ -1761,6 +1761,7 @@ p {
 /* ---- verniz holográfico ------------------------------------------------ */
 .holo-card__foil {
   position: absolute;
+  border-radius: inherit;
   inset: -20%;
   z-index: 2;
   pointer-events: none;
@@ -1792,6 +1793,7 @@ p {
 /* ---- brilho que segue o ponteiro --------------------------------------- */
 .holo-card__glare {
   position: absolute;
+  border-radius: inherit;
   inset: 0;
   z-index: 3;
   pointer-events: none;
@@ -1810,6 +1812,9 @@ p {
 .holo-card__body {
   position: relative;
   z-index: 4;
+  /* overflow:hidden do pai nao recorta filho em 3D quando ha preserve-3d,
+     entao o véu de cantos retos escapava pelo arredondado ao pressionar */
+  border-radius: inherit;
   display: flex;
   flex: 1;
   flex-direction: column;

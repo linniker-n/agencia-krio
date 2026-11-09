@@ -9,7 +9,7 @@ mkdir -p dist/assets "dist/assets 2"
 
 # páginas e config
 cp index.html styles.css main.js \
-   404.html privacidade.html termos.html \
+   404.html privacidade.html termos.html diag.html \
    robots.txt sitemap.xml llms.txt _headers \
    favicon.ico favicon.svg apple-touch-icon.png \
    dist/
