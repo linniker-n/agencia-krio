@@ -1877,44 +1877,51 @@ p {
    Responsivo — abaixo de 1100px vira baralho que desliza na horizontal,
    em vez de quebrar em fileiras órfãs (5 cartas nunca fecham uma grade)
    ========================================================================== */
+/* ==========================================================================
+   Telas menores — as cartas empilham em vez de rolar na horizontal.
+
+   O carrossel anterior juntava dois problemas: gesto horizontal dentro de
+   página que rola na vertical (o swipe diagonal era roubado por um dos dois)
+   e altura travada por aspect-ratio com overflow hidden, que corta o texto
+   assim que ele cresce um pouco. Empilhado, a carta cresce com o conteúdo e
+   não existe corte possível.
+   ========================================================================== */
 @media (max-width: 1100px) {
   .holo-deck {
-    display: flex;
-    gap: 0.9rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    /* Sem sangramento: a versão anterior puxava as margens por uma variável
-       --shell-gutter que não existe, caía no fallback de 1.5rem e estourava
-       8px além do gutter real, cortando a primeira carta fora da tela. */
-    padding-bottom: 0.75rem;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(207, 251, 36, 0.25) transparent;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
-  .holo-card {
-    flex: 0 0 min(66vw, 15.5rem);
-    scroll-snap-align: start;
-  }
-
+  /* em duas colunas a carta fica larga, e manter a proporção de carta
+     colecionável gerava blocos de quase 600px de altura */
   .holo-card__face {
-    aspect-ratio: 0.82;
-  }
-
-  .holo-deck::-webkit-scrollbar {
-    height: 3px;
-  }
-
-  .holo-deck::-webkit-scrollbar-thumb {
-    background: rgba(207, 251, 36, 0.3);
-    border-radius: 99px;
+    aspect-ratio: auto;
+    min-height: 15rem;
   }
 }
 
-/* ==========================================================================
-   Sem ponteiro fino ou com movimento reduzido: o verniz fica estático e
-   discreto, e a carta não inclina. Continua legível e com cara de carta.
-   ========================================================================== */
+@media (max-width: 760px) {
+  .holo-deck {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-top: 2.75rem;
+  }
+
+  /* altura pelo conteúdo, com um piso para a carta não virar uma tira */
+  .holo-card__face {
+    aspect-ratio: auto;
+    min-height: 12.5rem;
+  }
+
+  .holo-card__body {
+    padding: 1.25rem;
+  }
+
+  .holo-card h3 {
+    margin-top: 2.5rem;
+  }
+}
+
 @media (hover: none), (prefers-reduced-motion: reduce) {
   .holo-card__face {
     transform: none !important;
