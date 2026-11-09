@@ -5,8 +5,20 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-/site-config.js
-  Cache-Control: public, max-age=60
+# O CSS e o JS mudam a cada publicacao e o nome do arquivo nao muda junto.
+# Sem isso a borda da Cloudflare segurava a versao antiga por 4 horas, e a
+# alteracao so aparecia para quem limpava o cache.
+/styles.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/main.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/llms.txt
+  Cache-Control: public, max-age=0, must-revalidate
 
 /favicon.ico
   Cache-Control: public, max-age=31536000, immutable
